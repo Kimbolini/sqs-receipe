@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace frontend.Data
 {
-    public class MealService : PageModel
+    public class MealService
     {
         public async Task<List<Meal>> GetMealsAsync(string search)
         {
