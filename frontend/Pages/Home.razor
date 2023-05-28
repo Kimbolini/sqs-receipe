@@ -52,7 +52,6 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        //var request = new HttpRequestMessage(HttpMethod.Get, "https://www.themealdb.com/api/json/v1/1/search.php?s=Arrabiata");
         var request = new HttpRequestMessage(HttpMethod.Get, "https://www.themealdb.com/api/json/v1/1/search.php?f=a");
 
         //request.Headers.Add("Accept", "application/vnd.github.v3+json");
@@ -65,17 +64,12 @@ else
         if (response.IsSuccessStatusCode)
         {
             //using var responseStream = await response.Content.ReadAsStreamAsync();
-            var responseContent = await response.Content.ReadAsStringAsync();
-            //using var responseStream2 = await response.Content.R
-
-           // meals = JsonConvert.DeserializeObject<Meal[]>(responseContent);
+            var responseContent = await response.Content.ReadAsStringAsync();      
 
             meals = JObject.Parse(responseContent)["meals"].ToObject<IEnumerable<Meal>>();
 
+            // meals = JsonConvert.DeserializeObject<Meal[]>(responseContent);
             // meals = await JsonSerializer.DeserializeAsync<IEnumerable<Meal>>(responseStream);
-
-           
-
             //meals = await JsonConvert.DeserializeObject<Meal>(responseContent);
         }
         else
