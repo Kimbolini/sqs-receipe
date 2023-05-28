@@ -1,7 +1,7 @@
 ﻿
 <div class="card bg-light m-2">
     <div class="card-body text-center">
-        <span class="h2 oi oi-fork"></span>
+        <img src=@ImageThumbnail alt=@AlternatePictureText >
         <h2 class="card-title">@Title</h2>
         <p class="card-text">
             #@Category #@Area
@@ -21,4 +21,29 @@
     [Parameter]
     public string? Area { get; set; }
 
+    [Parameter]
+    public string ImageUrl { get; set; }
+
+    private string ImageThumbnail { get; set; }
+
+    private string AlternatePictureText { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if(Title == default)
+        {
+
+        } else
+        {
+            AlternatePictureText = "Picture of " + Title;
+        }  
+
+        if(ImageUrl == default)
+        {
+            ImageUrl = "io io-fork";
+        } else
+        {
+            ImageThumbnail = ImageUrl + "/preview";
+        }
+    }
 }
