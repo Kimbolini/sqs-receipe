@@ -31,11 +31,19 @@ else
     <div class="d-flex">
         @foreach (var item in meals)
         {
-            <SingleMealComp Title=@item.strMeal
+            <MealPreviewCardComp Title=@item.strMeal
                     Category=@item.strCategory
                     Area=@item.strArea
                     ImageUrl=@item.strMealThumb>
-            </SingleMealComp>
+                    <Hashtags>
+                    @if(item.strTags != "")
+                    {
+                        <div class="alert alert-primary">
+                            @item.strTags;
+                        </div>             
+                    }
+                </Hashtags>
+            </MealPreviewCardComp>
         }
     </div>
 }
