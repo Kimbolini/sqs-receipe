@@ -28,6 +28,7 @@
 
     private string AlternatePictureText { get; set; }
 
+    //TODO: make this method actually async (or use sync version kek)
     protected override async Task OnParametersSetAsync()
     {
         if(Title == default)
@@ -45,7 +46,7 @@
         {
             ImageThumbnail = ImageUrl + "/preview";
         }
-
         
+
     }
 }

@@ -14,11 +14,12 @@
 
 <form>
     <p>
-        Search for meals: <input type="text" asp-for="SearchString" />
-        <input type="submit" value="Search" />
+        Search for meals: <input type="text" @bind-value="searchTextBoxContent"  asp-for="SearchString" />
+        <button type="submit" @onclick="SearchMealsAPI">Search</button>
     </p>
 </form>
 
+<p>it is empty </p>
 
 @if(getMealsError || meals is null)
 {
@@ -40,19 +41,19 @@ else
 }
 
 
-
-
 @code {
 
     private IEnumerable<Meal>? meals = Array.Empty<Meal>();
     private bool getMealsError;
     private bool shouldRender;
+    private string? searchTextBoxContent;
 
     protected override bool ShouldRender() => shouldRender;
 
+    /*
     protected override async Task OnInitializedAsync()
     {
-        var request = new HttpRequestMessage(HttpMethod.Get, "https://www.themealdb.com/api/json/v1/1/search.php?f=a");
+    var request = new HttpRequestMessage(HttpMethod.Get, "https://www.themealdb.com/api/json/v1/1/search.php?f=a");
 
         //request.Headers.Add("Accept", "application/vnd.github.v3+json");
         request.Headers.Add("User-Agent", "HttpClientFactory-Sample");
@@ -63,20 +64,52 @@ else
 
         if (response.IsSuccessStatusCode)
         {
-            //using var responseStream = await response.Content.ReadAsStreamAsync();
-            var responseContent = await response.Content.ReadAsStringAsync();      
+        //using var responseStream = await response.Content.ReadAsStreamAsync();
+        var responseContent = await response.Content.ReadAsStringAsync();      
+
+        meals = JObject.Parse(responseContent)["meals"].ToObject<IEnumerable<Meal>>();
+
+        // meals = JsonConvert.DeserializeObject<Meal[]>(responseContent);
+        // meals = await JsonSerializer.DeserializeAsync<IEnumerable<Meal>>(responseStream);
+        //meals = await JsonConvert.DeserializeObject<Meal>(responseContent);
+        }
+        else
+        {
+        getMealsError = true;
+    }
+    shouldRender = true;
+    }*/
+
+    private async Task SendGetToAPI(string url)
+    {
+        var request = new HttpRequestMessage(HttpMethod.Get, url);
+
+        //request.Headers.Add("Accept", "application/vnd.github.v3+json");
+        request.Headers.Add("User-Agent", "HttpClientFactory-Sample");
+
+        var client = ClientFactory.CreateClient();
+
+        var response = await client.SendAsync(request);
+
+        if (response.IsSuccessStatusCode)
+        {
+            var responseContent = await response.Content.ReadAsStringAsync();
 
             meals = JObject.Parse(responseContent)["meals"].ToObject<IEnumerable<Meal>>();
 
-            // meals = JsonConvert.DeserializeObject<Meal[]>(responseContent);
-            // meals = await JsonSerializer.DeserializeAsync<IEnumerable<Meal>>(responseStream);
-            //meals = await JsonConvert.DeserializeObject<Meal>(responseContent);
         }
         else
         {
             getMealsError = true;
         }
         shouldRender = true;
+        //searchTextBoxContent = "";
+    }
+
+    private void SearchMealsAPI()
+    {
+        var searchUrl = "https://www.themealdb.com/api/json/v1/1/search.php?s=" + searchTextBoxContent;
+        SendGetToAPI(searchUrl);
     }
 }
 
