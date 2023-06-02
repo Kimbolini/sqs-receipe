@@ -1,6 +1,6 @@
 ﻿@using frontend.Data
 
-<div class="card bg-light m-2">
+<div class="card @SelectedCss m-2" id="meal-preview-card" @onclick=" HandleOnSelected">
     <div class="card-body text-center">
         <img src=@ImageThumbnail alt=@AlternatePictureText >
         <h2 class="card-title">@Title</h2>
@@ -13,6 +13,9 @@
 
 
 @code {
+
+    [Parameter]
+    public string Id { get; set; }
 
     [Parameter]
     public string Title { get; set; }
@@ -30,15 +33,21 @@
     public RenderFragment Hashtags { get; set; }
 
     [Parameter]
-    public EventCallback<Meal> OnSelected { get; set;}
+    public EventCallback<string> OnSelected { get; set;}
+
+    [Parameter]
+    public bool Selected { get; set; }
 
     private string ImageThumbnail { get; set; }
 
     private string AlternatePictureText { get; set; }
 
+    private string SelectedCss => Selected ? "bg-primary text-blue" : "bg - light";
+
     //TODO: make this method actually async (or use sync version kek)
-    protected override async Task OnParametersSetAsync()
+    protected override void OnParametersSet()
     {
+
         if(Title == default)
         {
 
@@ -58,8 +67,9 @@
 
     }
 
+    //This method is called when a Meal Preview Card is selected (clicked on)
     void HandleOnSelected()
     {
-        
+        OnSelected.InvokeAsync(this.Id);
     }
 }
