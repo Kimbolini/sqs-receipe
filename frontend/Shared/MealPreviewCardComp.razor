@@ -1,12 +1,13 @@
 ﻿@using frontend.Data
 
-<div class="card mealpreview-card @SelectedCss m-2" @onclick=" HandleOnSelected">
+<div class="card mealpreview-card @SelectedCss m-2" >
     <div class="card-body text-center">
-        <img src=@ImageThumbnail alt=@AlternatePictureText >
+        <img class="mealpreview-thumbnail" src=@ImageThumbnail alt=@AlternatePictureText @onclick=" HandleOnSelected">
 
-        <span>
-            <h2 class="card-title">@Title</h2>
+        <h2 class="card-title">@Title</h2>
+        <span class="hover-text">
             <i class="oi oi-heart addfavourite-icon"></i>
+            <span class="tooltip-text" id="right">Add to favourites</span>
         </span>
         <p class="card-text">
             #@Category #@Area
