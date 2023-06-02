@@ -59,12 +59,24 @@ a, .btn-link {
     color: white;
 }
 
-    .blazor-error-boundary::after {
-        content: "An error has occurred."
-    }
+.blazor-error-boundary::after {
+    content: "An error has occurred."
+}
+
+.mealpreview-card:hover {
+    cursor:pointer;
+}
 
 #meal-preview-wrap-container {
     width: 100%;
     height: auto;
     flex-wrap:wrap;
+}
+
+.addfavourite-icon:hover {
+    color:firebrick;
+}
+
+.tooltip {
+
 }
