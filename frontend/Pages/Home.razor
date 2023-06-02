@@ -15,18 +15,13 @@
 
 <form>
     <p>
-        Search for meals: <input type="text" @bind-value="searchTextBoxContent"  asp-for="SearchString" />
-        <button type="submit" @onclick="SearchMealsAPI">Search</button>
+        Search for meals: <input type="text" @bind-value="@searchTextBoxContent" placeholder="Search for receipts"/>
+        <button type="submit" @onclick="@SearchMealsAPI">Search</button>
     </p>
 </form>
 
 
 
-@if (meals is null)
-{
-
-} else
-{
     <div class="d-flex" id="meal-preview-wrap-container">
         @foreach (var item in meals)
         {
@@ -48,7 +43,7 @@
             </MealPreviewCardComp>
         }
     </div>
-}
+
 
 
 
@@ -62,41 +57,42 @@
 
     protected override bool ShouldRender() => shouldRender;
 
-
+    /*
     protected override async Task OnInitializedAsync()
     {
-        var request = new HttpRequestMessage(HttpMethod.Get, "https://www.themealdb.com/api/json/v1/1/search.php?s=" + searchTextBoxContent);
+    var request = new HttpRequestMessage(HttpMethod.Get, "https://www.themealdb.com/api/json/v1/1/search.php?s=" + searchTextBoxContent);
 
-        //request.Headers.Add("Accept", "application/vnd.github.v3+json");
-        request.Headers.Add("User-Agent", "HttpClientFactory-Sample");
+    //request.Headers.Add("Accept", "application/vnd.github.v3+json");
+    request.Headers.Add("User-Agent", "HttpClientFactory-Sample");
 
-        var client = ClientFactory.CreateClient();
+    var client = ClientFactory.CreateClient();
 
         var response = await client.SendAsync(request);
 
         if (response.IsSuccessStatusCode)
         {
 
-            //var responseStream = await response.Content.ReadAsStreamAsync();
-            //meals = await JsonSerializer.DeserializeAsync<IEnumerable<Meal>>(responseStream);
+        //var responseStream = await response.Content.ReadAsStreamAsync();
+        //meals = await JsonSerializer.DeserializeAsync<IEnumerable<Meal>>(responseStream);
 
 
 
-            var responseContent = await response.Content.ReadAsStringAsync();
-            meals = JObject.Parse(responseContent)["meals"].ToObject<IEnumerable<Meal>>();
+        var responseContent = await response.Content.ReadAsStringAsync();
+        meals = JObject.Parse(responseContent)["meals"].ToObject<IEnumerable<Meal>>();
 
-            // meals = JsonConvert.DeserializeObject<Meal[]>(responseContent);
-            //meals = await JsonConvert.DeserializeObject<Meal>(responseContent);
+        // meals = JsonConvert.DeserializeObject<Meal[]>(responseContent);
+        //meals = await JsonConvert.DeserializeObject<Meal>(responseContent);
         }
         else
         {
-            getMealsError = true;
-        }
-        shouldRender = true;
+        getMealsError = true;
     }
+    shouldRender = true;
+    }*/
 
-    private async Task SearchMealsAPI()
+    private async Task SearchMealsAPIAsync()
     {
+
         var request = new HttpRequestMessage(HttpMethod.Get, "https://www.themealdb.com/api/json/v1/1/search.php?s=" + searchTextBoxContent);
 
         //request.Headers.Add("Accept", "application/vnd.github.v3+json");
@@ -110,15 +106,14 @@
         {
             var responseContent = await response.Content.ReadAsStringAsync();
 
-            if(responseContent.Length > 1)
+            if (response.Content.Headers.ContentLength > 1)
             {
                 meals = JObject.Parse(responseContent)["meals"].ToObject<IEnumerable<Meal>>();
+                await Task.Delay(1000);
             } else
             {
                 responseIsEmpty = true;
             }
-
-
 
         }
         else
@@ -126,7 +121,44 @@
             getMealsError = true;
         }
         await Task.Delay(1000);
-        shouldRender = true;
+        //shouldRender = true;
+    }
+
+    private void SearchMealsAPI()
+    {
+        var searchRequest = searchTextBoxContent;
+        if (searchRequest != "")
+        {
+            var request = new HttpRequestMessage(HttpMethod.Get, "https://www.themealdb.com/api/json/v1/1/search.php?s=" + searchRequest);
+
+            //request.Headers.Add("Accept", "application/vnd.github.v3+json");
+            request.Headers.Add("User-Agent", "HttpClientFactory-Sample");
+
+            var client = ClientFactory.CreateClient();
+
+            var response = client.Send(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseContent = response.Content.ReadAsStringAsync();
+
+                if (response.Content.Headers.ContentLength > 1)
+                {
+                    meals = JObject.Parse(responseContent.Result)["meals"].ToObject<IEnumerable<Meal>>();
+                }
+                else
+                {
+                    responseIsEmpty = true;
+                }
+
+            }
+            else
+            {
+                getMealsError = true;
+            }
+            shouldRender = true;
+            StateHasChanged();
+        }
     }
 
     void HandleItemSelected(string selectedMealId)
