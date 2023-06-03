@@ -1,7 +1,3 @@
-using backend;
-using backend.Application;
-using backend.Models;
-using backend.Presentation.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Net.Http.Headers;
