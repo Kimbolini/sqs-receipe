@@ -1,6 +1,8 @@
 ﻿using backend.Models;
 using Microsoft.EntityFrameworkCore;
 using log4net;
+using backend.Presentation.Interfaces;
+using backend.Application;
 
 namespace backend
 {
@@ -25,10 +27,12 @@ namespace backend
             Configuration = configuration;
         }
 
-        public void ConfigureServices(IServiceCollection Services)
+        public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IMealService, MealService>();
+
             var MySqlConnectionStr = Configuration.GetConnectionString("DefaultConnection");
-            Services.AddDbContextPool<DatabaseContext>(options => options.UseMySql(MySqlConnectionStr, ServerVersion.AutoDetect(MySqlConnectionStr)));
+            services.AddDbContextPool<DatabaseContext>(options => options.UseMySql(MySqlConnectionStr, ServerVersion.AutoDetect(MySqlConnectionStr)));
         }
     }
 }
