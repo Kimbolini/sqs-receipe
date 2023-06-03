@@ -9,7 +9,7 @@ using Microsoft.OpenApi.Models;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
-var startup = new Startup(builder.Configuration);
+var startup = builder.Configuration;
 var config = builder.Configuration;
 
 //startup.ConfigureServices(builder.Services); //replaced with 
@@ -88,11 +88,9 @@ app.UseSwagger();
 app.UseSwaggerUI(options =>
 {
     options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
-    options.RoutePrefix = string.Empty;
 });
 
 app.UseHttpsRedirection();
-
 app.UseRouting();
 
 app.UseEndpoints(endpoints =>
