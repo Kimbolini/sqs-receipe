@@ -5,7 +5,7 @@ namespace backend.Persistence
 {
     /*
      * This class defines the database scheme.
-     * All accesses of data on the database get handled through this class.
+     * All accesses of data in the database get handled through this class.
      */
     public class DatabaseContext : DbContext
     {
