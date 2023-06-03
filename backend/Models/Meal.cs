@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Net;
 
-namespace backend.Persistence
+namespace backend.Models
 {
     [Table("Meals")]
     public class Meal
@@ -33,6 +33,8 @@ namespace backend.Persistence
             this._ingredients  = ingredients;
             this._measures = measures;
         }
+
+        public Meal() : this("", "", null, null) { }
 
         #region Properties
 
@@ -69,6 +71,7 @@ namespace backend.Persistence
             set => this._area = value;
         }
 
+        [Required]
         public string Instructions
         {
             get => this._instructions;

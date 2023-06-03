@@ -1,4 +1,4 @@
-﻿namespace backend.Persistence
+﻿namespace backend.Models
 {
     public class Measure
     {
