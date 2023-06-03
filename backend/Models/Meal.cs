@@ -6,20 +6,20 @@ namespace backend.Persistence
     [Table("Meals")]
     public class Meal
     {
-        private string mealId;
-        private string mealName;
-        private string? drinkAlternative;
-        private string? category;
-        private string? area;
-        private string instructions;
-        private string? thumbnailUrl;
-        private string? tags;
-        private string? youtubeUrl;
-        private ICollection<Ingredient> ingredients;
-        private ICollection<Measure> measures;
-        private string? source;
-        private string? imageSource;
-        private string? creativeCommonsConfirmed;
+        private string _mealId;
+        private string _mealName;
+        private string? _drinkAlternative;
+        private string? _category;
+        private string? _area;
+        private string _instructions;
+        private string? _thumbnailUrl;
+        private string? _tags;
+        private string? _youtubeUrl;
+        private ICollection<Ingredient> _ingredients;
+        private ICollection<Measure> _measures;
+        private string? _source;
+        private string? _imageSource;
+        private string? _creativeCommonsConfirmed;
 
         public Meal(
             string mealId,
@@ -28,11 +28,11 @@ namespace backend.Persistence
             ICollection<Ingredient> ingredients,
             ICollection<Measure> measures)
         {
-            this.mealId = mealId; 
-            this.mealName = mealName;
-            this.instructions = instructions;
-            this.ingredients  = ingredients;
-            this.measures = measures;
+            this._mealId = mealId; 
+            this._mealName = mealName;
+            this._instructions = instructions;
+            this._ingredients  = ingredients;
+            this._measures = measures;
         }
 
     }
