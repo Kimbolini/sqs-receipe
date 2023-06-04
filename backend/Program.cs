@@ -1,18 +1,38 @@
+using backend;
+using backend.Application;
+using backend.Models;
+using backend.Presentation.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
+using System.Net.Mime;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 var startup = builder.Configuration;
 var config = builder.Configuration;
 
-//startup.ConfigureServices(builder.Services); //replaced with 
-
 #region former startup.ConfigureServices
 
 //builder.Services.AddScoped<IMealService, MealService>();
+
+builder.Services.AddControllers(options => {
+    options.Filters.Add(new HttpResponseExceptionFilter());
+}).ConfigureApiBehaviorOptions(options =>
+{
+    options.InvalidModelStateResponseFactory = context =>
+    {
+        var result = new BadRequestObjectResult(context.ModelState);
+
+        // TODO: add `using System.Net.Mime;` to resolve MediaTypeNames
+        result.ContentTypes.Add(MediaTypeNames.Application.Json);
+        result.ContentTypes.Add(MediaTypeNames.Application.Xml);
+
+        return result;
+    };
+}); ;
 
 // Add Cors-Policy to avoid issues with security protocols of the browser
 builder.Services.AddCors(options => {
@@ -37,7 +57,7 @@ builder.Services.AddCors(options => {
 });
 
 var mySqlConnectionStr = config.GetConnectionString("DefaultConnection");
-//builder.Services.AddDbContextPool<DatabaseContext>(options => options.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr)));
+builder.Services.AddDbContextPool<DatabaseContext>(options => options.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr)));
 
 //needed from swashbuckle swagger
 builder.Services.AddMvcCore().AddApiExplorer();
@@ -69,12 +89,12 @@ var app = builder.Build();
 
 #region former startup.Configure
 
-/*
+
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
     dbContext.Database.Migrate();
-}*/
+}
 
 // Enable middleware to serve generated Swagger as a JSON endpoint.
 app.UseSwagger();
