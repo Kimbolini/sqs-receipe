@@ -103,7 +103,7 @@ app.UseSwagger();
 // specifying the Swagger JSON endpoint.
 app.UseSwaggerUI(options =>
 {
-    options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "MealBackendSwaggerEndpoint");
 });
 
 app.UseHttpsRedirection();

@@ -18,6 +18,8 @@ namespace backend.Presentation.Dtos
             this.Source = Meal.Source;
             this.ImageSource = Meal.ImageSource;
             this.CreateCommonsConfirmed = Meal.CreativeCommonsConfirmend;
+            //IEnumeration von Ingredients
+            //IEnumeration von Measures
         }
 
         //for deserialization
