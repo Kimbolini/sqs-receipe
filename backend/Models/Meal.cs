@@ -16,25 +16,34 @@ namespace backend.Models
         private string? _thumbnailUrl;
         private string? _tags;
         private string? _youtubeUrl;
-        private ICollection<Ingredient> _ingredients;
-        private ICollection<Measure> _measures;
         private string? _source;
         private string? _imageSource;
         private string? _creativeCommonsConfirmed;
+        private ICollection<MeasuredIngredient> _measuredIngredients;
+
+        #region Constructors
 
         public Meal(
             string mealName,
             string instructions,
-            ICollection<Ingredient> ingredients,
-            ICollection<Measure> measures)
+            ICollection<MeasuredIngredient> measuredIngredients)
         { 
-            this._mealName = mealName;
-            this._instructions = instructions;
-            this._ingredients  = ingredients;
-            this._measures = measures;
+            _mealName = mealName;
+            _instructions = instructions;
+            _measuredIngredients = measuredIngredients;
         }
 
-        public Meal() : this("", "", null, null) { }
+        public Meal(string mealName, string instructions)
+        {
+            _mealName = mealName;
+            _instructions = instructions;
+            //initialize the ICollection to be a list as the attribute shouldn't be null
+            _measuredIngredients = new List<MeasuredIngredient>();
+        }
+
+        public Meal() : this("", "") { }
+
+        #endregion
 
         #region Properties
 
@@ -42,92 +51,86 @@ namespace backend.Models
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity), Key()]
         public int MealId
         {
-            get => this._mealId;
-            set => this._mealId = value;
+            get => _mealId;
+            set => _mealId = value;
         }
 
         [Required]
         public string MealName
         {
-            get => this._mealName;
-            set => this._mealName = value;
+            get => _mealName;
+            set => _mealName = value;
         }
 
         public string? DrinkAlternative
         {
-            get => this._drinkAlternative;
-            set => this._drinkAlternative = value;
+            get => _drinkAlternative;
+            set => _drinkAlternative = value;
         }
 
         public string? Category
         {
-            get => this._category;
-            set => this._category = value;
+            get => _category;
+            set => _category = value;
         }
 
         public string? Area
         {
-            get => this._area;
-            set => this._area = value;
+            get => _area;
+            set => _area = value;
         }
 
         [Required]
         public string Instructions
         {
-            get => this._instructions;
-            set => this._instructions = value;
+            get => _instructions;
+            set => _instructions = value;
         }
 
         public string? ThumbnailUrl
         {
-            get => this._thumbnailUrl;
-            set => this._thumbnailUrl = value;
+            get => _thumbnailUrl;
+            set => _thumbnailUrl = value;
         }
 
         public string? Tags
         {
-            get => this._tags;
-            set => this._tags = value;
+            get => _tags;
+            set => _tags = value;
         }
 
         public string? YoutubeUrl
         {
-            get => this._youtubeUrl;
-            set => this._youtubeUrl = value;
+            get => _youtubeUrl;
+            set => _youtubeUrl = value;
         }
 
         public string? Source
         {
-            get => this._source; 
-            set => this._source = value;
+            get => _source; 
+            set => _source = value;
         }
 
         public string? ImageSource
         {
-            get => this._imageSource;
-            set => this._imageSource = value;
+            get => _imageSource;
+            set => _imageSource = value;
         }
 
         public string? CreativeCommonsConfirmend
         {
-            get => this._creativeCommonsConfirmed;
-            set => this._creativeCommonsConfirmed = value;
+            get => _creativeCommonsConfirmed;
+            set => _creativeCommonsConfirmed = value;
         }
 
         #endregion
 
         #region Navigations for references
 
-        public virtual ICollection<Ingredient> Ingredients
+        public virtual ICollection<MeasuredIngredient> MeasuredIngredients
         {
-            get => this._ingredients;
-            set => this._ingredients = value;
-        }
-
-        public virtual ICollection<Measure> Measures
-        {
-            get => this._measures;
-            set => this._measures = value;
+            get => _measuredIngredients;
+            set => _measuredIngredients = value;
         }
 
         #endregion

@@ -8,17 +8,37 @@ namespace backend.Models
      */
     public class DatabaseContext : DbContext
     {
-        public DbSet<Meal> Meals { get; set; }
-        public DbSet<Ingredient> Ingredients { get; set; }
-        public DbSet<Measure> Measures { get; set; }   
+       public DbSet<Meal> Meals { get; set; }
+       public DbSet<Ingredient> Ingredients { get; set; }
+       public DbSet<MeasuredIngredient> MeasuredIngredients { get; set; }   
 
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
 
         }
 
+        
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            //one-to-many relationship between Ingredient & Measured Ingredient
+            builder.Entity<MeasuredIngredient>()
+                .HasOne(e => e.Ingredient)
+                .WithMany(e => e.MeasuredIngredients)
+                //.HasForeignKey(e => e.IngredientId)
+                .IsRequired();
+
+            //one-to-many relationship between Measured Ingredient & Meal
+            builder.Entity<MeasuredIngredient>()
+                .HasOne(e => e.Meal)
+                .WithMany(e => e.MeasuredIngredients)
+                //.HasForeignKey(e => e.MealId)
+                .IsRequired();
+
+            // ensure that the name of ingredients is unique
+            builder.Entity<Ingredient>()
+                .HasIndex(i => i.Name)
+                .IsUnique();
+
             base.OnModelCreating(builder);
         }
 

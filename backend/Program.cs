@@ -9,6 +9,8 @@ using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
 using System.Net.Mime;
 using System.Reflection;
+using Microsoft.EntityFrameworkCore.SqlServer;
+using MySqlConnector;
 
 var builder = WebApplication.CreateBuilder(args);
 var startup = builder.Configuration;
@@ -57,7 +59,10 @@ builder.Services.AddCors(options => {
 });
 
 var mySqlConnectionStr = config.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContextPool<DatabaseContext>(options => options.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr)));
+builder.Services.AddDbContextPool<DatabaseContext>(options => options.UseMySql(mySqlConnectionStr, new MySqlServerVersion(new Version(6,0,2))));
+//builder.Services.AddDbContextPool<DatabaseContext>(options => options.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr)));
+//builder.Services.AddDbContext<DatabaseContext>(options => options.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr)));
+//builder.Services.AddDbContextPool<DatabaseContext>(options => options.UseSqlServer(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr)));
 
 //needed from swashbuckle swagger
 builder.Services.AddMvcCore().AddApiExplorer();
@@ -106,9 +111,9 @@ app.UseSwaggerUI(options =>
     options.SwaggerEndpoint("/swagger/v1/swagger.json", "MealBackendSwaggerEndpoint");
 });
 
+//configures the HTTP request pipeline
 app.UseHttpsRedirection();
 app.UseRouting();
-
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();

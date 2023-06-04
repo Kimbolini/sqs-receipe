@@ -42,6 +42,7 @@ namespace backend.Presentation.Controllers
             try
             {
                 Meal tmp = new Meal();
+
                 return Ok(new MealDto(tmp));
             }
             catch(Microsoft.EntityFrameworkCore.DbUpdateException dbException)
