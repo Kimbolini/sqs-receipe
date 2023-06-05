@@ -9,7 +9,7 @@ namespace backend.Models
         private int _id;
         private string _name;
         private string? _description;
-        private ICollection<MeasuredIngredient> _measuredIngredients;
+        private ICollection<MeasuredIngredient> _measuredIngredients; //Needed?
 
         #region Constructors
 
