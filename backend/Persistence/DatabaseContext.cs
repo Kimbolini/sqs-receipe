@@ -8,9 +8,9 @@ namespace backend.Models
      */
     public class DatabaseContext : DbContext
     {
-       public DbSet<Meal> Meals { get; set; }
-       public DbSet<Ingredient> Ingredients { get; set; }
-       public DbSet<MeasuredIngredient> MeasuredIngredients { get; set; }   
+        public DbSet<Meal> Meals { get; set; }
+        public DbSet<Ingredient> Ingredients { get; set; }
+        public DbSet<MeasuredIngredient> MeasuredIngredients { get; set; }   
 
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {

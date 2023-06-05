@@ -13,12 +13,11 @@ using Microsoft.EntityFrameworkCore.SqlServer;
 using MySqlConnector;
 
 var builder = WebApplication.CreateBuilder(args);
-var startup = builder.Configuration;
 var config = builder.Configuration;
 
 #region former startup.ConfigureServices
 
-//builder.Services.AddScoped<IMealService, MealService>();
+builder.Services.AddScoped<IMealService, MealService>();
 
 builder.Services.AddControllers(options => {
     options.Filters.Add(new HttpResponseExceptionFilter());
@@ -59,10 +58,10 @@ builder.Services.AddCors(options => {
 });
 
 var mySqlConnectionStr = config.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContextPool<DatabaseContext>(options => options.UseMySql(mySqlConnectionStr, new MySqlServerVersion(new Version(6,0,2))));
-//builder.Services.AddDbContextPool<DatabaseContext>(options => options.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr)));
-//builder.Services.AddDbContext<DatabaseContext>(options => options.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr)));
-//builder.Services.AddDbContextPool<DatabaseContext>(options => options.UseSqlServer(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr)));
+builder.Services.AddDbContextPool<DatabaseContext>(
+    options => options.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr))
+    .EnableDetailedErrors()
+);
 
 //needed from swashbuckle swagger
 builder.Services.AddMvcCore().AddApiExplorer();
