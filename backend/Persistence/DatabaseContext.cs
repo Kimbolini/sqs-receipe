@@ -34,7 +34,7 @@ namespace backend.Models
                 //.HasForeignKey(e => e.MealId)
                 .IsRequired();
 
-            // ensure that the name of ingredients is unique
+            //ensure that the name of ingredients is unique
             builder.Entity<Ingredient>()
                 .HasIndex(i => i.Name)
                 .IsUnique();

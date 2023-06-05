@@ -17,9 +17,7 @@ namespace backend.Presentation.Dtos
             this.YoutubeUrl = Meal.YoutubeUrl;
             this.Source = Meal.Source;
             this.ImageSource = Meal.ImageSource;
-            this.CreateCommonsConfirmed = Meal.CreativeCommonsConfirmend;
-            //IEnumeration von Ingredients
-            //IEnumeration von Measures
+            this.CreateCommonsConfirmed = Meal.CreativeCommonsConfirmend;          
         }
 
         //for deserialization
@@ -50,6 +48,10 @@ namespace backend.Presentation.Dtos
         public string? ImageSource { get; set; }
 
         public string? CreateCommonsConfirmed { get; set; }
+
+        public IEnumerable<string> Ingredients { get; set; }
+
+        public IEnumerable<string> Measures { get; set; }
         #endregion
 
     }

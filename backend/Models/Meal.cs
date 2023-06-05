@@ -25,12 +25,31 @@ namespace backend.Models
 
         public Meal(
             string mealName,
+            string drinkAlternative,
+            string category,
+            string area,
             string instructions,
-            ICollection<MeasuredIngredient> measuredIngredients)
+            string thumbnailUrl,
+            string tags,
+            string youtubeUrl,
+            string source,
+            string imageSource,
+            string createCommonsConfirmed
+            )
         { 
             _mealName = mealName;
+            _drinkAlternative = drinkAlternative;
+            _category = category;
+            _area = area;
             _instructions = instructions;
-            _measuredIngredients = measuredIngredients;
+            _thumbnailUrl = thumbnailUrl;
+            _tags = tags;
+            _youtubeUrl = youtubeUrl;
+            _source = source;
+            _imageSource = imageSource;
+            _creativeCommonsConfirmed  = createCommonsConfirmed;
+            //initialize the ICollection to be a list as the attribute shouldn't be null
+            _measuredIngredients = new List<MeasuredIngredient>();
         }
 
         public Meal(string mealName, string instructions)

@@ -1,5 +1,6 @@
 ﻿using backend.Models;
 using backend.Presentation.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace backend.Application
 {
@@ -12,6 +13,7 @@ namespace backend.Application
             _context = context;
         }
 
+        //TODO: change to CreateMeal(Meal meal, ICollection<string> ingredients, ICollection<measures>?
         public int CreateMeal(Meal meal)
         {
             //add Meal to database and save
@@ -26,7 +28,11 @@ namespace backend.Application
 
         public Meal[] GetMeals()
         {
-            return _context.Meals.ToArray();
+            //excplicitely include measured ingredients as they don't get automatically loaded in a db set
+            return _context.Meals
+                .Include(m => m.MeasuredIngredients)
+                .ThenInclude(mi => mi.Ingredient)
+                .ToArray();        
         }
 
         public Meal RemoveMealById(int id)

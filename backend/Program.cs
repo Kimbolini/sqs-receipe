@@ -1,4 +1,3 @@
-using backend;
 using backend.Application;
 using backend.Models;
 using backend.Presentation.Interfaces;
@@ -9,8 +8,6 @@ using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
 using System.Net.Mime;
 using System.Reflection;
-using Microsoft.EntityFrameworkCore.SqlServer;
-using MySqlConnector;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
@@ -93,10 +90,20 @@ var app = builder.Build();
 
 #region former startup.Configure
 
-
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
+    if (app.Environment.IsDevelopment())
+    {
+        //Reset Database
+        dbContext.Database.EnsureDeleted();
+
+        // Add Cors-Policy to avoid issues with security protocols of the browser
+        app.UseCors("http://localhost:4200");
+
+        app.UseDeveloperExceptionPage();
+    }
+        
     dbContext.Database.Migrate();
 }
 
