@@ -37,7 +37,7 @@ namespace backend.Application
 
         public Meal RemoveMealById(int id)
         {
-            Meal tmp = _context.Meals.FirstOrDefault(m => m.MealId == id);
+            Meal? tmp = _context.Meals.FirstOrDefault(m => m.MealId == id);
             if(tmp != default(Meal))
             {
                 _context.Meals.Remove(tmp);
