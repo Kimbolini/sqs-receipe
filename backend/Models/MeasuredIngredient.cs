@@ -10,16 +10,23 @@ namespace backend.Models
     {
         private int _id;
         private string _amountOf;
-        private Ingredient _ingredient;
-        private Meal _meal;
 
         #region Constructors
 
         public MeasuredIngredient(string amountOf, Ingredient ingredient, Meal meal)
         {
             _amountOf = amountOf;
-            _ingredient = ingredient;
-            _meal = meal;
+            Ingredient = ingredient;
+            IngredientId = ingredient.Id;
+            Meal = meal;
+            MealId = meal.MealId;
+        }
+
+        public MeasuredIngredient(string amountOf, int ingredientId, int mealId)
+        {
+            _amountOf = amountOf;
+            IngredientId = ingredientId;
+            MealId = mealId;
         }
 
         public MeasuredIngredient() : this("", new Ingredient(), new Meal()) { }
@@ -44,19 +51,31 @@ namespace backend.Models
         }
 
         [Required]
-        [Column("IngredientId")]
-        public virtual Ingredient Ingredient
+        [ForeignKey("Ingredient")]
+        public int IngredientId
         {
-            get => _ingredient;
-            set => _ingredient = value;
+            get;
+            set;
+        }
+
+        public virtual Ingredient? Ingredient
+        {
+            get;
+            set;
         }
 
         [Required]
-        [Column("MealId")]
-        public virtual Meal Meal
+        [ForeignKey("Meal")]
+        public int MealId
         {
-            get => _meal;
-            set => _meal = value;
+            get;
+            set; 
+        }
+
+        public virtual Meal? Meal
+        {
+            get;
+            set;
         }
 
         #endregion

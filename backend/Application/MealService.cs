@@ -37,11 +37,14 @@ namespace backend.Application
 
         public Meal RemoveMealById(int id)
         {
-            Meal? tmp = _context.Meals.FirstOrDefault(m => m.MealId == id);
-            if(tmp != default(Meal))
+            Meal? tmp = _context.Meals.SingleOrDefault(m => m.MealId == id);
+            if(tmp != default(Meal) && tmp != null)
             {
                 _context.Meals.Remove(tmp);
                 _context.SaveChanges();
+            }  else
+            {
+                throw new KeyNotFoundException();
             }
             return tmp;
         }
