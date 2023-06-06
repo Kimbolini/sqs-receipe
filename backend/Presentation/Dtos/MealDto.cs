@@ -49,9 +49,9 @@ namespace backend.Presentation.Dtos
 
         public string? CreateCommonsConfirmed { get; set; }
 
-        public IEnumerable<string> Ingredients { get; set; }
+        public ICollection<string> Ingredients { get; set; }
 
-        public IEnumerable<string> Measures { get; set; }
+        public ICollection<string> Measures { get; set; }
         #endregion
 
     }

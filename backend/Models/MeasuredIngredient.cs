@@ -13,6 +13,7 @@ namespace backend.Models
 
         #region Constructors
 
+        /*
         public MeasuredIngredient(string amountOf, Ingredient ingredient, Meal meal)
         {
             _amountOf = amountOf;
@@ -20,7 +21,7 @@ namespace backend.Models
             IngredientId = ingredient.Id;
             Meal = meal;
             MealId = meal.MealId;
-        }
+        }*/
 
         public MeasuredIngredient(string amountOf, int ingredientId, int mealId)
         {
@@ -29,7 +30,7 @@ namespace backend.Models
             MealId = mealId;
         }
 
-        public MeasuredIngredient() : this("", new Ingredient(), new Meal()) { }
+        public MeasuredIngredient() : this("", new Ingredient().Id, new Meal().MealId) { }
 
         #endregion
 

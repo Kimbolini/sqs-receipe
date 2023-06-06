@@ -13,11 +13,16 @@ namespace backend.Presentation.Controllers
     public class MealController : ControllerBase
     {
         private readonly IMealService _mealService;
+        private readonly IIngredientService _ingredientService;
+        private readonly IMeasuredIngredientService _measuredIngredientService;
         private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        public MealController(IMealService mealService) 
+        public MealController(IMealService mealService, IIngredientService ingredientService, 
+            IMeasuredIngredientService measuredIngredientService) 
         {
             _mealService = mealService;
+            _ingredientService = ingredientService;
+            _measuredIngredientService = measuredIngredientService;
         }
 
         //GET: api/<MealsController>
@@ -41,11 +46,56 @@ namespace backend.Presentation.Controllers
         [HttpPost]
         public ActionResult<MealDto> Post([FromBody]MealDto mealDto)
         {
+            //the ingredients and their amount are stored in two separate Datatypes. These must have the same length though.
+            if (mealDto.Ingredients.Count != mealDto.Measures.Count)
+            {
+                return StatusCode(StatusCodes.Status422UnprocessableEntity, "Number of Ingredients and Measures doesn't match.");
+            }         
+
             try
             {
-                Meal tmp = new Meal();
+                //Create a new meal
+                Meal tmpMeal = new(
+                    mealName: mealDto.Name,
+                    drinkAlternative: mealDto.DrinkAlternative,
+                    category: mealDto.Category,
+                    area: mealDto.Area,
+                    instructions: mealDto.Instructions,
+                    thumbnailUrl: mealDto.ThumbnailUrl,
+                    tags: mealDto.Tags,
+                    youtubeUrl: mealDto.YoutubeUrl,
+                    source: mealDto.Source,
+                    imageSource: mealDto.ImageSource,
+                    createCommonsConfirmed: mealDto.CreateCommonsConfirmed
+                    );
 
-                return Ok(new MealDto(tmp));
+                _mealService.CreateMeal(tmpMeal);
+                log.Info("Created new Meal with Id: " + tmpMeal.MealId);
+
+                //Create the Ingredients and the MeasuredIngredients of the meal
+
+                int ctr = 0;
+                //The amount of each ingredient are sent as an ICollection of strings
+                foreach (string mi in mealDto.Measures)
+                {
+                    //The ingredients are sent as an ICollection of strings
+                    //Check for each ingredient if it already exists in the database
+                    int tmpIngrId;
+                    string currentIngredientName = mealDto.Ingredients.ElementAt(ctr);
+                    try
+                    {
+                        tmpIngrId = _ingredientService.GetIngredientByName(currentIngredientName).Id;
+                    }
+                    catch (KeyNotFoundException)
+                    {
+                        tmpIngrId = _ingredientService.CreateIngredient(new Ingredient(currentIngredientName, ""));
+                    }
+
+                    _measuredIngredientService.CreateMeasuredIngredient(new MeasuredIngredient(mi, tmpIngrId, tmpMeal.MealId));
+                    ctr++;
+                }
+
+                return Ok(new MealDto(tmpMeal));
             }
             catch(Microsoft.EntityFrameworkCore.DbUpdateException dbException)
             {

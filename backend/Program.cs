@@ -15,6 +15,8 @@ var config = builder.Configuration;
 #region former startup.ConfigureServices
 
 builder.Services.AddScoped<IMealService, MealService>();
+builder.Services.AddScoped<IIngredientService, IngredientService>();
+builder.Services.AddScoped<IMeasuredIngredientService, MeasuredIngredientService>();
 
 builder.Services.AddControllers(options => {
     options.Filters.Add(new HttpResponseExceptionFilter());

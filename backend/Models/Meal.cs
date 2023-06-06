@@ -7,7 +7,7 @@ namespace backend.Models
     [Table("Meals")]
     public class Meal
     {
-        private int _mealId;
+        private int _id;
         private string _mealName;
         private string? _drinkAlternative;
         private string? _category;
@@ -25,16 +25,16 @@ namespace backend.Models
 
         public Meal(
             string mealName,
-            string drinkAlternative,
-            string category,
-            string area,
+            string? drinkAlternative,
+            string? category,
+            string? area,
             string instructions,
-            string thumbnailUrl,
-            string tags,
-            string youtubeUrl,
-            string source,
-            string imageSource,
-            string createCommonsConfirmed
+            string? thumbnailUrl,
+            string? tags,
+            string? youtubeUrl,
+            string? source,
+            string? imageSource,
+            string? createCommonsConfirmed
             )
         { 
             _mealName = mealName;
@@ -70,8 +70,8 @@ namespace backend.Models
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity), Key()]
         public int MealId
         {
-            get => _mealId;
-            set => _mealId = value;
+            get => _id;
+            set => _id = value;
         }
 
         [Required]
