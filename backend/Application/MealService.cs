@@ -13,15 +13,12 @@ namespace backend.Application
             _context = context;
         }
 
-        //TODO: change to CreateMeal(Meal meal, ICollection<string> ingredients, ICollection<measures>?
         public int CreateMeal(Meal meal)
         {
             //add Meal to database and save
             _context.Meals.Add(meal);
             var linesInserted = _context.SaveChanges();
             System.Diagnostics.Debug.WriteLine("Inserted lines into meals table: " + linesInserted);
-
-            //TODO: handle ingredients and measures?
 
             return meal.MealId;
         }
@@ -32,6 +29,22 @@ namespace backend.Application
             return _context.Meals
                 .Include(m => m.MeasuredIngredients)
                 .ThenInclude(mi => mi.Ingredient)
+                .Select(meal => new Meal
+                {
+                    MealId = meal.MealId,
+                    MealName = meal.MealName,
+                    DrinkAlternative = meal.DrinkAlternative,
+                    Category = meal.Category,
+                    Area = meal.Area,
+                    Instructions = meal.Instructions,
+                    ThumbnailUrl = meal.ThumbnailUrl,
+                    Tags = meal.Tags,
+                    YoutubeUrl = meal.YoutubeUrl,
+                    Source = meal.Source,
+                    ImageSource = meal.ImageSource,
+                    CreativeCommonsConfirmend = meal.CreativeCommonsConfirmend,
+                    MeasuredIngredients = meal.MeasuredIngredients
+                })
                 .ToArray();        
         }
 

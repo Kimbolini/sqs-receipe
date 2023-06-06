@@ -17,7 +17,19 @@ namespace backend.Presentation.Dtos
             this.YoutubeUrl = Meal.YoutubeUrl;
             this.Source = Meal.Source;
             this.ImageSource = Meal.ImageSource;
-            this.CreateCommonsConfirmed = Meal.CreativeCommonsConfirmend;          
+            this.CreateCommonsConfirmed = Meal.CreativeCommonsConfirmend;
+            this.Measures = new List<string>();
+            this.Ingredients = new List<string>();
+
+            if(Meal.MeasuredIngredients.Count > 0)
+            {
+                foreach (MeasuredIngredient mi in Meal.MeasuredIngredients)
+                {
+                    this.Measures.Add(mi.AmountOf);
+                    this.Ingredients.Add(mi.Ingredient.Name);
+                }
+            }
+
         }
 
         //for deserialization
