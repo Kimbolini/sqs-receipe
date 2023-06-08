@@ -1,4 +1,5 @@
 using frontend.Data;
+using frontend.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 
@@ -8,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
+builder.Services.AddSingleton<MealProviderService>();
 builder.Services.AddHttpClient();
 
 var app = builder.Build();

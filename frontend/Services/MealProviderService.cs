@@ -1,0 +1,43 @@
+﻿using frontend.Data;
+using Newtonsoft.Json.Linq;
+
+namespace frontend.Services
+{
+    public class MealProviderService : IMealProviderService
+    {
+        private readonly HttpClient _httpClient;
+        private readonly IHttpClientFactory _clientFactory;
+
+        public MealProviderService(HttpClient httpClient, IHttpClientFactory clientFactory)
+        {
+            _httpClient = httpClient;
+            _clientFactory = clientFactory;
+        }
+
+        public Task<IEnumerable<Meal>> GetMeals(string? searchString)
+        {
+            IEnumerable<Meal> meals = Array.Empty<Meal>();
+
+            var request = new HttpRequestMessage(HttpMethod.Get, "https://www.themealdb.com/api/json/v1/1/search.php?s=" + searchString);
+            //request.Headers.Add("Accept", "application/vnd.github.v3+json");
+            request.Headers.Add("User-Agent", "HttpClientFactory-Sample");
+            var client = _clientFactory.CreateClient();
+
+            var response = client.Send(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseContent = response.Content.ReadAsStringAsync();
+
+                if (response.Content.Headers.ContentLength > 1)
+                {
+                    meals = JObject.Parse(responseContent.Result)["meals"].ToObject<IEnumerable<Meal>>();
+                }
+
+            }
+
+            return Task.FromResult(meals);
+
+        }
+    }
+}
