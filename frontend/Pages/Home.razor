@@ -1,5 +1,6 @@
 ﻿@page "/"
 
+@using System.Collections.ObjectModel;
 @using frontend.Data
 @using System.Text.Json
 @using System.Text.Json.Serialization
@@ -14,80 +15,28 @@
 
 <p>Welcome to your meal database. </p>
 
-<form>
-    <p>
-        Search for meals: <input type="text" @bind-value="@searchTextBoxContent" placeholder="Search for receipts"/>
-        <button type="submit" @onclick="@SearchMealsAPI">Search</button>
-    </p>
-</form>
+<span>
+    <p>Search for receipts:</p>
+    <input type="text" @bind-value="@searchTextBoxContent" />
+    <input type="button" value="Search" @onclick="@SearchMealsAPI" />
+</span>
 
-
-
-    <div class="d-flex" id="meal-preview-wrap-container">
-        @foreach (var item in meals)
-        {
-            <MealPreviewCardComp Id=@item.idMeal
-                         Title=@item.strMeal
-                         Category=@item.strCategory
-                         Area=@item.strArea
-                         ImageUrl=@item.strMealThumb
-                        OnSelected="HandleItemSelected"
-                        Selected=@item.Selected>
-                <Hashtags>
-                    @if (item.strTags != "")
-                    {
-                        <div class="alert alert-primary">
-                            @item.strTags
-                        </div>
-                    }
-                </Hashtags>
-            </MealPreviewCardComp>
-        }
-    </div>
-
-
+<MealPreviewListComp Meals="@meals"></MealPreviewListComp>
 
 
 @code {
-
-    private IEnumerable<Meal> meals = Array.Empty<Meal>();
-    private bool getMealsError;
-    private bool responseIsEmpty;
-    private bool shouldRender;
     private string? searchTextBoxContent;
-
-    protected override bool ShouldRender() => shouldRender;
-
-    /*
-    protected override async Task OnInitializedAsync()
-    {
-    }*/
-
-
-    protected override async Task OnInitializedAsync()
-    {
-        meals = await MealProvider.GetMeals(searchTextBoxContent);
-        shouldRender = true;
-    }
+    private ObservableCollection<Meal>? meals;
 
     private void SearchMealsAPI()
     {
-        meals = MealProvider.GetMeals(searchTextBoxContent).Result;
+        var tmp = MealProvider.GetMeals(searchTextBoxContent).Result;
+        meals = new ObservableCollection<Meal>(tmp);
 
-        if(meals.Count() == 0)
+        if (meals.Count() == 0)
         {
-            responseIsEmpty = true;
+            //responseIsEmpty = true;
         }
-        shouldRender = true;
-        StateHasChanged();
-    }
-
-    void HandleItemSelected(string selectedMealId)
-    {
-        foreach (var item in meals) item.Selected = false;
-
-        meals.First(f => f.idMeal == selectedMealId).Selected = true;
-        _nav.NavigateTo($"/{selectedMealId}");
 
     }
 }

@@ -5,12 +5,10 @@ namespace frontend.Services
 {
     public class MealProviderService : IMealProviderService
     {
-        private readonly HttpClient _httpClient;
         private readonly IHttpClientFactory _clientFactory;
 
-        public MealProviderService(HttpClient httpClient, IHttpClientFactory clientFactory)
+        public MealProviderService(IHttpClientFactory clientFactory)
         {
-            _httpClient = httpClient;
             _clientFactory = clientFactory;
         }
 

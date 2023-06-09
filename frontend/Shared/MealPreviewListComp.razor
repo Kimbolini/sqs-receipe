@@ -1,5 +1,68 @@
-﻿<h3>MealPreviewListComp</h3>
+﻿@using System.Collections.ObjectModel;
+@using frontend.Data;
+@using frontend.Services;
+@inject NavigationManager _nav
+@inject MealProviderService MealProvider;
+
+
+@if(_meals != null)
+{
+    <div class="d-flex" id="meal-preview-wrap-container">
+        @foreach (var item in _meals)
+        {
+            <MealPreviewCardComp Id=@item.idMeal
+                         Title=@item.strMeal
+                         Category=@item.strCategory
+                         Area=@item.strArea
+                         ImageUrl=@item.strMealThumb
+                         OnSelected="HandleItemSelected"
+                         Selected=@item.Selected>
+                <Hashtags>
+                    @if (item.strTags != "")
+                    {
+                        <div class="alert alert-primary">
+                            @item.strTags
+                        </div>
+                    }
+                </Hashtags>
+            </MealPreviewCardComp>
+        }
+    </div>
+} else
+{
+    <p>empty uwu</p>
+}
+
+
 
 @code {
+    private ObservableCollection<Meal> _meals { get; set; }
 
+    [Parameter]
+    public ObservableCollection<Meal> Meals { get; set; }
+
+    public bool responseIsEmpty { get; set; }
+
+    protected override void OnInitialized()
+    {
+        _meals = Meals;
+    }
+
+    
+    protected override void OnParametersSet()
+    {
+        if(_meals != Meals)
+        {
+            _meals = Meals;
+        }
+    }
+
+    void HandleItemSelected(string selectedMealId)
+    {
+        foreach (var item in Meals) item.Selected = false;
+
+        Meals.First(f => f.idMeal == selectedMealId).Selected = true;
+        _nav.NavigateTo($"/{selectedMealId}");
+
+    }
 }
