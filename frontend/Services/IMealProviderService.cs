@@ -4,6 +4,6 @@ namespace frontend.Services
 {
     public interface IMealProviderService
     {
-        Task<IEnumerable<Meal>> GetMeals(string? searchString);
+        Task<IEnumerable<Meal>> GetMealsFromAPI(string? searchString);
     }
 }

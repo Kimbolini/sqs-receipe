@@ -12,7 +12,7 @@ namespace frontend.Services
             _clientFactory = clientFactory;
         }
 
-        public Task<IEnumerable<Meal>> GetMeals(string? searchString)
+        public Task<IEnumerable<Meal>> GetMealsFromAPI(string? searchString)
         {
             IEnumerable<Meal> meals = Array.Empty<Meal>();
 

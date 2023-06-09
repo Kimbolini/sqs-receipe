@@ -40,7 +40,7 @@
 
     private void SearchMealsAPI()
     {
-        var tmp = MealProvider.GetMeals(searchTextBoxContent).Result;
+        var tmp = MealProvider.GetMealsFromAPI(searchTextBoxContent).Result;
         if(tmp != null)
         {
             meals = new ObservableCollection<Meal>(tmp);
@@ -55,7 +55,7 @@
     private void SearchMealsAPIWithEmpty()
     {
         searchTextBoxContent = "";
-        var tmp = MealProvider.GetMeals("").Result;
+        var tmp = MealProvider.GetMealsFromAPI("").Result;
         meals = new ObservableCollection<Meal>(tmp);
         responseIsEmpty = false;
     }
