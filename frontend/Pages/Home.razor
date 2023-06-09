@@ -22,11 +22,12 @@
 </span>
 
 <span>
-    <label>Give me random suggestions</label>
+    <label>Inspire me!</label>
     <input type="button" value="Random" @onclick="@SearchMealsAPIWithEmpty" />
 </span>
 
 <MealPreviewListComp Meals="@meals"></MealPreviewListComp>
+
 @if(responseIsEmpty)
 {
     <p>Sorry, we couldn't find anything.</p>
