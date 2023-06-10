@@ -130,3 +130,13 @@ a, .btn-link {
     font-family: Arial;
     text-align: center;
 }
+
+#mealdetail-picture {
+    width: 500px;
+    height: auto;
+}
+
+#mealdetail-ingredients {
+    width: 500px;
+    height: auto;
+}

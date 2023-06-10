@@ -38,6 +38,12 @@ namespace frontend.Services.DTO
             ConvertIngredientsMeasures(meal);
         }
 
+        public MealDto()
+        {
+            this.Ingredients = new List<string>();
+            this.Measures = new List<string>();
+        }
+
         //The ingredients and measures are sent as a maximum of 20 single strings over the API
         //Should be sent over the Db API as an ICollection of strings.
         private void ConvertIngredientsMeasures(Meal meal)

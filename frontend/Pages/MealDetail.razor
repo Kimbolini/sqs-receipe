@@ -2,28 +2,31 @@
 
 @using frontend.Data
 @using frontend.Services.DTO;
+@using frontend.Services;
+@inject MealProviderService MealProvider;
 
 @namespace frontend.Pages
 
-<h3>@Meal.strMeal</h3>
+<h3>@MealDto.Name</h3>
 
 <div class="card">
-    <img class="card-img-top" src="@Meal.strImageSource" alt="Picture of @Meal.strMeal">
+    <img class="card-img-top" src="@MealDto.ThumbnailUrl" alt="Picture of @MealDto.Name" id="mealdetail-picture">
 </div>
 
 
 <div class="card">
-    <ul class="list-group list-group-flush">
-        @foreach(var item in MealDto.Ingredients)
+    <ul class="list-group list-group-flush" id="mealdetail-ingredients">
+      
+        @for(int i = 0; i < MealDto.Ingredients.Count; i++)
         {
-            <li class="list-group-item">@item</li>
+            <li class="list-group-item">@MealDto.Measures.ElementAt(i)  @MealDto.Ingredients.ElementAt(i)</li>
         }
     </ul>
 </div>
 
 
 <div class="card">
-    <p>@Meal.strInstructions</p>
+    <p>@MealDto.Instructions</p>
 </div>
 
 @code {
@@ -33,16 +36,29 @@
     [Parameter]
     public Meal Meal { get; set;  }
 
-    private MealDto MealDto { get; set; }
+    private MealDto MealDto;
+
+    private string ThumbnailPreview;
 
     protected override void OnParametersSet()
     {
-        if(Meal != null)
+        var isNumeric = int.TryParse(Id, out int Idnr);
+        if(isNumeric == true)
         {
-            MealDto = new MealDto(Meal);
-        } else
+            if (Idnr > 0)
+            {
+                MealDto = MealProvider.GetMealByIdFromAPI(Id).Result;
+                ThumbnailPreview = MealDto.ThumbnailUrl + "/preview";
+            }
+            else
+            {
+                //Navigate to error page
+            }
+        } 
+        else
         {
-            //redirect to error page
+            //Navigate to error page
         }
+        
     }
 }
