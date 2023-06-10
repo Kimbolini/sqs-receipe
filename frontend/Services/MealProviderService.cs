@@ -37,5 +37,22 @@ namespace frontend.Services
             return Task.FromResult(meals);
 
         }
+
+        public Task<IEnumerable<Meal>> GetMealsFromDb()
+        {
+            IEnumerable<Meal> meals = Array.Empty<Meal>();
+            var request = new HttpRequestMessage(HttpMethod.Get, "https://localhost:5782/api/MealController");
+            request.Headers.Add("User-Agent", "HttpClientFactory-Sample");
+            var client = _clientFactory.CreateClient();
+
+            var response = client.Send(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseContent = response.Content.ReadAsStreamAsync();
+            }
+
+            throw new NotImplementedException();
+        }
     }
 }

@@ -19,7 +19,7 @@
 
         public string? strYoutube { get; set; }
 
-        public string? strIngredient1 { get; set; }
+        public string strIngredient1 { get; set; }
         public string? strIngredient2 { get; set; }
         public string? strIngredient3 { get; set; }
         public string? strIngredient4 { get; set; }
@@ -40,7 +40,7 @@
         public string? strIngredient19 { get; set; }
         public string? strIngredient20 { get; set; }
 
-        public string? strMeasure1 { get; set; }
+        public string strMeasure1 { get; set; }
         public string? strMeasure2 { get; set; }
         public string? strMeasure3 { get; set; }
         public string? strMeasure4 { get; set; }

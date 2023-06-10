@@ -6,7 +6,7 @@
 
         <h2 class="card-title">@Title</h2>
         <span class="hover-text">
-            <i class="oi oi-heart addfavourite-icon"></i>
+            <i class="oi oi-heart addfavourite-icon" @onclick="HandleOnAddToFavourites"></i>
             <span class="tooltip-text" id="right">Add to favourites</span>
         </span>
         <p class="card-text">
@@ -74,5 +74,10 @@
     void HandleOnSelected()
     {
         OnSelected.InvokeAsync(this.Id);
+    }
+
+    void HandleOnAddToFavourites()
+    {
+        var selected = this.Id;
     }
 }
