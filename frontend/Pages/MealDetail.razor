@@ -1,12 +1,48 @@
-﻿@page "/{mealId}"
+﻿@page "/{Id}"
 
 @using frontend.Data
+@using frontend.Services.DTO;
+
 @namespace frontend.Pages
 
-<h3>MealDetail</h3>
+<h3>@Meal.strMeal</h3>
 
-<p>Hi!</p>
+<div class="card">
+    <img class="card-img-top" src="@Meal.strImageSource" alt="Picture of @Meal.strMeal">
+</div>
+
+
+<div class="card">
+    <ul class="list-group list-group-flush">
+        @foreach(var item in MealDto.Ingredients)
+        {
+            <li class="list-group-item">@item</li>
+        }
+    </ul>
+</div>
+
+
+<div class="card">
+    <p>@Meal.strInstructions</p>
+</div>
 
 @code {
-    public string mealId;
+    [Parameter]
+    public string Id { get; set; }
+
+    [Parameter]
+    public Meal Meal { get; set;  }
+
+    private MealDto MealDto { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        if(Meal != null)
+        {
+            MealDto = new MealDto(Meal);
+        } else
+        {
+            //redirect to error page
+        }
+    }
 }

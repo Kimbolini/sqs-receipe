@@ -38,6 +38,7 @@ namespace frontend.Services
 
         }
 
+        //TODO: vervollständigen
         public Task<IEnumerable<Meal>> GetMealsFromDb()
         {
             IEnumerable<Meal> meals = Array.Empty<Meal>();
@@ -50,6 +51,7 @@ namespace frontend.Services
             if (response.IsSuccessStatusCode)
             {
                 var responseContent = response.Content.ReadAsStreamAsync();
+                //do sth
             }
 
             throw new NotImplementedException();

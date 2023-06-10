@@ -1,7 +1,7 @@
 ﻿@using System.Collections.ObjectModel;
 @using frontend.Data;
 @using frontend.Services;
-@inject NavigationManager _nav
+@inject NavigationManager NavManager
 @inject MealProviderService MealProvider;
 
 
@@ -62,7 +62,7 @@
         foreach (var item in Meals) item.Selected = false;
 
         Meals.First(f => f.idMeal == selectedMealId).Selected = true;
-        _nav.NavigateTo($"/{selectedMealId}");
+        NavManager.NavigateTo($"/{selectedMealId}");
 
     }
 }
