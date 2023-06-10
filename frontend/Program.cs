@@ -1,4 +1,5 @@
 using frontend.Data;
+using frontend.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 
@@ -7,7 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<WeatherForecastService>();
+builder.Services.AddSingleton<MealProviderService>();
+builder.Services.AddSingleton<MealsInDbService>();
+builder.Services.AddHttpClient();
 
 var app = builder.Build();
 
