@@ -4,10 +4,15 @@
 @using frontend.Services.DTO;
 @using frontend.Services;
 @inject MealProviderService MealProvider;
+@inject MealsInDbService MealsInDb;
 
 @namespace frontend.Pages
 
 <h3>@MealDto.Name</h3>
+
+<span>
+    <input type="button" value="Add To Favourites" @onclick="@AddToFavourites" />
+</span>
 
 <div class="card">
     <img class="card-img-top" src="@MealDto.ThumbnailUrl" alt="Picture of @MealDto.Name" id="mealdetail-picture">
@@ -59,6 +64,11 @@
         {
             //Navigate to error page
         }
+
+    }
+
+    private void AddToFavourites()
+    {
         
     }
 }
