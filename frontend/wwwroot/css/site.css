@@ -1,4 +1,21 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
+:root {
+    --colour-blue-light: #00C4FF;
+    --colour-grey-lightest: #adb5bd;
+    --color-neutral-1: #f8f9fa;
+    /* Border Radius */
+    --border-radius-none: 0;
+    --border-radius-soft: 4px;
+    --border-radius-rounded: 100px;
+    --border-radius-circle: 100%;
+    /* Elevation / Shadow */
+    --shadow-none: none;
+    --shadow-xs: 0 1px 2px rgba(0, 0, 0, .1);
+    --shadow-s: 0 2px 4px rgba(0, 0, 0, .1);
+    --shadow-m: 0 4px 6px rgba(0, 0, 0, .1);
+    --shadow-l: 0 6px 8px rgba(0, 0, 0, .1);
+    --shadow-xl: 0 8px 10px rgba(0, 0, 0, .1);
+}
 
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -139,4 +156,14 @@ a, .btn-link {
 #mealdetail-ingredients {
     width: 500px;
     height: auto;
+}
+
+#no-result-box {
+    width: 50em;
+    padding: 50px;
+    margin-top: 30px;
+    border: 17px solid var( --colour-blue-light);
+    border-radius: var(--border-radius-soft);
+    box-shadow: var(--shadow-m);
+    background-color: var(--color-neutral-1);
 }

@@ -18,6 +18,7 @@ namespace frontend.Services.DTO
         public string? ImageSource { get; set; }
         public string? CreateCommonsConfirmed { get; set; }
         public bool Selected { get; set; }
+        public bool IsFavourite { get; set; }
         public ICollection<string> Ingredients { get; set; }
         public ICollection<string> Measures { get; set; }
 
