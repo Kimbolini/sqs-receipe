@@ -30,10 +30,13 @@ namespace frontend.Services
             if (response.IsSuccessStatusCode)
             {
                 var responseContent = response.Content.ReadAsStringAsync();
-                if (response.Content.Headers.ContentLength > 1)
+                if (response.Content.Headers.ContentLength > 14)
                 {
                     IEnumerable<Meal> tmp = JObject.Parse(responseContent.Result)["meals"].ToObject<IEnumerable<Meal>>();
-                    meals = tmp.Select(x => new MealDto(x)).ToList();
+                    if(tmp != null)
+                    {
+                        meals = tmp.Select(x => new MealDto(x)).ToList();
+                    }             
                 }
             }
 
@@ -79,7 +82,7 @@ namespace frontend.Services
             if (response.IsSuccessStatusCode)
             {
                 var responseContent = response.Content.ReadAsStringAsync();
-                if (response.Content.Headers.ContentLength > 1)
+                if (response.Content.Headers.ContentLength > 14)
                 {
                     meals = JArray.Parse(responseContent.Result).ToObject<IEnumerable<MealDto>>();
                 }
