@@ -14,7 +14,7 @@
 
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
-<MealPreviewListComp Meals="@uglyMeals"></MealPreviewListComp>
+<MealPreviewListComp Meals="@meals"></MealPreviewListComp>
 
 @code {
     //TODO: Display Favoriten aus der Datenbank
@@ -30,11 +30,12 @@
 
     protected override async Task OnInitializedAsync()
     {
-        var tmp = MealProvider.GetMealsFromDbAsMeal().Result;
-        uglyMeals = new ObservableCollection<Meal>(tmp);
-
         /*
         var tmp = MealProvider.GetMealsFromDb().Result;
-        meals = new ObservableCollection<MealDto>(tmp);   */
+        uglyMeals = new ObservableCollection<MealDto>(tmp);*/
+
+        
+        var tmp = MealProvider.GetMealsFromDb().Result;
+        meals = new ObservableCollection<MealDto>(tmp);   
     }
 }

@@ -11,18 +11,18 @@
     <div class="d-flex" id="meal-preview-wrap-container">
         @foreach (var item in _meals)
         {
-            <MealPreviewCardComp Id=@item.idMeal
-                         Title=@item.strMeal
-                         Category=@item.strCategory
-                         Area=@item.strArea
-                         ImageUrl=@item.strMealThumb
+            <MealPreviewCardComp Id=@item.StrId
+                         Title=@item.Name
+                         Category=@item.Category
+                         Area=@item.Area
+                         ImageUrl=@item.ThumbnailUrl
                          OnSelected="HandleItemSelected"
                          Selected=@item.Selected>
                 <Hashtags>
-                    @if (item.strTags != "")
+                    @if (item.Tags != "")
                     {
                         <div class="alert alert-primary">
-                            @item.strTags
+                            @item.Tags
                         </div>
                     }
                 </Hashtags>
@@ -37,13 +37,10 @@
 
 
 @code {
-    private ObservableCollection<Meal> _meals { get; set; }
+    private ObservableCollection<MealDto> _meals { get; set; }
 
     [Parameter]
-    public ObservableCollection<Meal> Meals { get; set; }
-
-    [Parameter]
-    public ObservableCollection<MealDto> MealDtos { get; set; }
+    public ObservableCollection<MealDto> Meals { get; set; }
 
     public bool responseIsEmpty { get; set; }
 
@@ -65,7 +62,7 @@
     {
         foreach (var item in Meals) item.Selected = false;
 
-        Meals.First(f => f.idMeal == selectedMealId).Selected = true;
+        Meals.First(f => f.StrId == selectedMealId).Selected = true;
         NavManager.NavigateTo($"/{selectedMealId}");
 
     }

@@ -13,9 +13,12 @@ namespace frontend.Services
             _clientFactory = clientFactory;
         }
 
-        public Task<IEnumerable<Meal>> GetMealsFromAPI(string? searchString)
+        /// <summary>Requests Meals from the meal API.</summary>
+        /// <param name="searchString">The search keyword that was entered by the user. Can be empty</param>
+        /// <returns>A Task with an IEnumerable of MealDtos of the response of the API</returns>
+        public Task<IEnumerable<MealDto>> GetMealsFromAPI(string? searchString)
         {
-            IEnumerable<Meal> meals = Array.Empty<Meal>();
+            IEnumerable<MealDto> meals = Array.Empty<MealDto>();
 
             var request = new HttpRequestMessage(HttpMethod.Get, "https://www.themealdb.com/api/json/v1/1/search.php?s=" + searchString);
             //request.Headers.Add("Accept", "application/vnd.github.v3+json");
@@ -27,18 +30,19 @@ namespace frontend.Services
             if (response.IsSuccessStatusCode)
             {
                 var responseContent = response.Content.ReadAsStringAsync();
-
                 if (response.Content.Headers.ContentLength > 1)
                 {
-                    meals = JObject.Parse(responseContent.Result)["meals"].ToObject<IEnumerable<Meal>>();
+                    IEnumerable<Meal> tmp = JObject.Parse(responseContent.Result)["meals"].ToObject<IEnumerable<Meal>>();
+                    meals = tmp.Select(x => new MealDto(x)).ToList();
                 }
-
             }
 
             return Task.FromResult(meals);
-
         }
 
+        /// <summary>Requests a single meal from the meal API </summary>
+        /// <param name="mealId">The id of the meal as communicated by the API</param>
+        /// <returns>The response from the API as Task with a MealDto</returns>
         public Task<MealDto> GetMealByIdFromAPI(string mealId)
         {
             MealDto mealDto = new();
@@ -61,29 +65,11 @@ namespace frontend.Services
 
         }
 
-        //TODO: vervollständigen
+        /// <summary>Requests all meals that are saved in the Database</summary>
+        /// <returns>The response from the DB as Task with an IEnumerable of MealDtos</returns>
         public Task<IEnumerable<MealDto>> GetMealsFromDb()
         {
             IEnumerable<MealDto> meals = Array.Empty<MealDto>();
-            var request = new HttpRequestMessage(HttpMethod.Get, "https://localhost:5782/api/Meal");
-            request.Headers.Add("User-Agent", "HttpClientFactory-Sample");
-            var client = _clientFactory.CreateClient();
-
-            var response = client.Send(request);
-
-            if (response.IsSuccessStatusCode)
-            {
-                var responseContent = response.Content.ReadAsStreamAsync();
-                //do sth
-            }
-
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<Meal>> GetMealsFromDbAsMeal()
-        {
-            IEnumerable<Meal> meals = Array.Empty<Meal>();
-            IEnumerable<MealDto> mealDtos = Array.Empty<MealDto>();
             var request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:5782/api/Meal");
             request.Headers.Add("User-Agent", "HttpClientFactory-Sample");
             var client = _clientFactory.CreateClient();
@@ -93,15 +79,11 @@ namespace frontend.Services
             if (response.IsSuccessStatusCode)
             {
                 var responseContent = response.Content.ReadAsStringAsync();
-
                 if (response.Content.Headers.ContentLength > 1)
                 {
-                    
-                    mealDtos = JArray.Parse(responseContent.Result).ToObject<IEnumerable<MealDto>>();
+                    meals = JArray.Parse(responseContent.Result).ToObject<IEnumerable<MealDto>>();
                 }
-
             }
-
             return Task.FromResult(meals);
         }
     }

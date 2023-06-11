@@ -6,6 +6,7 @@
 @using System.Text.Json.Serialization
 @using Newtonsoft.Json.Linq
 @using frontend.Services;
+@using frontend.Services.DTO;
 @inject NavigationManager _nav
 @inject MealProviderService MealProvider;
 
@@ -36,18 +37,19 @@
 @code {
     private bool responseIsEmpty;
     private string? searchTextBoxContent;
-    private ObservableCollection<Meal>? meals;
+    private ObservableCollection<Meal>? meals_old;
+    private ObservableCollection<MealDto>? meals;
 
     private void SearchMealsAPI()
     {
         var tmp = MealProvider.GetMealsFromAPI(searchTextBoxContent).Result;
         if(tmp != null)
         {
-            meals = new ObservableCollection<Meal>(tmp);
+            meals = new ObservableCollection<MealDto>(tmp);
             responseIsEmpty = false;
         } else
         {
-            meals = new ObservableCollection<Meal>();
+            meals = new ObservableCollection<MealDto>();
             responseIsEmpty = true;
         }
     }
@@ -56,7 +58,7 @@
     {
         searchTextBoxContent = "";
         var tmp = MealProvider.GetMealsFromAPI("").Result;
-        meals = new ObservableCollection<Meal>(tmp);
+        meals = new ObservableCollection<MealDto>(tmp);
         responseIsEmpty = false;
     }
 }

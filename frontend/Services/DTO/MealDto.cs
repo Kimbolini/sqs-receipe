@@ -5,6 +5,7 @@ namespace frontend.Services.DTO
     public class MealDto
     {
         public int Id { get; set; }
+        public string StrId { get; set; }
         public string Name { get; set; }
         public string? DrinkAlternative { get; set; }
         public string? Category { get; set; }
@@ -16,12 +17,14 @@ namespace frontend.Services.DTO
         public string? Source { get; set; }
         public string? ImageSource { get; set; }
         public string? CreateCommonsConfirmed { get; set; }
+        public bool Selected { get; set; }
         public ICollection<string> Ingredients { get; set; }
         public ICollection<string> Measures { get; set; }
 
         public MealDto(Meal meal)
         {
             this.Id = 0; //doesn't matter, gets a new id in the database anyway
+            this.StrId = meal.idMeal;
             this.Name = meal.strMeal;
             this.DrinkAlternative = meal.strDrinkAlternate;
             this.Category = meal.strCategory;
