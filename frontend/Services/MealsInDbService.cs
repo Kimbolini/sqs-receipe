@@ -15,7 +15,7 @@ namespace frontend.Services
         //TODO: Change rückkabetyp
         public void AddMealToFavourites(Meal meal)
         {
-            var request = new HttpRequestMessage(HttpMethod.Post, "https://localhost:5782/api/MealController");
+            var request = new HttpRequestMessage(HttpMethod.Post, "https://localhost:5782/api/Meal");
             request.Headers.Add("User-Agent", "HttpClientFactory-Sample");
             var client = _clientFactory.CreateClient();
 

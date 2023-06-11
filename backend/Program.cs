@@ -36,9 +36,9 @@ builder.Services.AddControllers(options => {
 
 // Add Cors-Policy to avoid issues with security protocols of the browser
 builder.Services.AddCors(options => {
-    options.AddPolicy(name: "http://localhost:4200",
+    options.AddPolicy(name: "http://localhost:7214",
         builder => {
-            builder.WithOrigins("http://localhost:4200")
+            builder.WithOrigins("http://localhost:7214")
                     .WithHeaders(HeaderNames.ContentType, "application/json")
                     .AllowAnyMethod()
                     .AllowAnyHeader();
@@ -101,7 +101,7 @@ using (var scope = app.Services.CreateScope())
         dbContext.Database.EnsureDeleted();
 
         // Add Cors-Policy to avoid issues with security protocols of the browser
-        app.UseCors("http://localhost:4200");
+        app.UseCors("http://localhost:7214");
 
         app.UseDeveloperExceptionPage();
     }

@@ -65,7 +65,7 @@ namespace frontend.Services
         public Task<IEnumerable<MealDto>> GetMealsFromDb()
         {
             IEnumerable<MealDto> meals = Array.Empty<MealDto>();
-            var request = new HttpRequestMessage(HttpMethod.Get, "https://localhost:5782/api/MealController");
+            var request = new HttpRequestMessage(HttpMethod.Get, "https://localhost:5782/api/Meal");
             request.Headers.Add("User-Agent", "HttpClientFactory-Sample");
             var client = _clientFactory.CreateClient();
 
@@ -78,6 +78,31 @@ namespace frontend.Services
             }
 
             throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<Meal>> GetMealsFromDbAsMeal()
+        {
+            IEnumerable<Meal> meals = Array.Empty<Meal>();
+            IEnumerable<MealDto> mealDtos = Array.Empty<MealDto>();
+            var request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:5782/api/Meal");
+            request.Headers.Add("User-Agent", "HttpClientFactory-Sample");
+            var client = _clientFactory.CreateClient();
+
+            var response = client.Send(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseContent = response.Content.ReadAsStringAsync();
+
+                if (response.Content.Headers.ContentLength > 1)
+                {
+                    
+                    mealDtos = JArray.Parse(responseContent.Result).ToObject<IEnumerable<MealDto>>();
+                }
+
+            }
+
+            return Task.FromResult(meals);
         }
     }
 }

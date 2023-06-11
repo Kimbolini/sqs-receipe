@@ -1,6 +1,7 @@
 ﻿@page "/favoriten"
 
 @using System.Collections.ObjectModel;
+@using frontend.Data;
 @using frontend.Services;
 @using frontend.Services.DTO;
 @inject MealProviderService MealProvider;
@@ -13,9 +14,12 @@
 
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
+<MealPreviewListComp Meals="@uglyMeals"></MealPreviewListComp>
+
 @code {
     //TODO: Display Favoriten aus der Datenbank
     private ObservableCollection<MealDto>? meals;
+    private ObservableCollection<Meal>? uglyMeals;
 
     private int currentCount = 0;
 
@@ -26,7 +30,11 @@
 
     protected override async Task OnInitializedAsync()
     {
+        var tmp = MealProvider.GetMealsFromDbAsMeal().Result;
+        uglyMeals = new ObservableCollection<Meal>(tmp);
+
+        /*
         var tmp = MealProvider.GetMealsFromDb().Result;
-        meals = new ObservableCollection<MealDto>(tmp);   
+        meals = new ObservableCollection<MealDto>(tmp);   */
     }
 }

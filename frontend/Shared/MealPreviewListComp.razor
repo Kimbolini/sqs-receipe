@@ -1,6 +1,7 @@
 ﻿@using System.Collections.ObjectModel;
 @using frontend.Data;
 @using frontend.Services;
+@using frontend.Services.DTO;
 @inject NavigationManager NavManager
 @inject MealProviderService MealProvider;
 
@@ -40,6 +41,9 @@
 
     [Parameter]
     public ObservableCollection<Meal> Meals { get; set; }
+
+    [Parameter]
+    public ObservableCollection<MealDto> MealDtos { get; set; }
 
     public bool responseIsEmpty { get; set; }
 
