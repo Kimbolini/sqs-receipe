@@ -62,9 +62,9 @@ namespace frontend.Services
         }
 
         //TODO: vervollständigen
-        public Task<IEnumerable<Meal>> GetMealsFromDb()
+        public Task<IEnumerable<MealDto>> GetMealsFromDb()
         {
-            IEnumerable<Meal> meals = Array.Empty<Meal>();
+            IEnumerable<MealDto> meals = Array.Empty<MealDto>();
             var request = new HttpRequestMessage(HttpMethod.Get, "https://localhost:5782/api/MealController");
             request.Headers.Add("User-Agent", "HttpClientFactory-Sample");
             var client = _clientFactory.CreateClient();

@@ -9,6 +9,6 @@ namespace frontend.Services
 
         Task<MealDto> GetMealByIdFromAPI(string mealId);
 
-        Task<IEnumerable<Meal>> GetMealsFromDb();
+        Task<IEnumerable<MealDto>> GetMealsFromDb();
     }
 }
