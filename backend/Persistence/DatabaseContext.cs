@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using backend.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace backend.Models
 {
@@ -38,6 +39,9 @@ namespace backend.Models
             builder.Entity<Ingredient>()
                 .HasIndex(i => i.Name)
                 .IsUnique();
+
+            //seed tables
+            builder.Seed();
 
             base.OnModelCreating(builder);
         }
