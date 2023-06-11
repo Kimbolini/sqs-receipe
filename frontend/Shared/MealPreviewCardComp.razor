@@ -9,7 +9,10 @@
         <h2 class="card-title">@Title</h2>
         <span class="hover-text">
             <i class="oi oi-heart addfavourite-icon" @onclick="HandleOnAddToFavourites"></i>
-            <span class="tooltip-text" id="right">Add to favourites</span>
+            @if(Id > 0)
+            {
+                <span class="tooltip-text" id="right">Add to favourites</span>
+            }       
         </span>
         <p class="card-text">
             #@Category #@Area
@@ -22,7 +25,10 @@
 @code {
 
     [Parameter]
-    public string Id { get; set; }
+    public string StrId { get; set; }
+
+    [Parameter]
+    public int Id { get; set; }
 
     [Parameter]
     public string Title { get; set; }
@@ -75,7 +81,7 @@
     //This method is called when a Meal Preview Card is selected (clicked on)
     void HandleOnSelected()
     {
-        OnSelected.InvokeAsync(this.Id);
+        OnSelected.InvokeAsync(this.StrId);
     }
 
     void HandleOnAddToFavourites()

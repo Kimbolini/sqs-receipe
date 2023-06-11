@@ -11,7 +11,8 @@
     <div class="d-flex" id="meal-preview-wrap-container">
         @foreach (var item in _meals)
         {
-            <MealPreviewCardComp Id=@item.StrId
+            <MealPreviewCardComp StrId=@item.StrId
+                         Id=@item.Id
                          Title=@item.Name
                          Category=@item.Category
                          Area=@item.Area
