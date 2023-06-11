@@ -10,31 +10,14 @@
 
 <h1>Favoriten</h1>
 
-<p role="status">Current count: @currentCount</p>
-
-<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
-
 <MealPreviewListComp Meals="@meals"></MealPreviewListComp>
 
 @code {
     //TODO: Display Favoriten aus der Datenbank
     private ObservableCollection<MealDto>? meals;
-    private ObservableCollection<Meal>? uglyMeals;
-
-    private int currentCount = 0;
-
-    private void IncrementCount()
-    {
-        currentCount++;
-    }
 
     protected override async Task OnInitializedAsync()
     {
-        /*
-        var tmp = MealProvider.GetMealsFromDb().Result;
-        uglyMeals = new ObservableCollection<MealDto>(tmp);*/
-
-        
         var tmp = MealProvider.GetMealsFromDb().Result;
         meals = new ObservableCollection<MealDto>(tmp);   
     }
