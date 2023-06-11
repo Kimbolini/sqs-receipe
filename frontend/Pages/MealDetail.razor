@@ -1,0 +1,74 @@
+﻿@page "/{Id}"
+
+@using frontend.Data
+@using frontend.Services.DTO;
+@using frontend.Services;
+@inject MealProviderService MealProvider;
+@inject MealsInDbService MealsInDb;
+
+@namespace frontend.Pages
+
+<h3>@MealDto.Name</h3>
+
+<span>
+    <input type="button" value="Add To Favourites" @onclick="@AddToFavourites" />
+</span>
+
+<div class="card">
+    <img class="card-img-top" src="@MealDto.ThumbnailUrl" alt="Picture of @MealDto.Name" id="mealdetail-picture">
+</div>
+
+
+<div class="card">
+    <ul class="list-group list-group-flush" id="mealdetail-ingredients">
+      
+        @for(int i = 0; i < MealDto.Ingredients.Count; i++)
+        {
+            <li class="list-group-item">@MealDto.Measures.ElementAt(i)  @MealDto.Ingredients.ElementAt(i)</li>
+        }
+    </ul>
+</div>
+
+
+<div class="card">
+    <p>@MealDto.Instructions</p>
+</div>
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+
+    [Parameter]
+    public Meal Meal { get; set;  }
+
+    private MealDto MealDto;
+
+    private string ThumbnailPreview;
+
+    protected override void OnParametersSet()
+    {
+        var isNumeric = int.TryParse(Id, out int Idnr);
+        if(isNumeric == true)
+        {
+            if (Idnr > 0)
+            {
+                MealDto = MealProvider.GetMealByIdFromAPI(Id).Result;
+                ThumbnailPreview = MealDto.ThumbnailUrl + "/preview";
+            }
+            else
+            {
+                //Navigate to error page
+            }
+        } 
+        else
+        {
+            //Navigate to error page
+        }
+
+    }
+
+    private void AddToFavourites()
+    {
+        MealsInDb.AddMealDtoToFavourites(this.MealDto);
+    }
+}

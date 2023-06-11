@@ -1,0 +1,24 @@
+﻿@page "/favoriten"
+
+@using System.Collections.ObjectModel;
+@using frontend.Data;
+@using frontend.Services;
+@using frontend.Services.DTO;
+@inject MealProviderService MealProvider;
+
+<PageTitle>Favoriten</PageTitle>
+
+<h1>Favoriten</h1>
+
+<MealPreviewListComp Meals="@meals"></MealPreviewListComp>
+
+@code {
+    //TODO: Display Favoriten aus der Datenbank
+    private ObservableCollection<MealDto>? meals;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var tmp = MealProvider.GetMealsFromDb().Result;
+        meals = new ObservableCollection<MealDto>(tmp);   
+    }
+}

@@ -1,0 +1,91 @@
+﻿@using frontend.Data
+@using frontend.Services;
+@inject MealsInDbService MealsInDb;
+
+<div class="card mealpreview-card @SelectedCss m-2" >
+    <div class="card-body text-center">
+            <img class="mealpreview-thumbnail" src=@ImageThumbnail alt=@AlternatePictureText @onclick=" HandleOnSelected">
+        
+        <h2 class="card-title">@Title</h2>
+        <span class="hover-text">
+            <i class="oi oi-heart addfavourite-icon" @onclick="HandleOnAddToFavourites"></i>
+            @if(Id > 0)
+            {
+                <span class="tooltip-text" id="right">Add to favourites</span>
+            }       
+        </span>
+        <p class="card-text">
+            #@Category #@Area
+        </p>
+        @Hashtags   
+    </div>
+</div>
+
+
+@code {
+
+    [Parameter]
+    public string StrId { get; set; }
+
+    [Parameter]
+    public int Id { get; set; }
+
+    [Parameter]
+    public string Title { get; set; }
+
+    [Parameter]
+    public string Category { get; set; }
+
+    [Parameter]
+    public string? Area { get; set; }
+
+    [Parameter]
+    public string ImageUrl { get; set; }
+
+    [Parameter]
+    public RenderFragment Hashtags { get; set; }
+
+    [Parameter]
+    public EventCallback<string> OnSelected { get; set;}
+
+    [Parameter]
+    public bool Selected { get; set; }
+
+    private string ImageThumbnail { get; set; }
+
+    private string AlternatePictureText { get; set; }
+
+    private string SelectedCss => Selected ? "bg-primary text-blue" : "bg - light";
+
+    //TODO: make this method actually async (or use sync version kek)
+    protected override void OnParametersSet()
+    {
+
+        if(Title == default)
+        {
+
+        } else
+        {
+            AlternatePictureText = "Picture of " + Title;
+        }  
+
+        if(ImageUrl == default)
+        {
+            ImageUrl = "io io-fork";
+        } else
+        {
+            ImageThumbnail = ImageUrl + "/preview";
+        }
+    }
+
+    //This method is called when a Meal Preview Card is selected (clicked on)
+    void HandleOnSelected()
+    {
+        OnSelected.InvokeAsync(this.StrId);
+    }
+
+    void HandleOnAddToFavourites()
+    {
+        var selected = this.Id;
+    }
+}
