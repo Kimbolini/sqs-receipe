@@ -4,11 +4,11 @@ using Newtonsoft.Json.Linq;
 
 namespace frontend.Services
 {
-    public class MealProviderService : IMealProviderService
+    public class MealsAtAPIService : IMealsAtAPIService
     {
         private readonly IHttpClientFactory _clientFactory;
 
-        public MealProviderService(IHttpClientFactory clientFactory)
+        public MealsAtAPIService(IHttpClientFactory clientFactory)
         {
             _clientFactory = clientFactory;
         }
