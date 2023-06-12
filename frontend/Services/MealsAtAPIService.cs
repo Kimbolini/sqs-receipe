@@ -68,26 +68,6 @@ namespace frontend.Services
 
         }
 
-        /// <summary>Requests all meals that are saved in the Database</summary>
-        /// <returns>The response from the DB as Task with an IEnumerable of MealDtos</returns>
-        public Task<IEnumerable<MealDto>> GetMealsFromDb()
-        {
-            IEnumerable<MealDto> meals = Array.Empty<MealDto>();
-            var request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:5782/api/Meal");
-            request.Headers.Add("User-Agent", "HttpClientFactory-Sample");
-            var client = _clientFactory.CreateClient();
 
-            var response = client.Send(request);
-
-            if (response.IsSuccessStatusCode)
-            {
-                var responseContent = response.Content.ReadAsStringAsync();
-                if (response.Content.Headers.ContentLength > 14)
-                {
-                    meals = JArray.Parse(responseContent.Result).ToObject<IEnumerable<MealDto>>();
-                }
-            }
-            return Task.FromResult(meals);
-        }
     }
 }

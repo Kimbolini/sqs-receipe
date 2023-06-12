@@ -4,7 +4,7 @@
 @using frontend.Data;
 @using frontend.Services;
 @using frontend.Services.DTO;
-@inject MealsAtAPIService MealProvider;
+@inject MealsInDbService MealDBService;
 
 <PageTitle>Favoriten</PageTitle>
 
@@ -26,7 +26,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        var tmp = MealProvider.GetMealsFromDb().Result;
+        var tmp = MealDBService.GetMealsFromDb().Result;
         meals = new ObservableCollection<MealDto>(tmp);   
     }
 }

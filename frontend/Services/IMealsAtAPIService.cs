@@ -8,7 +8,5 @@ namespace frontend.Services
         Task<IEnumerable<MealDto>> GetMealsFromAPI(string? searchString);
 
         Task<MealDto> GetMealByIdFromAPI(string mealId);
-
-        Task<IEnumerable<MealDto>> GetMealsFromDb();
     }
 }
