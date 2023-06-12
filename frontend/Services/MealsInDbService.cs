@@ -37,19 +37,30 @@ namespace frontend.Services
             return Task.FromResult(meals);
         }
 
-        //Send a meal over the API to the db and create it there
-        //TODO: Change rückkabetyp
-        public void AddMealToFavourites(Meal meal)
+        /// <summary>Requests a certain meal from the database </summary>
+        /// <param name="id">The id of the requested meal</param>
+        /// <returns>The requested meal as MealDto</returns>
+        public Task<MealDto> GetMealById(int id)
         {
-            var request = new HttpRequestMessage(HttpMethod.Post, "https://localhost:5782/api/Meal");
+            MealDto entity = new();
+            var request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:5782/api/Meal/" + id);
             request.Headers.Add("User-Agent", "HttpClientFactory-Sample");
             var client = _clientFactory.CreateClient();
 
             var response = client.Send(request);
             if (response.IsSuccessStatusCode)
-            {             
-                //do sth
+            {
+                var responseContent = response.Content.ReadAsStringAsync();
+                if (response.Content.Headers.ContentLength > 1)
+                {
+                    //var tmp = JArray.Parse(responseContent.Result).ToObject<IEnumerable<MealDto>>();
+                    //entity = tmp.ElementAt(0);
+
+                    entity = JArray.Parse(responseContent.Result).ToObject<MealDto>();
+                }
             }
+
+            return Task.FromResult(entity);
         }
 
         //Send a meal over the API to the db and create it there
@@ -63,9 +74,6 @@ namespace frontend.Services
 
             var response = await client.PostAsync(url, data);
 
-         
-
-           // var response = client.Send(request);
             if (response.IsSuccessStatusCode)
             {
                 //do sth

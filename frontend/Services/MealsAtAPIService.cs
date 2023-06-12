@@ -67,7 +67,5 @@ namespace frontend.Services
             return Task.FromResult(mealDto);
 
         }
-
-
     }
 }
