@@ -3,8 +3,8 @@
 @using frontend.Data
 @using frontend.Services.DTO;
 @using frontend.Services;
-@inject MealsAtAPIService MealProvider;
-@inject MealsInDbService MealsInDb;
+@inject MealsAtAPIService MealAPIService;
+@inject MealsInDbService MealDBService;
 
 @namespace frontend.Pages
 
@@ -38,9 +38,6 @@
     [Parameter]
     public string Id { get; set; }
 
-    [Parameter]
-    public Meal Meal { get; set;  }
-
     private MealDto MealDto;
 
     private string ThumbnailPreview;
@@ -52,7 +49,7 @@
         {
             if (Idnr > 0)
             {
-                MealDto = MealProvider.GetMealByIdFromAPI(Id).Result;
+                MealDto = MealAPIService.GetMealByIdFromAPI(Id).Result;
                 ThumbnailPreview = MealDto.ThumbnailUrl + "/preview";
             }
             else
@@ -69,6 +66,6 @@
 
     private void AddToFavourites()
     {
-        MealsInDb.AddMealDtoToFavourites(this.MealDto);
+        MealDBService.AddMealDtoToFavourites(this.MealDto);
     }
 }

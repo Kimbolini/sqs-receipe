@@ -2,15 +2,14 @@
 @using frontend.Data;
 @using frontend.Services;
 @using frontend.Services.DTO;
-@inject NavigationManager NavManager
-@inject MealsAtAPIService MealProvider;
+@inject NavigationManager NavManager;
 
 
 @if(_meals != null)
 {
     @if(responseIsEmpty)
     {
-        <div id="no-result-box"> We couldn't find anything for that prompt. Try something else or try hitting the random button.'</div>   
+        <div id="no-result-box"> We couldn't find anything for that prompt. Try something else or try hitting the random button.</div>   
     } 
     else
     {
@@ -77,6 +76,5 @@
 
         Meals.First(f => f.StrId == selectedMealId).Selected = true;
         NavManager.NavigateTo($"/{selectedMealId}");
-
     }
 }
