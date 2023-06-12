@@ -16,6 +16,11 @@ namespace backend.Presentation.Interfaces
         /// <returns>Returns an array of all meals in the database</returns>
         Meal[] GetMeals();
 
+        /// <summary>Returns a specific meal from the db</summary>
+        /// <param name="id">The id of the meal to be retrieved</param>
+        /// <returns>The meal</returns>
+        Meal GetMealById(int id);
+
         /// <summary>Remove a specific meal</summary>
         /// <param name="id">The Id of the meal</param>
         /// <returns>Returns the removed meal</returns>

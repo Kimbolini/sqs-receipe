@@ -40,7 +40,29 @@ namespace backend.Presentation.Controllers
             return Ok(tmplist);
         }
 
-        //TODO : change to PUT?
+        //GET: api/<MealsController>/5
+        //Get a certain meal by id from the database
+        [HttpGet("{id}")]
+        public ActionResult<MealDto> Get(int id)
+        {
+            if (id < 0) return BadRequest("Negative id");
+            try
+            {
+                var result = _mealService.GetMealById(id);
+                if(result != null)
+                {
+                    log.Info("Found meal with id: " + id);
+                    return Ok(new MealDto(result));
+                }
+                return NotFound();
+            }
+            catch (Exception e)
+            {
+                log.Error(e.Message);
+                return StatusCode(500, e.Message);
+            }
+        }
+
         //POST: api/<MealsController>
         //Create a new meal in the database
         [HttpPost]
