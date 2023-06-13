@@ -5,6 +5,25 @@
 
 </details>
 
+<details>
+<summary>Inhaltsverzeichnis2 </summary> 
+
+[Einführung und Ziele](#einführung-und-ziele) <br>
+[Randbedingungen](#randbedingungen) <br>
+[Kontextabgrenzung](#kontextabgrenzung) <br>
+[Lösungsstrategie](#lösungsstrategie) <br>
+[Bausteinsicht](#bausteinsicht) <br>
+[Laufzeitsicht](#laufzeitsicht) <br>
+[Verteilungssicht](#verteilungssicht) <br>
+[Querschnittliche Konzept](#querschnittliche-konzept) <br>
+[Architekturentscheidungen](#architekturentscheidungen) <br>
+[Qualitätsanforderungen](#qualitätsanforderungen) <br>
+[Risiken und technische Schulden](#risiken-und-technische-schulden) <br>
+[Was ist wie abgesichert](#was-ist-wie-abgesichert) <br>
+[Glossar](#glossar) <br>
+
+</details>
+
 # 
 
 **Über arc42**
@@ -99,7 +118,7 @@ Wichtige Schnittstellen
 
 ### \<Name Schnittstelle m> 
 
-## Ebene 2 {#_ebene_2}
+## Ebene 2
 
 ### Whitebox *\<Baustein 1>* 
 
@@ -115,7 +134,7 @@ Wichtige Schnittstellen
 
 *\<Whitebox-Template>*
 
-## Ebene 3 {#_ebene_3}
+## Ebene 3
 
 ### Whitebox \<\_Baustein x.1\_\> 
 
@@ -129,7 +148,7 @@ Wichtige Schnittstellen
 
 *\<Whitebox-Template>*
 
-# Laufzeitsicht {#section-runtime-view}
+# Laufzeitsicht 
 
 ## *\<Bezeichnung Laufzeitszenario 1>* 
 
@@ -164,7 +183,7 @@ Zuordnung von Bausteinen zu Infrastruktur
 
 :   *\<Beschreibung der Zuordnung>*
 
-## Infrastruktur Ebene 2 {#_infrastruktur_ebene_2}
+## Infrastruktur Ebene 2
 
 ### *\<Infrastrukturelement 1>* 
 
