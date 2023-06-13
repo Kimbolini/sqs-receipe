@@ -1,4 +1,4 @@
-﻿@page "/{Id}"
+﻿@page "/{Id}/{IsFromDB:bool?}"
 
 @using frontend.Data
 @using frontend.Services.DTO;
@@ -10,9 +10,12 @@
 
 <h3>@MealDto.Name</h3>
 
-<span>
-    <input type="button" value="Add To Favourites" @onclick="@AddToFavourites" />
-</span>
+@if(!IsFromDB)
+{
+    <span>
+        <input type="button" value="Add To Favourites" @onclick="@AddToFavourites" />
+    </span>
+}
 
 <div class="card">
     <img class="card-img-top" src="@MealDto.ThumbnailUrl" alt="Picture of @MealDto.Name" id="mealdetail-picture">
@@ -38,20 +41,26 @@
     [Parameter]
     public string Id { get; set; }
 
-    private MealDto MealDto;
+    [Parameter]
+    public bool IsFromDB { get; set; }
 
-    private string ThumbnailPreview;
+    private MealDto MealDto;
 
     protected override void OnParametersSet()
     {
         var isNumeric = int.TryParse(Id, out int Idnr);
         if(isNumeric == true)
         {
-            if (Idnr > 0)
+            if(Idnr > 0)
             {
-                MealDto = MealAPIService.GetMealByIdFromAPI(Id).Result;
-                ThumbnailPreview = MealDto.ThumbnailUrl + "/preview";
-            }
+                if (IsFromDB)
+                {
+                    MealDto = MealDBService.GetMealById(Idnr).Result;
+                } else
+                {
+                    MealDto = MealAPIService.GetMealByIdFromAPI(Id).Result;
+                }
+            }   
             else
             {
                 //Navigate to error page

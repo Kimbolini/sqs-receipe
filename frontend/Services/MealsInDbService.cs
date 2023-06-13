@@ -48,15 +48,13 @@ namespace frontend.Services
             var client = _clientFactory.CreateClient();
 
             var response = client.Send(request);
+
             if (response.IsSuccessStatusCode)
             {
                 var responseContent = response.Content.ReadAsStringAsync();
                 if (response.Content.Headers.ContentLength > 1)
                 {
-                    //var tmp = JArray.Parse(responseContent.Result).ToObject<IEnumerable<MealDto>>();
-                    //entity = tmp.ElementAt(0);
-
-                    entity = JArray.Parse(responseContent.Result).ToObject<MealDto>();
+                    entity = JObject.Parse(responseContent.Result).ToObject<MealDto>();
                 }
             }
 

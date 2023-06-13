@@ -70,11 +70,25 @@
         }
     }
 
+    //Gets executed when the user clicks on a certain meal
     void HandleItemSelected(string selectedMealId)
     {
         foreach (var item in Meals) item.Selected = false;
 
+        var selMeal = Meals.First(f => f.StrId == selectedMealId);
+        selMeal.Selected = true;
+
         Meals.First(f => f.StrId == selectedMealId).Selected = true;
-        NavManager.NavigateTo($"/{selectedMealId}");
+        if(selMeal.Id > 0)
+        {
+            //Meal is from database
+            string url = "/" + selMeal.Id + "/true";
+            NavManager.NavigateTo(url);
+        } else
+        {
+            //Meal is from API
+            NavManager.NavigateTo($"/{selectedMealId}");
+        }
+
     }
 }

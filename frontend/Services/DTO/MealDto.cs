@@ -4,7 +4,9 @@ namespace frontend.Services.DTO
 {
     public class MealDto
     {
+        //Database ID
         public int Id { get; set; }
+        //API ID
         public string StrId { get; set; }
         public string Name { get; set; }
         public string? DrinkAlternative { get; set; }
