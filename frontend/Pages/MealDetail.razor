@@ -14,9 +14,15 @@
 @if(!IsFromDB && !IsAlreadyInFavourites)
 {
     <span>
-        <input type="button" value="Add To Favourites" @onclick="@AddToFavourites" />
+        <input id="add-button" type="button" value="Add To Favourites" @onclick="@AddToFavourites" />
     </span>
 }
+
+@if(SuccessfullyAdded)
+{
+    <div id="success-badge">Successfully added to Favourites</div>
+}
+
 
 <div class="card">
     <img class="card-img-top" src="@MealDto.ThumbnailUrl" alt="Picture of @MealDto.Name" id="mealdetail-picture">
@@ -47,7 +53,9 @@
 
     private MealDto MealDto;
 
-    private bool IsAlreadyInFavourites { get; set; }
+    private bool IsAlreadyInFavourites;
+
+    private bool SuccessfullyAdded;
 
     protected override void OnParametersSet()
     {
@@ -79,5 +87,8 @@
     private void AddToFavourites()
     {
         MealDBService.AddMealDtoToFavourites(this.MealDto);
+        //check auf rückgabetyp
+        IsAlreadyInFavourites = true;
+        SuccessfullyAdded = true;
     }
 }

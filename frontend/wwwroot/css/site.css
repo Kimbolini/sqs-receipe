@@ -3,6 +3,7 @@
     --colour-blue-light: #00C4FF;
     --colour-grey-lightest: #adb5bd;
     --color-neutral-1: #f8f9fa;
+    --colour-green-light-intense: #9EF01A;
     /* Border Radius */
     --border-radius-none: 0;
     --border-radius-soft: 4px;
@@ -12,9 +13,9 @@
     --shadow-none: none;
     --shadow-xs: 0 1px 2px rgba(0, 0, 0, .1);
     --shadow-s: 0 2px 4px rgba(0, 0, 0, .1);
-    --shadow-m: 0 4px 6px rgba(0, 0, 0, .1);
-    --shadow-l: 0 6px 8px rgba(0, 0, 0, .1);
-    --shadow-xl: 0 8px 10px rgba(0, 0, 0, .1);
+    --shadow-m: 0 4px 8px rgba(0, 0, 0, .1);
+    --shadow-l: 0 6px 10px rgba(0, 0, 0, .1);
+    --shadow-xl: 0 8px 12px rgba(0, 0, 0, .1);
 }
 
 html, body {
@@ -166,4 +167,18 @@ a, .btn-link {
     border-radius: var(--border-radius-soft);
     box-shadow: var(--shadow-m);
     background-color: var(--color-neutral-1);
+}
+
+#success-badge {
+    width: 50em;
+    padding: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: none;
+    background-color: var(--colour-green-light-intense);
+    box-shadow: var(--shadow-xs);
+}
+
+#add-button {
+    margin-bottom: 20px;
 }
