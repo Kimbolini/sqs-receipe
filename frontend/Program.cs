@@ -10,6 +10,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<MealsAtAPIService>();
 builder.Services.AddSingleton<MealsInDbService>();
+builder.Services.AddSingleton<InternalCacheService>();
 builder.Services.AddHttpClient();
 
 var app = builder.Build();

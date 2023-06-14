@@ -5,12 +5,13 @@
 @using frontend.Services;
 @inject MealsAtAPIService MealAPIService;
 @inject MealsInDbService MealDBService;
+@inject InternalCacheService CacheService;
 
 @namespace frontend.Pages
 
 <h3>@MealDto.Name</h3>
 
-@if(!IsFromDB)
+@if(!IsFromDB && !IsAlreadyInFavourites)
 {
     <span>
         <input type="button" value="Add To Favourites" @onclick="@AddToFavourites" />
@@ -46,6 +47,8 @@
 
     private MealDto MealDto;
 
+    private bool IsAlreadyInFavourites { get; set; }
+
     protected override void OnParametersSet()
     {
         var isNumeric = int.TryParse(Id, out int Idnr);
@@ -59,6 +62,7 @@
                 } else
                 {
                     MealDto = MealAPIService.GetMealByIdFromAPI(Id).Result;
+                    IsAlreadyInFavourites = CacheService.IsInFavourites(Id);
                 }
             }   
             else
@@ -70,7 +74,6 @@
         {
             //Navigate to error page
         }
-
     }
 
     private void AddToFavourites()

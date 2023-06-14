@@ -9,10 +9,12 @@ namespace frontend.Services
     public class MealsInDbService
     {
         private readonly IHttpClientFactory _clientFactory;
+        private readonly InternalCacheService _cacheService;
 
-        public MealsInDbService(IHttpClientFactory clientFactory) 
+        public MealsInDbService(IHttpClientFactory clientFactory, InternalCacheService cacheService) 
         {
             _clientFactory = clientFactory;
+            _cacheService = cacheService;
         }
 
         /// <summary>Requests all meals that are saved in the Database</summary>
@@ -74,6 +76,7 @@ namespace frontend.Services
 
             if (response.IsSuccessStatusCode)
             {
+                _cacheService.AddToFavourites(meal.StrId);
                 //do sth
             }
         }
