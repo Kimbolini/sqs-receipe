@@ -13,6 +13,7 @@
     <h3>@MealDto.Name</h3>
 </div>
 
+<!--Add To Favourites Button-->
 @if(!IsFromDB && !IsAlreadyInFavourites)
 {
     <div id="favourite-button-div">
@@ -20,6 +21,7 @@
     </div>
 }
 
+<!--Successfully added badge-->
 @if(SuccessfullyAdded)
 {
     <div id="success-badge">Successfully added to Favourites</div>
@@ -28,8 +30,7 @@
 <div class="card-group">
     <img class="card-img-top" src="@MealDto.ThumbnailUrl" alt="Picture of @MealDto.Name" id="mealdetail-picture">
 
-
-
+    <!--Recipe ingredients-->
     <div class="card" id="mealdetail-ingredients">
         <div class="card-body">
             <h5 class="card-title">Ingredients</h5>
@@ -44,8 +45,9 @@
     </div>
 
 </div>
-<div>
 
+<!--Recipe instructions-->
+<div>
     <div class="card" id="mealdetail-instructions">
         <div class="card-body">
             <h5 class="card-title">Instructions</h5>

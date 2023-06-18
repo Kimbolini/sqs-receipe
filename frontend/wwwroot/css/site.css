@@ -16,6 +16,7 @@
     --shadow-m: 0 4px 8px rgba(0, 0, 0, .1);
     --shadow-l: 5px 10px 8px rgba(0, 0, 0, .1);
     --shadow-xl: 0 8px 12px rgba(0, 0, 0, .1);
+    --shadow-s-orange: 2px 2px 5px #f18701;
 }
 
 html, body {
@@ -81,6 +82,12 @@ a, .btn-link {
     content: "An error has occurred."
 }
 
+#meal-category-name {
+    color: #b5460f;
+    margin-bottom: 2px;
+    margin-top: 5px;
+}
+
 .mealpreview-thumbnail:hover {
     cursor: pointer;
 }
@@ -100,9 +107,12 @@ a, .btn-link {
 #meal-preview-card {
 }
 
-.addfavourite-icon:hover {
-    color: firebrick;
+#meal-preview-card:hover {
     cursor: pointer;
+    box-shadow: var(--shadow-s-orange);
+}
+
+#meal-preview-tags {
 }
 
 .tooltip-text {
@@ -201,7 +211,7 @@ a, .btn-link {
     min-width: auto;
     height: auto;
     display: flex;
-    margin-left: clamp(0, 2em, 2em);
+    margin-left: 2em;
 }
 
 #mealdetail-instructions {
@@ -209,6 +219,7 @@ a, .btn-link {
     height: auto;
     display: flex;
     margin-top: 2em;
+    margin-bottom: 4em;
 }
 
 #mealdetail-additional-info {
