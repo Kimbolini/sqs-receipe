@@ -22,16 +22,9 @@
                          Category=@item.Category
                          Area=@item.Area
                          ImageUrl=@item.ThumbnailUrl
+                         Tags=@item.Tags
                          OnSelected="HandleItemSelected"
                          Selected=@item.Selected>
-                    <Hashtags>
-                        @if (item.Tags != "")
-                        {
-                            <div class="alert alert-primary">
-                                @item.Tags
-                            </div>
-                        }
-                    </Hashtags>
                 </MealPreviewCardComp>
             }
         </div>

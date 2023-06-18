@@ -1,7 +1,7 @@
 ﻿@using frontend.Data
 @using frontend.Services;
 
-<div class="card mealpreview-card @SelectedCss m-2" >
+<div class="card mealpreview-card @SelectedCss m-2" id="meal-preview-card">
     <div class="card-body text-center">
             <img class="mealpreview-thumbnail" src=@ImageThumbnail alt=@AlternatePictureText @onclick=" HandleOnSelected">
         
@@ -16,7 +16,14 @@
         <p class="card-text">
             #@Category #@Area
         </p>
-        @Hashtags   
+
+        @if (@Tags != "")
+        {
+            <div class="alert alert-primary">
+                @Tags
+            </div>
+        }
+
     </div>
 </div>
 
@@ -45,6 +52,9 @@
     public RenderFragment Hashtags { get; set; }
 
     [Parameter]
+    public string Tags { get; set; }
+
+    [Parameter]
     public EventCallback<string> OnSelected { get; set;}
 
     [Parameter]
@@ -62,7 +72,7 @@
 
         if(Title == default)
         {
-
+            AlternatePictureText = "Picture of food";
         } else
         {
             AlternatePictureText = "Picture of " + Title;

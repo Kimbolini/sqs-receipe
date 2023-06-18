@@ -86,9 +86,18 @@ a, .btn-link {
 }
 
 #meal-preview-wrap-container {
-    width: 100%;
+    width: 85vw;
     height: auto;
+    display: flex;
     flex-wrap: wrap;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+}
+
+    #meal-preview-wrap-container > * {
+       flex: 0 0 15%; 
+    }
+
+#meal-preview-card {
 }
 
 .addfavourite-icon:hover {
