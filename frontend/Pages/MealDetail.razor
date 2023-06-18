@@ -9,13 +9,15 @@
 
 @namespace frontend.Pages
 
-<h3>@MealDto.Name</h3>
+<div>
+    <h3>@MealDto.Name</h3>
+</div>
 
 @if(!IsFromDB && !IsAlreadyInFavourites)
 {
-    <span>
+    <div id="favourite-button-div">
         <input id="add-button" type="button" value="Add To Favourites" @onclick="@AddToFavourites" />
-    </span>
+    </div>
 }
 
 @if(SuccessfullyAdded)
@@ -23,26 +25,36 @@
     <div id="success-badge">Successfully added to Favourites</div>
 }
 
-
-<div class="card">
+<div class="card-group">
     <img class="card-img-top" src="@MealDto.ThumbnailUrl" alt="Picture of @MealDto.Name" id="mealdetail-picture">
-</div>
 
 
-<div class="card">
-    <ul class="list-group list-group-flush" id="mealdetail-ingredients">
+
+    <div class="card" id="mealdetail-ingredients">
+        <div class="card-body">
+            <h5 class="card-title">Ingredients</h5>
+        <ul class="list-group list-group-flush" >
       
-        @for(int i = 0; i < MealDto.Ingredients.Count; i++)
-        {
-            <li class="list-group-item">@MealDto.Measures.ElementAt(i)  @MealDto.Ingredients.ElementAt(i)</li>
-        }
-    </ul>
+            @for(int i = 0; i < MealDto.Ingredients.Count; i++)
+            {
+                <li class="list-group-item">@MealDto.Measures.ElementAt(i)  @MealDto.Ingredients.ElementAt(i)</li>
+            }
+        </ul>
+        </div>
+    </div>
+
+</div>
+<div>
+
+    <div class="card" id="mealdetail-instructions">
+        <div class="card-body">
+            <h5 class="card-title">Instructions</h5>
+        <p class="card-text">@MealDto.Instructions</p>
+        </div>
+    </div>
+
 </div>
 
-
-<div class="card">
-    <p>@MealDto.Instructions</p>
-</div>
 
 @code {
     [Parameter]
