@@ -4,11 +4,11 @@ using Newtonsoft.Json.Linq;
 
 namespace frontend.Services
 {
-    public class MealProviderService : IMealProviderService
+    public class MealsAtAPIService : IMealsAtAPIService
     {
         private readonly IHttpClientFactory _clientFactory;
 
-        public MealProviderService(IHttpClientFactory clientFactory)
+        public MealsAtAPIService(IHttpClientFactory clientFactory)
         {
             _clientFactory = clientFactory;
         }
@@ -30,10 +30,13 @@ namespace frontend.Services
             if (response.IsSuccessStatusCode)
             {
                 var responseContent = response.Content.ReadAsStringAsync();
-                if (response.Content.Headers.ContentLength > 1)
+                if (response.Content.Headers.ContentLength > 14)
                 {
                     IEnumerable<Meal> tmp = JObject.Parse(responseContent.Result)["meals"].ToObject<IEnumerable<Meal>>();
-                    meals = tmp.Select(x => new MealDto(x)).ToList();
+                    if(tmp != null)
+                    {
+                        meals = tmp.Select(x => new MealDto(x)).ToList();
+                    }             
                 }
             }
 
@@ -63,28 +66,6 @@ namespace frontend.Services
 
             return Task.FromResult(mealDto);
 
-        }
-
-        /// <summary>Requests all meals that are saved in the Database</summary>
-        /// <returns>The response from the DB as Task with an IEnumerable of MealDtos</returns>
-        public Task<IEnumerable<MealDto>> GetMealsFromDb()
-        {
-            IEnumerable<MealDto> meals = Array.Empty<MealDto>();
-            var request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:5782/api/Meal");
-            request.Headers.Add("User-Agent", "HttpClientFactory-Sample");
-            var client = _clientFactory.CreateClient();
-
-            var response = client.Send(request);
-
-            if (response.IsSuccessStatusCode)
-            {
-                var responseContent = response.Content.ReadAsStringAsync();
-                if (response.Content.Headers.ContentLength > 1)
-                {
-                    meals = JArray.Parse(responseContent.Result).ToObject<IEnumerable<MealDto>>();
-                }
-            }
-            return Task.FromResult(meals);
         }
     }
 }

@@ -1,23 +1,27 @@
 ﻿@using frontend.Data
 @using frontend.Services;
-@inject MealsInDbService MealsInDb;
 
-<div class="card mealpreview-card @SelectedCss m-2" >
+<div class="card mealpreview-card @SelectedCss m-2" id="meal-preview-card" @onclick=" HandleOnSelected">
     <div class="card-body text-center">
-            <img class="mealpreview-thumbnail" src=@ImageThumbnail alt=@AlternatePictureText @onclick=" HandleOnSelected">
+        <img class="mealpreview-thumbnail" src=@ImageThumbnail alt=@AlternatePictureText >
+        <h6 id="meal-category-name">@Category</h6>
         
         <h2 class="card-title">@Title</h2>
-        <span class="hover-text">
-            <i class="oi oi-heart addfavourite-icon" @onclick="HandleOnAddToFavourites"></i>
-            @if(Id > 0)
-            {
-                <span class="tooltip-text" id="right">Add to favourites</span>
-            }       
-        </span>
+
         <p class="card-text">
-            #@Category #@Area
+            @if (@Tags != null && @Tags != "")
+            {
+                <footer class="alert alert-primary" id="meal-preview-tags">
+                    #@Area @Tags
+                </footer>
+            } else
+            {
+                <footer class="alert alert-primary" id="meal-preview-tags">
+                    #@Area
+                </footer>
+            }       
         </p>
-        @Hashtags   
+
     </div>
 </div>
 
@@ -46,6 +50,9 @@
     public RenderFragment Hashtags { get; set; }
 
     [Parameter]
+    public string Tags { get; set; }
+
+    [Parameter]
     public EventCallback<string> OnSelected { get; set;}
 
     [Parameter]
@@ -63,7 +70,7 @@
 
         if(Title == default)
         {
-
+            AlternatePictureText = "Picture of food";
         } else
         {
             AlternatePictureText = "Picture of " + Title;
@@ -82,10 +89,5 @@
     void HandleOnSelected()
     {
         OnSelected.InvokeAsync(this.StrId);
-    }
-
-    void HandleOnAddToFavourites()
-    {
-        var selected = this.Id;
     }
 }

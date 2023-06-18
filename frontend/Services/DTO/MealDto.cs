@@ -4,7 +4,9 @@ namespace frontend.Services.DTO
 {
     public class MealDto
     {
+        //Database ID
         public int Id { get; set; }
+        //API ID
         public string StrId { get; set; }
         public string Name { get; set; }
         public string? DrinkAlternative { get; set; }
@@ -18,6 +20,7 @@ namespace frontend.Services.DTO
         public string? ImageSource { get; set; }
         public string? CreateCommonsConfirmed { get; set; }
         public bool Selected { get; set; }
+        public bool IsFavourite { get; set; }
         public ICollection<string> Ingredients { get; set; }
         public ICollection<string> Measures { get; set; }
 

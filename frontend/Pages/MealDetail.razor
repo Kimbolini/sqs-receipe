@@ -1,60 +1,92 @@
-﻿@page "/{Id}"
+﻿@page "/{Id}/{IsFromDB:bool?}"
 
 @using frontend.Data
 @using frontend.Services.DTO;
 @using frontend.Services;
-@inject MealProviderService MealProvider;
-@inject MealsInDbService MealsInDb;
+@inject MealsAtAPIService MealAPIService;
+@inject MealsInDbService MealDBService;
+@inject InternalCacheService CacheService;
 
 @namespace frontend.Pages
 
-<h3>@MealDto.Name</h3>
+<div>
+    <h3>@MealDto.Name</h3>
+</div>
 
-<span>
-    <input type="button" value="Add To Favourites" @onclick="@AddToFavourites" />
-</span>
+<!--Add To Favourites Button-->
+@if(!IsFromDB && !IsAlreadyInFavourites)
+{
+    <div id="favourite-button-div">
+        <input id="add-button" type="button" value="Add To Favourites" @onclick="@AddToFavourites" />
+    </div>
+}
 
-<div class="card">
+<!--Successfully added badge-->
+@if(SuccessfullyAdded)
+{
+    <div id="success-badge">Successfully added to Favourites</div>
+}
+
+<div class="card-group">
     <img class="card-img-top" src="@MealDto.ThumbnailUrl" alt="Picture of @MealDto.Name" id="mealdetail-picture">
-</div>
 
-
-<div class="card">
-    <ul class="list-group list-group-flush" id="mealdetail-ingredients">
+    <!--Recipe ingredients-->
+    <div class="card" id="mealdetail-ingredients">
+        <div class="card-body">
+            <h5 class="card-title">Ingredients</h5>
+        <ul class="list-group list-group-flush" >
       
-        @for(int i = 0; i < MealDto.Ingredients.Count; i++)
-        {
-            <li class="list-group-item">@MealDto.Measures.ElementAt(i)  @MealDto.Ingredients.ElementAt(i)</li>
-        }
-    </ul>
+            @for(int i = 0; i < MealDto.Ingredients.Count; i++)
+            {
+                <li class="list-group-item">@MealDto.Measures.ElementAt(i)  @MealDto.Ingredients.ElementAt(i)</li>
+            }
+        </ul>
+        </div>
+    </div>
+
 </div>
 
+<!--Recipe instructions-->
+<div>
+    <div class="card" id="mealdetail-instructions">
+        <div class="card-body">
+            <h5 class="card-title">Instructions</h5>
+        <p class="card-text">@MealDto.Instructions</p>
+        </div>
+    </div>
 
-<div class="card">
-    <p>@MealDto.Instructions</p>
 </div>
+
 
 @code {
     [Parameter]
     public string Id { get; set; }
 
     [Parameter]
-    public Meal Meal { get; set;  }
+    public bool IsFromDB { get; set; }
 
     private MealDto MealDto;
 
-    private string ThumbnailPreview;
+    private bool IsAlreadyInFavourites;
+
+    private bool SuccessfullyAdded;
 
     protected override void OnParametersSet()
     {
         var isNumeric = int.TryParse(Id, out int Idnr);
         if(isNumeric == true)
         {
-            if (Idnr > 0)
+            if(Idnr > 0)
             {
-                MealDto = MealProvider.GetMealByIdFromAPI(Id).Result;
-                ThumbnailPreview = MealDto.ThumbnailUrl + "/preview";
-            }
+                if (IsFromDB)
+                {
+                    MealDto = MealDBService.GetMealById(Idnr).Result;
+                } else
+                {
+                    MealDto = MealAPIService.GetMealByIdFromAPI(Id).Result;
+                    IsAlreadyInFavourites = CacheService.IsInFavourites(Id);
+                }
+            }   
             else
             {
                 //Navigate to error page
@@ -64,11 +96,13 @@
         {
             //Navigate to error page
         }
-
     }
 
     private void AddToFavourites()
     {
-        MealsInDb.AddMealDtoToFavourites(this.MealDto);
+        MealDBService.AddMealDtoToFavourites(this.MealDto);
+        //check auf rückgabetyp
+        IsAlreadyInFavourites = true;
+        SuccessfullyAdded = true;
     }
 }

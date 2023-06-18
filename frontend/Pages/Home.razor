@@ -8,7 +8,7 @@
 @using frontend.Services;
 @using frontend.Services.DTO;
 @inject NavigationManager _nav
-@inject MealProviderService MealProvider;
+@inject MealsAtAPIService MealAPIService;
 
 <PageTitle>Home</PageTitle>
 
@@ -29,36 +29,27 @@
 
 <MealPreviewListComp Meals="@meals"></MealPreviewListComp>
 
-@if(responseIsEmpty)
-{
-    <p>Sorry, we couldn't find anything.</p>
-}
-
 @code {
-    private bool responseIsEmpty;
     private string? searchTextBoxContent;
     private ObservableCollection<MealDto>? meals;
 
     private void SearchMealsAPI()
     {
-        var tmp = MealProvider.GetMealsFromAPI(searchTextBoxContent).Result;
+        var tmp = MealAPIService.GetMealsFromAPI(searchTextBoxContent).Result;
         if(tmp != null)
         {
             meals = new ObservableCollection<MealDto>(tmp);
-            responseIsEmpty = false;
         } else
         {
             meals = new ObservableCollection<MealDto>();
-            responseIsEmpty = true;
         }
     }
 
     private void SearchMealsAPIWithEmpty()
     {
         searchTextBoxContent = "";
-        var tmp = MealProvider.GetMealsFromAPI("").Result;
+        var tmp = MealAPIService.GetMealsFromAPI("").Result;
         meals = new ObservableCollection<MealDto>(tmp);
-        responseIsEmpty = false;
     }
 }
 

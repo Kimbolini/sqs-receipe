@@ -23,6 +23,31 @@ namespace backend.Application
             return meal.MealId;
         }
 
+        public Meal GetMealById(int id)
+        {
+            var entity = _context.Meals
+                .Include(m => m.MeasuredIngredients)
+                .ThenInclude(mi => mi.Ingredient)
+                .Select(meal => new Meal
+                {
+                    MealId = meal.MealId,
+                    MealName = meal.MealName,
+                    DrinkAlternative = meal.DrinkAlternative,
+                    Category = meal.Category,
+                    Area = meal.Area,
+                    Instructions = meal.Instructions,
+                    ThumbnailUrl = meal.ThumbnailUrl,
+                    Tags = meal.Tags,
+                    YoutubeUrl = meal.YoutubeUrl,
+                    Source = meal.Source,
+                    ImageSource = meal.ImageSource,
+                    CreativeCommonsConfirmend = meal.CreativeCommonsConfirmend,
+                    MeasuredIngredients = meal.MeasuredIngredients
+                }).SingleOrDefault(m => m.MealId == id);
+
+            return entity ?? throw new KeyNotFoundException();
+        }
+
         public Meal[] GetMeals()
         {
             //excplicitely include measured ingredients as they don't get automatically loaded in a db set

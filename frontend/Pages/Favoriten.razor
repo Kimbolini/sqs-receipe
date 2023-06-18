@@ -4,21 +4,28 @@
 @using frontend.Data;
 @using frontend.Services;
 @using frontend.Services.DTO;
-@inject MealProviderService MealProvider;
+@inject MealsInDbService MealDBService;
 
 <PageTitle>Favoriten</PageTitle>
 
 <h1>Favoriten</h1>
 
-<MealPreviewListComp Meals="@meals"></MealPreviewListComp>
+@if(meals == null || meals.Count <= 0)
+{
+    <div id="no-result-box">Looks like you haven't added anything to your favourites yet.
+        Search for meals or get inspired by random meals and add them to your favourites then.</div>
+} else
+{
+    <MealPreviewListComp Meals="@meals"></MealPreviewListComp>
+}
+
 
 @code {
-    //TODO: Display Favoriten aus der Datenbank
     private ObservableCollection<MealDto>? meals;
 
     protected override async Task OnInitializedAsync()
     {
-        var tmp = MealProvider.GetMealsFromDb().Result;
+        var tmp = MealDBService.GetMealsFromDb().Result;
         meals = new ObservableCollection<MealDto>(tmp);   
     }
 }
