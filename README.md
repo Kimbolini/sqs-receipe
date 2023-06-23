@@ -50,10 +50,17 @@ Dieses Dokument beschreibt die Software-Architektur des Rezeptedatenbank-Systems
 | Nutzer im Internet   | Schnelle, intuitive Bedienung und Funtkion der Website. Keine Bugs, keine Wartezeiten                  |
 | Entwickler   | refactorable, gut lesbarer Code                  |
 | API-Menschen?   | Kein Abuse ihrer API                |
-| *\<Rolle-2>*    | *\<Erwartung-2>*                  |
+|     |               |
 
 
 # Randbedingungen
+
+| Randbedingung         | Erläuterung                 |
+|-----------------|-----------------------------------|
+| Grafische Oberfläche | Website  |
+| Schutz vor Attacken | DDOs-Schutz, Eingabenschutz |
+| Skalierbarkeit | Falls die Nutzungshäufigkeit der Anwendung steigt  |
+| Datenschutz?  |   |
 
 # Kontextabgrenzung
 
@@ -77,19 +84,23 @@ Dieses Dokument beschreibt die Software-Architektur des Rezeptedatenbank-Systems
 
 ## Whitebox Gesamtsystem
 
-***\<Übersichtsdiagramm>***
+![Darstellung der Grobarchitektur](images/Grobarchitektur_grob.png)
 
 Begründung
 
-:   *\<Erläuternder Text>*
+Frontend und Backend werden zur Kapselung der Businesslogik und für bessere Skalierbarkeit aufgeteilt.
 
 Enthaltene Bausteine
 
-:   *\<Beschreibung der enthaltenen Bausteine (Blackboxen)>*
+| Name | Verantwortung |
+|--|--|
+| A | Das Frontend mit der graphischen Oberfläche und Logik, um mit der mealdb-API und dem Backend zu interagieren. |
+| B | Das Backend mit der Datenbank und dem Business Layer. Stellt Dienste zur Verfügung, um Daten aus der Datenbank zu holen/schreiben. |
 
 Wichtige Schnittstellen
 
-:   *\<Beschreibung wichtiger Schnittstellen>*
+- Frontend - themealdb API: Kommunikation über REST-Schnittstelle der mealdb-API
+- Frontend - backend: Die beiden Dienste kommunizieren über eine REST-Schnittstelle
 
 ### \<Name Blackbox 1> 
 
@@ -235,13 +246,16 @@ der online-Dokumentation (auf Englisch!).
 
 # Was ist wie abgesichert
 
+- Performanceanforderungen - wieviel Anfragen pro Sekunde? Wie schnell?
+- Rest service testen - Unit-Tests?
+- Statische Codequalität abgesichert über .. 
+- Lint (z.B. für Dockerimage) 
+- Sync, trivy (Tools um zB wegen Dependencies zu überprüfen)
 
 # Glossar
 
-+-----------------------+-----------------------------------------------+
+
 | Begriff               | Definition                                    |
-+=======================+===============================================+
+|--|--|
 | *\<Begriff-1>*        | *\<Definition-1>*                             |
-+-----------------------+-----------------------------------------------+
 | *\<Begriff-2*         | *\<Definition-2>*                             |
-+-----------------------+-----------------------------------------------+
