@@ -38,19 +38,20 @@ contributors. Siehe <https://arc42.org>.
 
 # Einführung und Ziele
 
-## Aufgabenstellung
+Dieses Dokument beschreibt die Software-Architektur des Rezeptedatenbank-Systems. Das System dient dem Finden und Abspeichern von Rezepten. Es soll im Internet einem breiten Publikum zur Verfügung stehen.
 
 ## Qualitätsziele
 
 ## Stakeholder
 
-+-----------------+-----------------+-----------------------------------+
-| Rolle           | Kontakt         | Erwartungshaltung                 |
-+=================+=================+===================================+
-| *\<Rolle-1>*    | *\<Kontakt-1>*  | *\<Erwartung-1>*                  |
-+-----------------+-----------------+-----------------------------------+
-| *\<Rolle-2>*    | *\<Kontakt-2>*  | *\<Erwartung-2>*                  |
-+-----------------+-----------------+-----------------------------------+
+
+| Stakeholder          | Erwartungshaltung                 |
+|-----------------|-----------------------------------|
+| Nutzer im Internet   | Schnelle, intuitive Bedienung und Funtkion der Website. Keine Bugs, keine Wartezeiten                  |
+| Entwickler   | refactorable, gut lesbarer Code                  |
+| API-Menschen?   | Kein Abuse ihrer API                |
+| *\<Rolle-2>*    | *\<Erwartung-2>*                  |
+
 
 # Randbedingungen
 
