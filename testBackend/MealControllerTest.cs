@@ -14,8 +14,8 @@ namespace testBackend
         //The test Meals the test should return
         private static List<Meal> _expectedMeals = new();
 
-        protected Mock<IMealService> _mealServiceMock;
         protected MealController _mealController;
+        protected Mock<IMealService> _mealServiceMock;
         protected Mock<IIngredientService> _ingredientServiceMock;
         protected Mock<IMeasuredIngredientService> _measIngredientServiceMock;
 
@@ -38,17 +38,12 @@ namespace testBackend
         };
         
 
-        public MealControllerTest(Meal[] meals, Ingredient[] ingredients, MeasuredIngredient[] measuredIngredients)
-        {
-            _testMeals = meals;
-
-            _testIngredients = ingredients;
+        public MealControllerTest()
+        {            
             SetupIngredients();
-
-            _testMeasIngredients = measuredIngredients;
             SetupMeasuredIngredients();
-
             SetupMeals();
+            _mealController = new MealController(_mealServiceMock.Object, _ingredientServiceMock.Object, _measIngredientServiceMock.Object);
         }
 
         #region Setup
@@ -57,9 +52,20 @@ namespace testBackend
         {
             _ingredientServiceMock = new Mock<IIngredientService>();
 
-            _ingredientServiceMock.Setup(i => i.GetIngredientById(It.IsInRange(1, 3, Moq.Range.Inclusive)))
-                .Returns(_testIngredients[0]);
+            _ingredientServiceMock.SetupSequence(i => i.GetIngredientById(It.IsInRange(1, 3, Moq.Range.Inclusive)))
+                .Returns(_testIngredients[0])
+                .Returns(_testIngredients[1])
+                .Returns(_testIngredients[2]);
             _ingredientServiceMock.Setup(i => i.GetIngredientById(It.IsNotIn(1, 3)))
+                .Throws(new KeyNotFoundException());
+
+            _ingredientServiceMock.Setup(i => i.GetIngredientByName("Chicken"))
+                 .Returns(_testIngredients[0]);
+            _ingredientServiceMock.Setup(i => i.GetIngredientByName("Potatoes"))
+                .Returns(_testIngredients[1]);
+            _ingredientServiceMock.Setup(i => i.GetIngredientByName("Peas"))
+                .Returns(_testIngredients[2]);
+            _ingredientServiceMock.Setup(i => i.GetIngredientByName(It.IsNotIn("Chicken", "Potatoes", "Peas")))
                 .Throws(new KeyNotFoundException());
         }
 
@@ -135,6 +141,56 @@ namespace testBackend
             var result = _mealController.Get(50);
             var objResult = Xunit.Assert.IsType<NotFoundResult>(result.Result);
             Xunit.Assert.Equal(404, objResult.StatusCode);
+        }
+
+        [TestMethod]
+        [Fact]
+        //Valid Post Meal
+        public void PostMealShouldReturnDto()
+        {
+            var testDto = new MealDto()
+            {
+                Name = "Test Meal",
+                Instructions = "Cook water, cook other things",
+                Ingredients = new[] { "Chicken", "Water" },
+                Measures = new[] { "500g", "1l"}
+            };
+            var result = _mealController.Post(testDto);
+            var objResult = Xunit.Assert.IsType<OkObjectResult>(result.Result);
+            var dtoResult = Xunit.Assert.IsAssignableFrom<MealDto>(objResult.Value);
+            Xunit.Assert.NotNull(dtoResult);
+        }
+
+        [TestMethod]
+        [Fact]
+        //Invalid Post Meal with 0 Ingredients
+        public void PostMealShouldReturn400_InvalidIngredientsLenght()
+        {
+            var testDto = new MealDto()
+            {
+                Name = "Test Meal",
+                Instructions = "Cook water, cook other things"
+            };
+            var result = _mealController.Post(testDto);
+            var objResult = Xunit.Assert.IsType<BadRequestObjectResult>(result.Result);
+            Xunit.Assert.Equal(400, objResult.StatusCode);
+        }
+
+        [TestMethod]
+        [Fact]
+        //Invalid Post Meal with Ingredients and Measured Ingredients Length not matching
+        public void PostMealShouldReturn422_UnmatchingIngredientsLenght()
+        {
+            var testDto = new MealDto()
+            {
+                Name = "Test Meal",
+                Instructions = "Cook water, cook other things",
+                Ingredients = new[] { "Chicken", "Water" },
+                Measures = new[] { "500g" }
+            };
+            var result = _mealController.Post(testDto);
+            var objResult = Xunit.Assert.IsType<ObjectResult>(result.Result);
+            Xunit.Assert.Equal(422, objResult.StatusCode);
         }
     }
 }
