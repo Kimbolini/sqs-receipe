@@ -1,0 +1,27 @@
+version: '3.4'
+
+services:
+  frontend:
+    container_name: receipeFrontend
+    build:
+        context: ../
+        dockerfile: deployment/Dockerfile.frontend
+    ports:
+        - 80:80
+        - 443:443
+  backend:
+    container_name: receipeBackend
+    image: ${DOCKER_REGISTRY-}backend
+    build:
+        context: ../
+        dockerfile: deployment/Dockerfile.backend
+    depends_on: 
+        - db
+    restart: on-failure
+  db:
+    image: "mariadb"
+    container_name: receipeDb
+    environment:
+        MARIADB_ROOT_PASSWORD: password
+        SA_PASSWORD: "password"
+        ACCEPT_EULA: "Y"        
