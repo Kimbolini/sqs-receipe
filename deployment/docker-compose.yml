@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   frontend:
-    container_name: receipeFrontend
+    container_name: frontend
     build:
         context: ../
         dockerfile: deployment/Dockerfile.frontend
@@ -10,7 +10,7 @@ services:
         - 80:80
         - 443:443
   backend:
-    container_name: receipeBackend
+    container_name: backend
     image: ${DOCKER_REGISTRY-}backend
     build:
         context: ../
