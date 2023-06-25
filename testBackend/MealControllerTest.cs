@@ -11,9 +11,6 @@ namespace testBackend
     [TestClass]
     public class MealControllerTest
     {
-        //The test Meals the test should return
-        private static List<Meal> _expectedMeals = new();
-
         protected MealController _mealController;
         protected Mock<IMealService> _mealServiceMock;
         protected Mock<IIngredientService> _ingredientServiceMock;
