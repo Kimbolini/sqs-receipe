@@ -68,6 +68,9 @@ namespace backend.Presentation.Controllers
         [HttpPost]
         public ActionResult<MealDto> Post([FromBody]MealDto mealDto)
         {
+            //every receipe must have at least on ingredient
+            if(mealDto.Ingredients.Count == 0) return BadRequest("Every receipe needs at least one ingredient");
+
             //the ingredients and their amount are stored in two separate Datatypes. These must have the same length though.
             if (mealDto.Ingredients.Count != mealDto.Measures.Count)
             {
