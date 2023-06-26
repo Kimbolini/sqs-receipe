@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace backend.Common
 {
+    [Serializable]
     public class HttpResponseException : Exception
     {
-        public int Status { get; set; } = 500;
+        public int Status { get; set; }
         public string Value { get; set; }
 
         public HttpResponseException(int status, string message) : base()
@@ -17,6 +19,11 @@ namespace backend.Common
         {
             this.Status = status;
             this.Value = exception.Message;
+        }
+        
+        protected HttpResponseException(SerializationInfo info, StreamingContext context)
+        {
+            //added protected constructor cause sonarcloud told me to.
         }
     }
 }

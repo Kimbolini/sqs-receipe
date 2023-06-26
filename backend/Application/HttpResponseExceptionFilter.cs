@@ -8,7 +8,10 @@ namespace backend.Application
     {
         public int Order { get; } = int.MaxValue - 10;
 
-        public void OnActionExecuting(ActionExecutingContext context) { }
+        public void OnActionExecuting(ActionExecutingContext context) 
+        { 
+            //included even though empty cause needed by IActionFilter
+        }
 
         public void OnActionExecuted(ActionExecutedContext context)
         {

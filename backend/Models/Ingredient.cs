@@ -21,14 +21,6 @@ namespace backend.Models
             _measuredIngredients = new List<MeasuredIngredient>();
         }
 
-        /*
-        public Ingredient(string name, string description, ICollection<MeasuredIngredient> measuredIngredients)
-        {
-            _name = name;
-            _description = description;
-            _measuredIngredients = measuredIngredients;
-        }*/
-
         public Ingredient() : this("", null) { }
 
         #endregion

@@ -32,7 +32,7 @@ builder.Services.AddControllers(options => {
 
         return result;
     };
-}); ;
+});
 
 // Add Cors-Policy to avoid issues with security protocols of the browser
 builder.Services.AddCors(options => {
@@ -128,7 +128,5 @@ app.UseEndpoints(endpoints =>
 });
 
 #endregion
-
-//app.MapGet("/", () => "Hello World!");
 
 app.Run();

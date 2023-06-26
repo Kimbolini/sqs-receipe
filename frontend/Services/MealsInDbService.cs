@@ -1,5 +1,6 @@
 ﻿using frontend.Data;
 using frontend.Services.DTO;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Text;
@@ -64,8 +65,7 @@ namespace frontend.Services
         }
 
         //Send a meal over the API to the db and create it there
-        //TODO: Change rückkabetyp
-        public async void AddMealDtoToFavourites(MealDto meal)
+        public async Task AddMealDtoToFavourites(MealDto meal)
         {
             var tmp = JsonConvert.SerializeObject(meal);
             var data = new StringContent(tmp, Encoding.UTF8, "application/json");
@@ -77,7 +77,6 @@ namespace frontend.Services
             if (response.IsSuccessStatusCode)
             {
                 _cacheService.AddToFavourites(meal.StrId);
-                //do sth
             }
         }
     }

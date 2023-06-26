@@ -46,6 +46,9 @@ namespace frontend.Services.DTO
 
         public MealDto()
         {
+            this.StrId = "";
+            this.Name = "";
+            this.Instructions = "";
             this.Ingredients = new List<string>();
             this.Measures = new List<string>();
         }
@@ -54,13 +57,6 @@ namespace frontend.Services.DTO
         //Should be sent over the Db API as an ICollection of strings.
         private void ConvertIngredientsMeasures(Meal meal)
         {
-            /*
-            IDictionary<string, string> ugly = new Dictionary<string, string>();
-            ugly.Add("1", nameof(meal.strIngredient2));
-
-            var type = typeof(Meal);*/
-
-
             this.Ingredients.Add(meal.strIngredient1);
             this.Measures.Add(meal.strMeasure1);
             //20 hardcoded since it's the maximum. Ugly but API won't change in the next few weeks.
@@ -228,10 +224,6 @@ namespace frontend.Services.DTO
             {
                 this.Ingredients.Add(meal.strIngredient20);
                 this.Measures.Add(meal.strMeasure20);
-            }
-            else
-            {
-                return;
             }
         }
     }

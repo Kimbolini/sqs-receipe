@@ -24,7 +24,7 @@ namespace backend.Application
 
         public Ingredient GetIngredientById(int id)
         {
-            Ingredient? tmp = _context.Ingredients.SingleOrDefault(i => i.Id == id);
+            var tmp = _context.Ingredients.SingleOrDefault(i => i.Id == id);
             if(tmp == default(Ingredient) || (tmp == null))
             {
                 throw new KeyNotFoundException();
@@ -34,7 +34,7 @@ namespace backend.Application
 
         public Ingredient GetIngredientByName(string name)
         {
-            Ingredient? tmp = _context.Ingredients.SingleOrDefault(i => i.Name == name);
+            var tmp = _context.Ingredients.SingleOrDefault(i => i.Name == name);
             if (tmp == default(Ingredient) || (tmp == null))
             {
                 throw new KeyNotFoundException();

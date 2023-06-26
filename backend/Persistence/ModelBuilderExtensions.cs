@@ -44,7 +44,7 @@ namespace backend.Persistence
             //pre-fill table Meals
 
 
-            Meal tmp1 = new Meal(
+            Meal tmp1 = new (
                 mealName: "SpaghettiFancy",
                 drinkAlternative: "",
                 category: "",
@@ -57,7 +57,7 @@ namespace backend.Persistence
                 imageSource: "",
                 createCommonsConfirmed: ""
                 );
-            Meal tmp2 = new Meal(
+            Meal tmp2 = new (
                 mealName: "SpaghettiItaliaaaa",
                 drinkAlternative: "",
                 category: "",
