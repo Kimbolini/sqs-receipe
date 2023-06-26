@@ -9,6 +9,8 @@ services:
     ports:
         - 80:80
         - 443:443
+    depends_on:
+        - backend
   backend:
     container_name: backend
     image: ${DOCKER_REGISTRY-}backend
@@ -19,7 +21,7 @@ services:
         - db
     restart: on-failure
   db:
-    image: "mariadb"
+    image: "amd64/mariadb"
     container_name: receipeDb
     environment:
         MARIADB_ROOT_PASSWORD: password
