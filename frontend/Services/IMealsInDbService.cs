@@ -8,6 +8,6 @@ namespace frontend.Services
 
         Task<MealDto> GetMealById(int id);
 
-        void AddMealDtoToFavourites(MealDto meal);
+        Task<HttpResponseMessage> AddMealDtoToFavourites(MealDto meal);
     }
 }

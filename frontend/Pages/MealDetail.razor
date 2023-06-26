@@ -27,6 +27,11 @@
     <div id="success-badge">Successfully added to Favourites</div>
 }
 
+@if(ErrorWhenAdding)
+{
+    <div id="error-badge">There was an error when adding to favourites.</div>
+}
+
 <div class="card-group">
     <img class="card-img-top" src="@MealDto.ThumbnailUrl" alt="Picture of @MealDto.Name" id="mealdetail-picture">
 
@@ -70,6 +75,7 @@
     private bool IsAlreadyInFavourites;
 
     private bool SuccessfullyAdded;
+    private bool ErrorWhenAdding;
 
     protected override void OnParametersSet()
     {
@@ -100,9 +106,17 @@
 
     private void AddToFavourites()
     {
-        MealDBService.AddMealDtoToFavourites(this.MealDto);
-        //check auf rückgabetyp
-        IsAlreadyInFavourites = true;
-        SuccessfullyAdded = true;
+        var response = MealDBService.AddMealDtoToFavourites(this.MealDto);
+        if (response.Result.IsSuccessStatusCode)
+        {
+            IsAlreadyInFavourites = true;
+            SuccessfullyAdded = true;
+            ErrorWhenAdding = false;
+        } else
+        {
+            ErrorWhenAdding = true;
+            IsAlreadyInFavourites = false;
+            SuccessfullyAdded = false;
+        }
     }
 }

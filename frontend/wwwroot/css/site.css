@@ -4,6 +4,7 @@
     --colour-grey-lightest: #adb5bd;
     --color-neutral-1: #f8f9fa;
     --colour-green-light-intense: #9EF01A;
+    --color-red-lighter: #e9aaaa;
     /* Border Radius */
     --border-radius-none: 0;
     --border-radius-soft: 4px;
@@ -246,5 +247,15 @@ a, .btn-link {
     margin-bottom: 20px;
     border: none;
     background-color: var(--colour-green-light-intense);
+    box-shadow: var(--shadow-xs);
+}
+
+#error-badge {
+    width: 50em;
+    padding: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: none;
+    background-color: var(--color-red-lighter);
     box-shadow: var(--shadow-xs);
 }
