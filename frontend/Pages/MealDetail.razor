@@ -95,19 +95,24 @@
             }   
             else
             {
-                //Navigate to error page
+                //Navigates to error page
             }
         } 
         else
         {
-            //Navigate to error page
+            //Navigates to error page
         }
     }
 
     private void AddToFavourites()
     {
-        var response = MealDBService.AddMealDtoToFavourites(this.MealDto);
-        if (response.Result.IsSuccessStatusCode)
+        MealDBService.AddMealDtoToFavourites(this.MealDto);
+
+        IsAlreadyInFavourites = true;
+        SuccessfullyAdded = true;
+
+        /*
+        if (response.IsSuccessStatusCode)
         {
             IsAlreadyInFavourites = true;
             SuccessfullyAdded = true;
@@ -117,6 +122,6 @@
             ErrorWhenAdding = true;
             IsAlreadyInFavourites = false;
             SuccessfullyAdded = false;
-        }
+        }*/
     }
 }

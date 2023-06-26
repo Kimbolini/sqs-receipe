@@ -65,7 +65,7 @@ namespace frontend.Services
         }
 
         //Send a meal over the API to the db and create it there
-        public async Task<HttpResponseMessage> AddMealDtoToFavourites(MealDto meal)
+        public async Task AddMealDtoToFavourites(MealDto meal)
         {
             var tmp = JsonConvert.SerializeObject(meal);
             var data = new StringContent(tmp, Encoding.UTF8, "application/json");
@@ -77,8 +77,11 @@ namespace frontend.Services
             if (response.IsSuccessStatusCode)
             {
                 _cacheService.AddToFavourites(meal.StrId);
+            } else
+            {
+                //here
             }
-            return response;
+            
         }
     }
 

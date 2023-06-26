@@ -1,4 +1,5 @@
-﻿using backend.Persistence;
+﻿using backend.Application;
+using backend.Persistence;
 using Microsoft.EntityFrameworkCore;
 
 namespace backend.Models
@@ -9,9 +10,9 @@ namespace backend.Models
      */
     public class DatabaseContext : DbContext
     {
-        public DbSet<Meal> Meals { get; set; }
-        public DbSet<Ingredient> Ingredients { get; set; }
-        public DbSet<MeasuredIngredient> MeasuredIngredients { get; set; }   
+        public DbSet<Meal> Meals => Set<Meal>();
+        public DbSet<Ingredient> Ingredients => Set<Ingredient>();
+        public DbSet<MeasuredIngredient> MeasuredIngredients => Set<MeasuredIngredient>();   
 
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
@@ -19,37 +20,31 @@ namespace backend.Models
         }
 
         
-        protected override void OnModelCreating(ModelBuilder builder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //one-to-many relationship between Ingredient & Measured Ingredient
-            builder.Entity<MeasuredIngredient>()
+            modelBuilder.Entity<MeasuredIngredient>()
                 .HasOne(e => e.Ingredient)
                 .WithMany(e => e.MeasuredIngredients)
                 //.HasForeignKey(e => e.IngredientId)
                 .IsRequired();
 
             //one-to-many relationship between Measured Ingredient & Meal
-            builder.Entity<MeasuredIngredient>()
+            modelBuilder.Entity<MeasuredIngredient>()
                 .HasOne(e => e.Meal)
                 .WithMany(e => e.MeasuredIngredients)
                 //.HasForeignKey(e => e.MealId)
                 .IsRequired();
 
             //ensure that the name of ingredients is unique
-            builder.Entity<Ingredient>()
+            modelBuilder.Entity<Ingredient>()
                 .HasIndex(i => i.Name)
                 .IsUnique();
 
             //seed tables
-            builder.Seed();
+            modelBuilder.Seed();
 
-            base.OnModelCreating(builder);
-        }
-
-        //only needed if onbeforesaving is used
-        public override int SaveChanges(bool acceptAllChangesOnSuccess)
-        {
-            return base.SaveChanges(acceptAllChangesOnSuccess);
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

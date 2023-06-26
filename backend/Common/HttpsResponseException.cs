@@ -20,7 +20,7 @@ namespace backend.Common
             this.Status = status;
             this.Value = exception.Message;
         }
-
+        
         protected HttpResponseException(SerializationInfo info, StreamingContext context)
         {
             //added protected constructor cause sonarcloud told me to.
