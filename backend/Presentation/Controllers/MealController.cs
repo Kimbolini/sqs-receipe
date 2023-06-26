@@ -30,7 +30,6 @@ namespace backend.Presentation.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<MealDto>> Get()
         {
-            //TODO: get meals vom Mealservice, get (measuredIngredients) + ingredients
             //von deren Service und dann hier zusammenfügen
             List<MealDto> tmplist = new();
             foreach(Meal m in _mealService.GetMeals())
