@@ -26,7 +26,7 @@ namespace backend.Application
         public MeasuredIngredient GetMeasuredIngredientById(int id)
         {
             var tmp = _context.MeasuredIngredients.SingleOrDefault(mi => mi.Id == id);
-            if (tmp == default(MeasuredIngredient) || (tmp == null))
+            if (tmp == default(MeasuredIngredient))
             {
                 throw new KeyNotFoundException();
             }
