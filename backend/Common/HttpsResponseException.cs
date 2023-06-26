@@ -22,6 +22,7 @@ namespace backend.Common
         }
         
         protected HttpResponseException(SerializationInfo info, StreamingContext context)
+            : base(info, context)
         {
             //added protected constructor cause sonarcloud told me to.
         }
