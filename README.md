@@ -84,7 +84,7 @@ Dieses Dokument beschreibt die Software-Architektur des Rezeptedatenbank-Systems
 
 ## Whitebox Gesamtsystem
 
-![Darstellung der Grobarchitektur](images/Grobarchitektur_grob.png)
+![Darstellung der Grobarchitektur](images/Grobarchitektur_grob.png){width=60em}
 
 Begründung
 
@@ -94,8 +94,9 @@ Enthaltene Bausteine
 
 | Name | Verantwortung |
 |--|--|
-| A | Das Frontend mit der graphischen Oberfläche und Logik, um mit der mealdb-API und dem Backend zu interagieren. |
-| B | Das Backend mit der Datenbank und dem Business Layer. Stellt Dienste zur Verfügung, um Daten aus der Datenbank zu holen/schreiben. |
+| A | Das Backend mit der Datenbank A1 und dem Business Layer A2. A2 stellt Dienste zur Verfügung, um Daten aus der Datenbank zu holen/schreiben. A3 dient dem Administrator zur Wartung. |
+| B | Das Frontend mit der graphischen Oberfläche B1 und Logik B2, um mit der mealdb-API und dem Backend zu interagieren. B3 dient dem Administrator zur Wartung und Einsicht des aktuellen Zustands des Systems. |
+
 
 Wichtige Schnittstellen
 
@@ -178,6 +179,8 @@ Wichtige Schnittstellen
 ...
 
 # Verteilungssicht 
+
+![Darstellung der Verteilungssicht](images/Komponentendiagramm.png)
 
 ## Infrastruktur Ebene 1 
 
