@@ -84,7 +84,7 @@ Dieses Dokument beschreibt die Software-Architektur des Rezeptedatenbank-Systems
 
 ## Whitebox Gesamtsystem
 
-![Darstellung der Grobarchitektur](images/Grobarchitektur_grob.png){width=60em}
+<img src="images/Grobarchitektur_grob.png"  width="80%">
 
 Begründung
 
@@ -180,7 +180,7 @@ Wichtige Schnittstellen
 
 # Verteilungssicht 
 
-![Darstellung der Verteilungssicht](images/Komponentendiagramm.png)
+<img src="images/Komponentendiagramm.png"  width="80%">
 
 ## Infrastruktur Ebene 1 
 
