@@ -225,10 +225,6 @@ namespace frontend.Services.DTO
                 this.Ingredients.Add(meal.strIngredient20);
                 this.Measures.Add(meal.strMeasure20);
             }
-            else
-            {
-                return;
-            }
         }
     }
 }
