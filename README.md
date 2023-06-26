@@ -64,6 +64,8 @@ Dieses Dokument beschreibt die Software-Architektur des Rezeptedatenbank-Systems
 
 # Kontextabgrenzung
 
+Nachfolgend wird das Umfeld beschrieben. Für welchen Nutzer das System erstellt wurde und mit welchen Fremdsystem es interagiert. 
+
 ## Fachlicher Kontext
 
 **\<Diagramm und/oder Tabelle>**
