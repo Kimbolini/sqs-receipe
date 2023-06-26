@@ -4,7 +4,7 @@ namespace backend.Common
 {
     public class HttpResponseException : Exception
     {
-        public int Status { get; set; } = 500;
+        public int Status { get; set; }
         public string Value { get; set; }
 
         public HttpResponseException(int status, string message) : base()
