@@ -7,18 +7,6 @@ namespace backend.Models
     [Table("Meals")]
     public class Meal
     {
-        private int _id;
-        private string _mealName;
-        private string? _drinkAlternative;
-        private string? _category;
-        private string? _area;
-        private string _instructions;
-        private string? _thumbnailUrl;
-        private string? _tags;
-        private string? _youtubeUrl;
-        private string? _source;
-        private string? _imageSource;
-        private string? _creativeCommonsConfirmed;
         private ICollection<MeasuredIngredient> _measuredIngredients;
 
         #region Constructors
@@ -37,25 +25,25 @@ namespace backend.Models
             string? createCommonsConfirmed
             )
         { 
-            _mealName = mealName;
-            _drinkAlternative = drinkAlternative;
-            _category = category;
-            _area = area;
-            _instructions = instructions;
-            _thumbnailUrl = thumbnailUrl;
-            _tags = tags;
-            _youtubeUrl = youtubeUrl;
-            _source = source;
-            _imageSource = imageSource;
-            _creativeCommonsConfirmed  = createCommonsConfirmed;
+            MealName = mealName;
+            DrinkAlternative = drinkAlternative;
+            Category = category;
+            Area = area;
+            Instructions = instructions;
+            ThumbnailUrl = thumbnailUrl;
+            Tags = tags;
+            YoutubeUrl = youtubeUrl;
+            Source = source;
+            ImageSource = imageSource;
+            CreativeCommonsConfirmend = createCommonsConfirmed;
             //initialize the ICollection to be a list as the attribute shouldn't be null
             _measuredIngredients = new List<MeasuredIngredient>();
         }
 
         public Meal(string mealName, string instructions)
         {
-            _mealName = mealName;
-            _instructions = instructions;
+            MealName = mealName;
+            Instructions = instructions;
             //initialize the ICollection to be a list as the attribute shouldn't be null
             _measuredIngredients = new List<MeasuredIngredient>();
         }
@@ -68,79 +56,31 @@ namespace backend.Models
 
         // Database-managed Id Attribute
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity), Key()]
-        public int MealId
-        {
-            get => _id;
-            set => _id = value;
-        }
+        public int MealId { get; set; }
 
         [Required]
-        public string MealName
-        {
-            get => _mealName;
-            set => _mealName = value;
-        }
+        public string MealName { get; set; }
 
-        public string? DrinkAlternative
-        {
-            get => _drinkAlternative;
-            set => _drinkAlternative = value;
-        }
+        public string? DrinkAlternative { get; set; }
 
-        public string? Category
-        {
-            get => _category;
-            set => _category = value;
-        }
+        public string? Category { get; set; }
 
-        public string? Area
-        {
-            get => _area;
-            set => _area = value;
-        }
+        public string? Area { get; set; }
 
         [Required]
-        public string Instructions
-        {
-            get => _instructions;
-            set => _instructions = value;
-        }
+        public string Instructions { get; set; }
 
-        public string? ThumbnailUrl
-        {
-            get => _thumbnailUrl;
-            set => _thumbnailUrl = value;
-        }
+        public string? ThumbnailUrl { get; set; }
 
-        public string? Tags
-        {
-            get => _tags;
-            set => _tags = value;
-        }
+        public string? Tags { get; set; }
 
-        public string? YoutubeUrl
-        {
-            get => _youtubeUrl;
-            set => _youtubeUrl = value;
-        }
+        public string? YoutubeUrl { get; set; }
 
-        public string? Source
-        {
-            get => _source; 
-            set => _source = value;
-        }
+        public string? Source { get; set; }
 
-        public string? ImageSource
-        {
-            get => _imageSource;
-            set => _imageSource = value;
-        }
+        public string? ImageSource { get; set; }
 
-        public string? CreativeCommonsConfirmend
-        {
-            get => _creativeCommonsConfirmed;
-            set => _creativeCommonsConfirmed = value;
-        }
+        public string? CreativeCommonsConfirmend { get; set; }
 
         #endregion
 

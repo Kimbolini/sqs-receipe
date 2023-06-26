@@ -8,14 +8,11 @@ namespace backend.Models
     [Table("MeasuredIngredients")]
     public class MeasuredIngredient
     {
-        private int _id;
-        private string _amountOf;
-
         #region Constructors
 
         public MeasuredIngredient(string amountOf, int ingredientId, int mealId)
         {
-            _amountOf = amountOf;
+            AmountOf = amountOf;
             IngredientId = ingredientId;
             MealId = mealId;
         }
@@ -28,18 +25,10 @@ namespace backend.Models
 
         // Database-managed Id Attribute
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity), Key()]
-        public int Id
-        {
-            get => _id;
-            set => _id = value;
-        }
+        public int Id { get; set; }
 
         [Required, MaxLength(100)]
-        public string AmountOf
-        {
-            get => _amountOf;
-            set => _amountOf = value;
-        }
+        public string AmountOf { get; set; }
 
         [Required]
         [ForeignKey("Ingredient")]
