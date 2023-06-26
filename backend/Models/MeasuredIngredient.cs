@@ -13,16 +13,6 @@ namespace backend.Models
 
         #region Constructors
 
-        /*
-        public MeasuredIngredient(string amountOf, Ingredient ingredient, Meal meal)
-        {
-            _amountOf = amountOf;
-            Ingredient = ingredient;
-            IngredientId = ingredient.Id;
-            Meal = meal;
-            MealId = meal.MealId;
-        }*/
-
         public MeasuredIngredient(string amountOf, int ingredientId, int mealId)
         {
             _amountOf = amountOf;
