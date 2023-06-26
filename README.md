@@ -8,7 +8,7 @@
 <details>
 <summary>Inhaltsverzeichnis2 </summary> 
 
-[Einführung und Ziele](#einführung-und-ziele) <br>
+[1 Einführung und Ziele](#1-einführung-und-ziele) <br>
 [Randbedingungen](#randbedingungen) <br>
 [Kontextabgrenzung](#kontextabgrenzung) <br>
 [Lösungsstrategie](#lösungsstrategie) <br>
@@ -36,9 +36,11 @@ Template Version 8.2 DE. (basiert auf AsciiDoc Version), Januar 2023
 Created, maintained and © by Dr. Peter Hruschka, Dr. Gernot Starke and
 contributors. Siehe <https://arc42.org>.
 
-# Einführung und Ziele
+# 1 Einführung und Ziele
 
 Dieses Dokument beschreibt die Software-Architektur des Rezeptedatenbank-Systems. Das System dient dem Finden und Abspeichern von Rezepten. Es soll im Internet einem breiten Publikum zur Verfügung stehen.
+
+[comment]: <> (#############################################################################)
 
 ## Qualitätsziele
 
@@ -47,30 +49,52 @@ Dieses Dokument beschreibt die Software-Architektur des Rezeptedatenbank-Systems
 
 | Stakeholder          | Erwartungshaltung                 |
 |-----------------|-----------------------------------|
-| Nutzer im Internet   | Schnelle, intuitive Bedienung und Funtkion der Website. Keine Bugs, keine Wartezeiten                  |
-| Entwickler   | refactorable, gut lesbarer Code                  |
-| API-Menschen?   | Kein Abuse ihrer API                |
+| Nutzer im Internet   | Schnelle, intuitive Bedienung und Funktion der Website. Keine Bugs, keine Wartezeiten.                |
+| Entwickler   | Gut wartbarer, erweiterbarer und lesbarer Code                  |
+| Betreiber der themealdb-API  | Kein Missbrauch ihrer API                |
 |     |               |
 
-
-test
+[comment]: <> (#############################################################################)
 
 # Randbedingungen
 
-| Randbedingung         | Erläuterung                 |
+### Technische Randbedingungen
+
+| Thema       | Erläuterung                 |
 |-----------------|-----------------------------------|
-| Grafische Oberfläche | Website  |
+| Grafische Oberfläche | Nutzer können mittels einer Website mit dem System interagieren |
 | Schutz vor Attacken | DDOs-Schutz, Eingabenschutz |
 | Skalierbarkeit | Falls die Nutzungshäufigkeit der Anwendung steigt  |
-| Datenschutz?  |   |
+| Programmiersprache | Das Rezeptsystem wurde fullstack in C# programmiert |
+| Betriebssysteme | Das Rezeptsystem unterstützt (mindestens) Windows, Linux und MacOS|
+| Betriebsmodi| Das Rezeptsystem kann aus den wichtigsten IDEs, von Buildservern und von der Kommandozeile aus gestartet werden.|
+| Build | .. baut sich selbst? |
+
+### Konventionen
+
+| Thema       | Erläuterung                 |
+|-----------------|-----------------------------------|
+| Source Code | Quelltextverwaltung bei GitHub, <br> https://github.com/Kimbolini/sqs-receipe |
+| Defect Tracking | Mittels GitHub issues: <br> https://github.com/Kimbolini/sqs-receipe/issues |
+
+[comment]: <> (#############################################################################)
 
 # Kontextabgrenzung
 
 Nachfolgend wird das Umfeld beschrieben. Für welchen Nutzer das System erstellt wurde und mit welchen Fremdsystem es interagiert. 
+https://www.embarc.de/arc42-starschnitt-gradle-schnipsel-nr-2-systemkontext/
+
+TODO: Bild erstellen wie im Link oben
+
+- Repository: Mittels Repository werden Abhängigkeiten, die für Builds erforderlich sind, aufgelöst 
+und erforderliche Artefakte bezogen ("Download"). Außerdem können Ergebnisse eines Builds in Repositories 
+veröffentlicht werden.
 
 ## Fachlicher Kontext
 
-**\<Diagramm und/oder Tabelle>**
+| Kommunikationspartner | Eingabe | Ausgabe |
+|--|--|
+| Nutzer - Website | Suchanfrage |  |
 
 **\<optional: Erläuterung der externen fachlichen Schnittstellen>**
 
@@ -82,7 +106,11 @@ Nachfolgend wird das Umfeld beschrieben. Für welchen Nutzer das System erstellt
 
 **\<Mapping fachliche auf technische Schnittstellen>**
 
+[comment]: <> (#############################################################################)
+
 # Lösungsstrategie
+
+[comment]: <> (#############################################################################)
 
 # Bausteinsicht
 
@@ -165,7 +193,11 @@ Wichtige Schnittstellen
 
 *\<Whitebox-Template>*
 
+[comment]: <> (#############################################################################)
+
 # Laufzeitsicht 
+
+Hier wäre das deployment via Docker relevant, wenn es denn umgesetzt werden würde.
 
 ## *\<Bezeichnung Laufzeitszenario 1>* 
 
@@ -174,15 +206,12 @@ Wichtige Schnittstellen
 -   \<hier Besonderheiten bei dem Zusammenspiel der Bausteine in diesem
     Szenario erläutern>
 
-## *\<Bezeichnung Laufzeitszenario 2>* 
 
-...
-
-## *\<Bezeichnung Laufzeitszenario n>* 
-
-...
+[comment]: <> (#############################################################################)
 
 # Verteilungssicht 
+
+Die Verteilungssicht des Systems soll im folgenden UML-Komponentendiagramm ersichtlich werden:
 
 <img src="images/Komponentendiagramm.png"  width="60%">
 
@@ -218,23 +247,29 @@ Zuordnung von Bausteinen zu Infrastruktur
 
 *\<Diagramm + Erläuterungen>*
 
+[comment]: <> (#############################################################################)
+
 # Querschnittliche Konzept
 
-## *\<Konzept 1>* 
+## *Logging* 
 
-*\<Erklärung>*
+Transaktionen in der Datenbank 
 
-## *\<Konzept 2>* 
+## *Transaktionalität* 
 
 *\<Erklärung>*
 
 ...
 
-## *\<Konzept n>* 
+## *Security* 
 
-*\<Erklärung>*
+Haben wir laut Leander nicht? Dachte schon?
+
+[comment]: <> (#############################################################################)
 
 # Architekturentscheidungen 
+
+[comment]: <> (#############################################################################)
 
 # Qualitätsanforderungen
 
@@ -249,15 +284,23 @@ der online-Dokumentation (auf Englisch!).
 
 ## Qualitätsszenarien 
 
+[comment]: <> (#############################################################################)
+
 # Risiken und technische Schulden
 
-# Was ist wie abgesichert
+[comment]: <> (#############################################################################)
+
+# Qualitätsmaßnahmen
+
+Was ist wie abgesichert
 
 - Performanceanforderungen - wieviel Anfragen pro Sekunde? Wie schnell?
 - Rest service testen - Unit-Tests?
 - Statische Codequalität abgesichert über .. 
 - Lint (z.B. für Dockerimage) 
 - Sync, trivy (Tools um zB wegen Dependencies zu überprüfen)
+
+[comment]: <> (#############################################################################)
 
 # Glossar
 
