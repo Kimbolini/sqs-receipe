@@ -77,11 +77,7 @@ namespace frontend.Services
             if (response.IsSuccessStatusCode)
             {
                 _cacheService.AddToFavourites(meal.StrId);
-            } else
-            {
-                //here
             }
-            
         }
     }
 

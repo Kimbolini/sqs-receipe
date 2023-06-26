@@ -3,7 +3,7 @@
     public class InternalCacheService
     {
         //save the API Ids of the favourites
-        private List<string> _favourites;
+        private readonly List<string> _favourites;
 
         public InternalCacheService() 
         { 
