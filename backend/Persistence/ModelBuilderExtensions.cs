@@ -25,7 +25,7 @@ namespace backend.Persistence
         public static void Seed(this ModelBuilder builder)
         {
             
-            // pre-fill table Ingredients
+            // pre-fill table Ingredients from official list of the mealdb-API
             List<string> ingredients = new()
             {
                 "Absinthe",
@@ -39,41 +39,7 @@ namespace backend.Persistence
             {
                 builder.Entity<Ingredient>().HasData(new Ingredient { Id = ctr + 1, Name = i });
                 ctr++;
-            }
-
-            //pre-fill table Meals
-
-
-            Meal tmp1 = new (
-                mealName: "SpaghettiFancy",
-                drinkAlternative: "",
-                category: "",
-                area: "Italian",
-                instructions: "First do this, then that",
-                thumbnailUrl: "https://sth",
-                tags: "pasta",
-                youtubeUrl: "",
-                source: "",
-                imageSource: "",
-                createCommonsConfirmed: ""
-                );
-            Meal tmp2 = new (
-                mealName: "SpaghettiItaliaaaa",
-                drinkAlternative: "",
-                category: "",
-                area: "Italian",
-                instructions: "First do this, then that",
-                thumbnailUrl: "https://sth",
-                tags: "pasta",
-                youtubeUrl: "",
-                source: "",
-                imageSource: "",
-                createCommonsConfirmed: ""
-                );
-            tmp1.MealId = 1;
-            tmp2.MealId = 2;
-            builder.Entity<Meal>().HasData(tmp1);
-            builder.Entity<Meal>().HasData(tmp2);
+            } 
         }
     }
 }

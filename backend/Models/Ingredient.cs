@@ -6,17 +6,14 @@ namespace backend.Models
     [Table("Ingredients")]
     public class Ingredient
     {
-        private int _id;
-        private string _name;
-        private string? _description;
-        private ICollection<MeasuredIngredient> _measuredIngredients; //Needed?
+        private ICollection<MeasuredIngredient> _measuredIngredients; 
 
         #region Constructors
 
         public Ingredient(string name, string? description)
         {
-            _name = name;
-            _description = description ?? "";
+            Name = name;
+            Description = description ?? "";
             //initialize the meals to be a list as the attribute shouldn't be null
             _measuredIngredients = new List<MeasuredIngredient>();
         }
@@ -29,24 +26,12 @@ namespace backend.Models
 
         // Database-managed Id Attribute
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity), Key()]
-        public int Id
-        {
-            get => _id;
-            set => _id = value;
-        }
+        public int Id { get; set; }
 
         [Required, MaxLength(100)]
-        public string Name
-        {
-            get => _name;
-            set => _name = value;
-        }
+        public string Name { get; set; }
 
-        public string? Description
-        {
-            get => _description;
-            set => _description = value;
-        }
+        public string? Description { get; set; }
 
         #endregion
 
