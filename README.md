@@ -19,7 +19,6 @@
 
 # 
 
-
 # 1 Einführung und Ziele
 
 Dieses Dokument beschreibt die Software-Architektur des Rezepte-Systems. Das System dient dem Finden und Abspeichern von Rezepten. Es soll im Internet einem breiten Publikum zur Verfügung stehen.
@@ -132,32 +131,40 @@ Was ist wie abgesichert
 
 # Bausteinsicht
 
-## Whitebox Gesamtsystem
+Dieses Kapitel beschreibt die Zerlegung des Rezeptesystem in Module, wie sie auch in der Ordnerstruktur des C#-Quelltextes zu finden sind.
 
-<img src="images/Grobarchitektur_grob.png"  width="60%">
+## Whitebox Gesamtsicht
 
-Begründung
+<img src="images/Komponentendiagramm.png"  width="60%">
 
-Frontend und Backend werden zur Kapselung der Businesslogik und für bessere Skalierbarkeit aufgeteilt.
+## Ebene 1 
 
-Enthaltene Bausteine
+Das Rezeptesystem besteht aus zwei großen Subsystemen, die als zwei separate Visual-Studio-Projekte realisiert wurden.
 
-| Name | Verantwortung |
+//TODO: Bild
+
+| Name | Kurzbeschreibung |
 |--|--|
-| A | Das Backend mit der Datenbank A1 und dem Business Layer A2. A2 stellt Dienste zur Verfügung, um Daten aus der Datenbank zu holen/schreiben. A3 dient dem Administrator zur Wartung. |
-| B | Das Frontend mit der graphischen Oberfläche B1 und Logik B2, um mit der mealdb-API und dem Backend zu interagieren. B3 dient dem Administrator zur Wartung und Einsicht des aktuellen Zustands des Systems. |
+| frontend | Enthält die graphische Oberfläche zur Interaktion mit Nutzern und Logik, um mit der mealdb-API und dem Backend zu interagieren. |
+| backend | Das Backend mit der Datenbank und dem Business Layer. B2 stellt Dienste zur Verfügung, um Daten aus der Datenbank zu holen/schreiben. |
 
+### Frontend (Blackbox)
+##### Zweck/Verantwortlichkeit
 
-Wichtige Schnittstellen
+Dieses Subsystem stellt dem Nutzer eine grafische Oberfläche (GUI) zur Interaktion zur Verfügung. Die GUI besitzt zwei Seiten, die der Nutzer direkt aufrufen kann: _Home.razor_ und _Favoriten.razor_. 
 
-- Frontend - themealdb API: Kommunikation über REST-Schnittstelle der mealdb-API
-- Frontend - backend: Die beiden Dienste kommunizieren über eine REST-Schnittstelle
+//TODO: Bild
 
-### \<Name Blackbox 1> 
+##### Schnittstellen
 
-*\<Zweck/Verantwortung>*
+Das Subsystem stellt seine Funktionalität der Rezeptsuche über die Klassen _Program.cs_ und _MealsAtAPIService.cs_ zur Verfügung. _MealsAtAPIService_ wird dabei als Singleton vor Programmstart definiert und der Home-Website als Service zur Verfügung gestellt.
 
-*\<Schnittstelle(n)>*
+<img src="images/frontendRezeptsuche.png"  width="60%">
+
+| Methode | Kurzbeschreibung |
+|--|--|
+|  | | 2min
+
 
 *\<(Optional) Qualitäts-/Leistungsmerkmale>*
 
@@ -167,7 +174,7 @@ Wichtige Schnittstellen
 
 *\<(optional) Offene Punkte/Probleme/Risiken>*
 
-### \<Name Blackbox 2> 
+### Backend (Blackbox)
 
 *\<Blackbox-Template>*
 
@@ -185,7 +192,8 @@ Wichtige Schnittstellen
 
 ### Whitebox *\<Baustein 1>* 
 
-*\<Whitebox-Template>*
+Datenbank:
+<img src="images/Datenbankschema.png"  width="60%">
 
 ### Whitebox *\<Baustein 2>* 
 
@@ -231,7 +239,7 @@ Hier wäre das deployment via Docker relevant, wenn es denn umgesetzt werden wü
 
 Die Verteilungssicht des Systems soll im folgenden UML-Komponentendiagramm ersichtlich werden:
 
-<img src="images/Komponentendiagramm.png"  width="60%">
+
 
 ## Infrastruktur Ebene 1 
 
@@ -287,6 +295,10 @@ Haben wir laut Leander nicht? Dachte schon?
 
 # Architekturentscheidungen 
 
+Fullstack .net core
+Frontend: Blazor C#
+Backend: C# mit mysql db
+
 [comment]: <> (#############################################################################)
 
 # Qualitätsanforderungen
@@ -309,6 +321,10 @@ der online-Dokumentation (auf Englisch!).
 [comment]: <> (#############################################################################)
 
 # Glossar
+
+| | Erläuterung |
+|--|--|
+| GUI | Graphical User Interface - Die grafische Oberfläche zur Interaktion mit dem Nutzer. Hier eine Website |
 
 [comment]: <> (#############################################################################)
 
