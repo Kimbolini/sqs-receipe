@@ -1,22 +1,18 @@
-<details>
-<summary>Inhaltsverzeichnis2 </summary> 
+# Inhaltsverzeichnis
 
-[1 Einführung und Ziele](#einführung-und-ziele) <br>
+[1 Einführung und Ziele](#einfuhrung-und-ziele) <br>
 [2 Randbedingungen](#randbedingungen) <br>
 [3 Kontextabgrenzung](#kontextabgrenzung) <br>
-[4 Lösungsstrategie](#lösungsstrategie) <br>
+[4 Lösungsstrategie](#losungsstrategie) <br>
 [5 Bausteinsicht](#bausteinsicht) <br>
 [6 Laufzeitsicht](#laufzeitsicht) <br>
 [7 Verteilungssicht](#verteilungssicht) <br>
 [8 Querschnittliche Konzepte](#querschnittliche-konzepte) <br>
 [9 Architekturentscheidungen](#architekturentscheidungen) <br>
-[10 Qualitätsanforderungen](#1qualitätsanforderungen) <br>
-[11 Risiken und technische Schulden](#1risiken-und-technische-schulden) <br>
+[10 Qualitätsanforderungen](#qualitatsanforderungen) <br>
+[11 Risiken und technische Schulden](#risiken-und-technische-schulden) <br>
 [Glossar](#glossar) <br>
 
-</details>
-
-# 
 
 # 1 Einführung und Ziele
 
@@ -107,14 +103,19 @@ veröffentlicht werden.
 
 | Qualitätsziel | Lösungsansatz im Rezeptsystem |
 |--|--|
-| Wartbarkeit | ----- |
+| **Wartbarkeit** | ----- |
 |  | - Die Codequalität wird mittels sonarcloud überprüft (https://sonarcloud.io/summary/overall?id=Kimbolini_sqs-receipe) |
-| Performance | ----- |
+| **Performance** | ----- |
 |  | K6 Lasttest |
-| Security | ----- |
-|  | github worker |
-| Skalierbarkeit | ----- |
+| **Security** | ----- |
+|  | - github worker <br> - Kapselung interner Services durch Businesslayer von nach außen sichtbaren Schnittstellen |
+| **Erweiterbarkeit**  | ----- |
+|  | Trennung in frontend und backend |
+| **Erlernbarkeit** | ---- |
+|  | - Nutzung der offiziellen C#-Coding-Konventionen <br> - Eindeutige Methoden- und Klassenbenennung <br> - Clean-Architecture <br> -> Führt zu einfach zu lesendem, gut geordnetem Quellcode |
+| **Skalierbarkeit** | ----- |
 |  | Relationales Datenbankschema, um Mehrfachabspeicherung von Zutaten zu vermeiden. |
+|  |  |
 |  |  |
 
 Was ist wie abgesichert
@@ -139,6 +140,8 @@ Das Rezeptesystem besteht aus zwei großen Subsystemen, die als separate Visual-
 
 <img src="images/Komponentendiagramm.png"  width="60%">
 
+<br>
+<br>
 
 | Name | Kurzbeschreibung |
 |--|--|
@@ -159,6 +162,8 @@ Das Subsystem stellt seine Funktionalität der Rezeptsuche über die Klassen  _M
 
 <img src="images/frontendRezeptsuche.png"  width="60%">
 
+<br>
+<br>
 
 | Methode | Kurzbeschreibung |
 |--|--|
@@ -229,6 +234,9 @@ Dieses nutzt interne Services, um mit der Datenbank zu interagieren.
 
 <img src="images/backendWhitebox.png"  width="60%">
 
+<br>
+<br>
+
 | Methode | Kurzbeschreibung |
 |--|--|
 | Get | Stellt alle Rezepte (Meals) aus der Datenbank zur Verfügung. |
@@ -256,6 +264,9 @@ Dadurch wird unter anderem garantiert, dass Zutaten (_Ingredients_) unabhängig 
 
 <img src="images/Datenbankschema.png"  width="60%">
 
+<br>
+<br>
+
 | Tabelle | Kurzbeschreibung |
 |--|--|
 | Meal | Enthält die Hauptdaten von Rezepten. Die Attribute sind anhand der übertragenen Daten aus der externen TheMealDB-API gewählt. Ein Minimalrezept enthält einen Namen, Instruktionen und mindestens eine Ingredient und ein MeasuredIngredient.|
@@ -266,7 +277,11 @@ Dadurch wird unter anderem garantiert, dass Zutaten (_Ingredients_) unabhängig 
 
 # 6 Laufzeitsicht 
 
-Hier wäre das deployment via Docker relevant, wenn es denn umgesetzt werden würde.
+Derzeit out of scope, da das Rezeptsystem nicht deployed wurde. 
+
+Für ein Deployment mit Docker, würde folgende Aufteilung in Frage kommen:
+
+//TODO Bild
 
 ## *\<Bezeichnung Laufzeitszenario 1>* 
 
@@ -358,9 +373,14 @@ der online-Dokumentation (auf Englisch!).
 
 # Glossar
 
-| | Erläuterung |
+| Begriff | Erläuterung |
 |--|--|
-| GUI | Graphical User Interface - Die grafische Oberfläche zur Interaktion mit dem Nutzer. Hier eine Website |
+| API | Application Programming Interface. In diesem Dokument nur REST-APIs. |
+| backend | Bezeichnet in diesem Dokument das Subsystem, das Datenbank und Businesslayer enthält. |
+| frontend | Bezeichnet in diesem Dokument das Subsystem, das die GUI und Logik zur Interaktion mit dem backend enthält. |
+| GUI | Graphical User Interface - Die grafische Oberfläche zur Interaktion mit dem Nutzer. Hier eine Website. |
+| REST |  |
+
 
 [comment]: <> (#############################################################################)
 
