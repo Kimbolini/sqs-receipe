@@ -1,16 +1,16 @@
 # Inhaltsverzeichnis
 
-[1 Einführung und Ziele](#einfuhrung-und-ziele) <br>
-[2 Randbedingungen](#randbedingungen) <br>
-[3 Kontextabgrenzung](#kontextabgrenzung) <br>
-[4 Lösungsstrategie](#losungsstrategie) <br>
-[5 Bausteinsicht](#bausteinsicht) <br>
-[6 Laufzeitsicht](#laufzeitsicht) <br>
-[7 Verteilungssicht](#verteilungssicht) <br>
-[8 Querschnittliche Konzepte](#querschnittliche-konzepte) <br>
-[9 Architekturentscheidungen](#architekturentscheidungen) <br>
-[10 Qualitätsanforderungen](#qualitatsanforderungen) <br>
-[11 Risiken und technische Schulden](#risiken-und-technische-schulden) <br>
+[1 Einführung und Ziele](#1-einführung-und-ziele) <br>
+[2 Randbedingungen](#2-randbedingungen) <br>
+[3 Kontextabgrenzung](#3-kontextabgrenzung) <br>
+[4 Lösungsstrategie](#4-lösungsstrategie) <br>
+[5 Bausteinsicht](#5-bausteinsicht) <br>
+[6 Laufzeitsicht](#6-laufzeitsicht) <br>
+[7 Verteilungssicht](#7-verteilungssicht) <br>
+[8 Querschnittliche Konzepte](#8-querschnittliche-konzepte) <br>
+[9 Architekturentscheidungen](#9-architekturentscheidungen) <br>
+[10 Qualitätsanforderungen](#10-qualitätsanforderungen) <br>
+[11 Risiken und technische Schulden](#11-risiken-und-technische-schulden) <br>
 [Glossar](#glossar) <br>
 
 
