@@ -1,11 +1,4 @@
 <details>
-<summary>Inhaltsverzeichnis </summary> 
-
-[[_TOC_]]
-
-</details>
-
-<details>
 <summary>Inhaltsverzeichnis2 </summary> 
 
 [1 Einführung und Ziele](#1-einführung-und-ziele) <br>
@@ -29,13 +22,11 @@
 
 # 1 Einführung und Ziele
 
-Dieses Dokument beschreibt die Software-Architektur des Rezeptedatenbank-Systems. Das System dient dem Finden und Abspeichern von Rezepten. Es soll im Internet einem breiten Publikum zur Verfügung stehen.
+Dieses Dokument beschreibt die Software-Architektur des Rezepte-Systems. Das System dient dem Finden und Abspeichern von Rezepten. Es soll im Internet einem breiten Publikum zur Verfügung stehen.
 
 [comment]: <> (#############################################################################)
 
 ## Qualitätsziele
-
-
 
 Die folgende Tabelle beschreibt die zentralen Qualitätsziele des Rezeptesystems. Die Reihenfolge gibt dabei eine grobe Orientierung bezüglich der Wichtigkeit vor. 
 Die Umsetzung derQualitätsziem im Kapitel Lösungsstrategie zu finden.
@@ -52,9 +43,11 @@ Die Umsetzung derQualitätsziem im Kapitel Lösungsstrategie zu finden.
 
 ## Stakeholder
 
+Die folgende Tabelle stellt die Stakeholder des Repetesystems und deren jeweilige Erwartungshaltung und Interessen dar.
+
 | Stakeholder          | Erwartungshaltung                 |
 |-----------------|-----------------------------------|
-| Nutzer im Internet   | Schnelle, intuitive Bedienung und Funktion der Website. Keine Bugs, keine Wartezeiten.                |
+| Nutzer im Internet   | - Schnelle, intuitive Bedienung und Funktion der Website <br> - Keine Bugs <br> - keine Wartezeiten            |
 | Entwickler   | Gut wartbarer, erweiterbarer und lesbarer Code                  |
 | Betreiber der themealdb-API  | Kein Missbrauch ihrer API                |
 
