@@ -1,18 +1,17 @@
 <details>
 <summary>Inhaltsverzeichnis2 </summary> 
 
-[1 Einführung und Ziele](#1-einführung-und-ziele) <br>
-[Randbedingungen](#randbedingungen) <br>
-[Kontextabgrenzung](#kontextabgrenzung) <br>
-[Lösungsstrategie](#lösungsstrategie) <br>
-[Bausteinsicht](#bausteinsicht) <br>
-[Laufzeitsicht](#laufzeitsicht) <br>
-[Verteilungssicht](#verteilungssicht) <br>
-[Querschnittliche Konzept](#querschnittliche-konzept) <br>
-[Architekturentscheidungen](#architekturentscheidungen) <br>
-[Qualitätsanforderungen](#qualitätsanforderungen) <br>
-[Risiken und technische Schulden](#risiken-und-technische-schulden) <br>
-[Was ist wie abgesichert](#was-ist-wie-abgesichert) <br>
+[1 Einführung und Ziele](#einführung-und-ziele) <br>
+[2 Randbedingungen](#randbedingungen) <br>
+[3 Kontextabgrenzung](#kontextabgrenzung) <br>
+[4 Lösungsstrategie](#lösungsstrategie) <br>
+[5 Bausteinsicht](#bausteinsicht) <br>
+[6 Laufzeitsicht](#laufzeitsicht) <br>
+[7 Verteilungssicht](#verteilungssicht) <br>
+[8 Querschnittliche Konzepte](#querschnittliche-konzepte) <br>
+[9 Architekturentscheidungen](#architekturentscheidungen) <br>
+[10 Qualitätsanforderungen](#1qualitätsanforderungen) <br>
+[11 Risiken und technische Schulden](#1risiken-und-technische-schulden) <br>
 [Glossar](#glossar) <br>
 
 </details>
@@ -25,7 +24,7 @@ Dieses Dokument beschreibt die Software-Architektur des Rezepte-Systems. Das Sys
 
 [comment]: <> (#############################################################################)
 
-## Qualitätsziele
+## 1.1 Qualitätsziele
 
 Die folgende Tabelle beschreibt die zentralen Qualitätsziele des Rezeptesystems. Die Reihenfolge gibt dabei eine grobe Orientierung bezüglich der Wichtigkeit vor. 
 Die Umsetzung derQualitätsziem im Kapitel Lösungsstrategie zu finden.
@@ -40,7 +39,7 @@ Die Umsetzung derQualitätsziem im Kapitel Lösungsstrategie zu finden.
 | Skalierbarkeit | Auch wenn das System wächst und Builds umfangreicher werden, bleibt das Rezeptesystem handhabbar und effizient. |
 |  |  |
 
-## Stakeholder
+## 1.2 Stakeholder
 
 Die folgende Tabelle stellt die Stakeholder des Repetesystems und deren jeweilige Erwartungshaltung und Interessen dar.
 
@@ -52,9 +51,9 @@ Die folgende Tabelle stellt die Stakeholder des Repetesystems und deren jeweilig
 
 [comment]: <> (#############################################################################)
 
-# Randbedingungen
+# 2 Randbedingungen
 
-### Technische Randbedingungen
+## 2.1 Technische Randbedingungen
 
 | Thema       | Erläuterung                 |
 |-----------------|-----------------------------------|
@@ -65,7 +64,7 @@ Die folgende Tabelle stellt die Stakeholder des Repetesystems und deren jeweilig
 | Betriebsmodi| Das Rezeptsystem kann aus den wichtigsten IDEs, von Buildservern und von der Kommandozeile aus gestartet werden.|
 | Build | .. baut sich selbst? |
 
-### Konventionen
+## 2.2 Konventionen
 
 | Thema       | Erläuterung                 |
 |-----------------|-----------------------------------|
@@ -75,7 +74,7 @@ Die folgende Tabelle stellt die Stakeholder des Repetesystems und deren jeweilig
 
 [comment]: <> (#############################################################################)
 
-# Kontextabgrenzung
+# 3 Kontextabgrenzung
 
 Nachfolgend wird das Umfeld beschrieben. Für welchen Nutzer das System erstellt wurde und mit welchen Fremdsystem es interagiert. 
 https://www.embarc.de/arc42-starschnitt-gradle-schnipsel-nr-2-systemkontext/
@@ -86,7 +85,7 @@ TODO: Bild erstellen wie im Link oben
 und erforderliche Artefakte bezogen ("Download"). Außerdem können Ergebnisse eines Builds in Repositories 
 veröffentlicht werden.
 
-## Fachlicher Kontext
+## 3.1 Fachlicher Kontext
 
 | Kommunikationspartner | Eingabe | Ausgabe |
 |--|--|--|
@@ -94,7 +93,7 @@ veröffentlicht werden.
 
 **\<optional: Erläuterung der externen fachlichen Schnittstellen>**
 
-## Technischer Kontext
+## 3.2 Technischer Kontext
 
 **\<Diagramm oder Tabelle>**
 
@@ -104,7 +103,7 @@ veröffentlicht werden.
 
 [comment]: <> (#############################################################################)
 
-# Lösungsstrategie
+# 4 Lösungsstrategie
 
 | Qualitätsziel | Lösungsansatz im Rezeptsystem |
 |--|--|
@@ -114,8 +113,8 @@ veröffentlicht werden.
 |  | K6 Lasttest |
 | Security | ----- |
 |  | github worker |
-|  |  |
-|  |  |
+| Skalierbarkeit | ----- |
+|  | Relationales Datenbankschema, um Mehrfachabspeicherung von Zutaten zu vermeiden. |
 |  |  |
 
 Was ist wie abgesichert
@@ -129,99 +128,143 @@ Was ist wie abgesichert
 
 [comment]: <> (#############################################################################)
 
-# Bausteinsicht
+# 5 Bausteinsicht
 
 Dieses Kapitel beschreibt die Zerlegung des Rezeptesystem in Module, wie sie auch in der Ordnerstruktur des C#-Quelltextes zu finden sind.
 
-## Whitebox Gesamtsicht
+## 5.1 Ebene 1 
+
+Das Rezeptesystem besteht aus zwei großen Subsystemen, die als separate Visual-Studio-Projekte realisiert wurden.
+
 
 <img src="images/Komponentendiagramm.png"  width="60%">
 
-## Ebene 1 
-
-Das Rezeptesystem besteht aus zwei großen Subsystemen, die als zwei separate Visual-Studio-Projekte realisiert wurden.
-
-//TODO: Bild
 
 | Name | Kurzbeschreibung |
 |--|--|
-| frontend | Enthält die graphische Oberfläche zur Interaktion mit Nutzern und Logik, um mit der mealdb-API und dem Backend zu interagieren. |
+| frontend | Enthält die graphische Oberfläche zur Interaktion mit Nutzern und Logik, um mit der TheMealDB-API und dem Backend zu interagieren. |
 | backend | Das Backend mit der Datenbank und dem Business Layer. B2 stellt Dienste zur Verfügung, um Daten aus der Datenbank zu holen/schreiben. |
 
-### Frontend (Blackbox)
-##### Zweck/Verantwortlichkeit
+## 5.2 Frontend (Blackbox)
+
+<img src="images/frontendBlackbox.png"  width="60%">
+
+### Zweck/Verantwortlichkeit
 
 Dieses Subsystem stellt dem Nutzer eine grafische Oberfläche (GUI) zur Interaktion zur Verfügung. Die GUI besitzt zwei Seiten, die der Nutzer direkt aufrufen kann: _Home.razor_ und _Favoriten.razor_. 
 
-//TODO: Bild
+### Schnittstellen
 
-##### Schnittstellen
-
-Das Subsystem stellt seine Funktionalität der Rezeptsuche über die Klassen _Program.cs_ und _MealsAtAPIService.cs_ zur Verfügung. _MealsAtAPIService_ wird dabei als Singleton vor Programmstart definiert und der Home-Website als Service zur Verfügung gestellt.
+Das Subsystem stellt seine Funktionalität der Rezeptsuche über die Klassen  _MealsAtAPIService.cs_ und _MealsInDbService.cs_ zur Verfügung. _MealsAtAPIService_ wird dabei als Singleton vor Programmstart definiert und der Home-Website als Service zur Verfügung gestellt.
 
 <img src="images/frontendRezeptsuche.png"  width="60%">
 
+
 | Methode | Kurzbeschreibung |
 |--|--|
-|  | | 2min
+| GetMealsFromAPI | Stellt eine GET-Anfrage an die TheMealDB-API für >= 1 Rezept. Dabei kann optional ein Suchbegriff mit übergeben werden. ||
+| GetMealsFromDB | Stellt eine GET-Anfrage an das interne REST-Interface für alle verfügbaren Rezepte. |
+
+### Ablageort/Datei
+
+Der Code der Hauptseiten der Website ist unter _/frontend/Pages_ zu finden. Serviceklassen sind unter _/frontend/Services_ abgelegt. <br>
+Eine Vorschau der zurückgegebenen Rezepte der TheMealDB-API wird durch die wiederverwendbaren Komponenten _MealPreviewListComp_ und _MealPreviewCardComp_ dargestellt. 
+Diese sind unter _/frontend/Shared_ zu finden.
+
+### Offene Punkte
+
+Um in einem Multinutzerszenario sinnvolle Favoriten zur Verfügung stellen zu können, ist eine nutzerabhängige Unterscheidung und Speicherung der favorisierten Rezepte notwendig.
+Dies könnte z.B. durch einen Login realisiert werden.
+
+[comment]: <> (---------------------------------------------------------------------------)
+
+## 5.3 Frontend - Ebene 2: Rezeptdetails
+
+<img src="images/frontendMealDetail.png"  width="60%">
+
+### Zweck/Verantwortlichkeit
+
+Das Subsystem _frontend_ stellt die Möglichkeit zur Verfügung eine Detailseite von Rezepten aufzurufen und dort das Rezept den eigenen Favoriten hinzuzfügen.
+Wird ein Rezept als Favorit markiert, wird es in die Datenbank gespeichert. 
+
+### Schnittstellen
+
+Das Modul stellt seine Funktionalität über die Klassen _MealsAtAPIService.cs_ und _MealsInDbService.cs_ zur Verfügung.
+Die Seite _MealDetail_ entscheidet dabei anhand von URL-Parametern, welche der beiden Klassen benötigt wird.
+
+| Methode | Kurzbeschreibung |
+|--|--|
+| GetMealByIdFromAPI | Stellt eine GET-Anfrage für ein spezifisches Rezept and die TheMealDB-API. |
+| GetMealById | Stellt eine GET-Anfrage an das interne REST-Interface für ein spezifisches Rezept aus der Datenbank. |
+| AddMealDtoToFavourites | Stellt eine POST-Anfrage an das interne REST-Interface um ein Rezept in die Datenbank zu speichern.|
+
+### Ablageort/Datei
+
+Die Detailseite von Rezepten zählt zu den Hauptseiten der Website und ist somit unter _/frontend/Pages_ abgelegt.
+Die Serviceklassen unter _/frontend/Services_.
+
+### Offene Punkte
+
+- Die TheMealDB-API übermittelt mehr Daten als auf der Detailseite von Rezepten dargestellt werden. 
+Die Daten stehen dem Subsystem _frontend_ zur Verfügung, werden allerdings noch nicht auf der Detailseite angezeigt.
+- Im Subsystem _backend_ steht die Funktion zum Löschen eines Rezeptes aus der Datenbank teilweise zur Verfügung. 
+Dadurch könnte ein Rezept aus den Favoriten entfernt werden. Diese Funktion ist im Subsystem _frontend_ bisher nicht implementiert.
+- Falls es beim Hinzufügen eines Rezeptes zu den Favoriten zu einem Fehler kommt, erscheint fälschlicherweise eine Erfolgsmeldung für den Nutzer.
+
+[comment]: <> (---------------------------------------------------------------------------)
+
+## 5.4 Backend (Blackbox)
+
+<img src="images/backendBlackbox.png"  width="60%">
+
+### Zweck/Verantwortlichkeit
+
+Dieses Subsystem enhält die Datenbank, die favorisierte Rezepte abspeichert und stellt eine REST-Schnittstelle zur Interaktion mit der Datenabank zur Verfügung.
 
 
-*\<(Optional) Qualitäts-/Leistungsmerkmale>*
+### Schnittstellen
 
-*\<(Optional) Ablageort/Datei(en)>*
+Das Subsystem stellt seine Funktionalität über das Interface _MealController_ zur Verfügung. 
+Dieses nutzt interne Services, um mit der Datenbank zu interagieren.
 
-*\<(Optional) Erfüllte Anforderungen>*
+<img src="images/backendWhitebox.png"  width="60%">
 
-*\<(optional) Offene Punkte/Probleme/Risiken>*
+| Methode | Kurzbeschreibung |
+|--|--|
+| Get | Stellt alle Rezepte (Meals) aus der Datenbank zur Verfügung. |
+| Get(id) | Stellt ein spefizisches Rezept (Meal) aus der Datenbank zur Verfügung. |
+| Post | Stellt die Möglichkeit zur Verfügung ein neues Rezept in die Datenbank zu speichern. |
+| CreateMeal |  |
+| GetMealById |  |
+| GetMeals |  |
+| RemoveMealById |  |
 
-### Backend (Blackbox)
+Die Methoden von _IngredientService_ und _MeasuredIngredientService_ funktionieren analog zu denen des _MealServices_ und was die Benennung vermuten lässt.
 
-*\<Blackbox-Template>*
+### Ablageort/Datei
 
-### \<Name Blackbox n> 
+Controller sind - wie alle Klassen/Methoden, die nach außen exposed werden - unter _/backend/Presentation/Controller_ abgelegt. 
+Die internen Service-Klassen sind unter _/backend/Application_ gespeichert und werden als Teil des Businesslayers betrachtet.
 
-*\<Blackbox-Template>*
+### Offene Punkte
+- Im _MealController_ besteht eine Methode, um Rezepte zu löschen. Es fehlt eine passende Methode in _MeasuredIngredientService_, um die Funktionalität zu vervollständigen.
 
-### \<Name Schnittstelle 1> 
+## 5.5 Backend - Ebene 2: Datenbank
 
-...
+Die Rezepte werden nach nachfolgendem relationalen Datenbankschema abgelegt. 
+Dadurch wird unter anderem garantiert, dass Zutaten (_Ingredients_) unabhängig von Rezepeten (_Meals_) existieren können und nicht mehrfach abgespeichert werden.
 
-### \<Name Schnittstelle m> 
-
-## Ebene 2
-
-### Whitebox *\<Baustein 1>* 
-
-Datenbank:
 <img src="images/Datenbankschema.png"  width="60%">
 
-### Whitebox *\<Baustein 2>* 
-
-*\<Whitebox-Template>*
-
-...
-
-### Whitebox *\<Baustein m>* 
-
-*\<Whitebox-Template>*
-
-## Ebene 3
-
-### Whitebox \<\_Baustein x.1\_\> 
-
-*\<Whitebox-Template>*
-
-### Whitebox \<\_Baustein x.2\_\> 
-
-*\<Whitebox-Template>*
-
-### Whitebox \<\_Baustein y.1\_\> 
-
-*\<Whitebox-Template>*
+| Tabelle | Kurzbeschreibung |
+|--|--|
+| Meal | Enthält die Hauptdaten von Rezepten. Die Attribute sind anhand der übertragenen Daten aus der externen TheMealDB-API gewählt. Ein Minimalrezept enthält einen Namen, Instruktionen und mindestens eine Ingredient und ein MeasuredIngredient.|
+| Ingredient | Zutaten von Rezepten. |
+| MeasuredIngredient | Kombiniert Rezepte mit den Zutaten und fügt für jede Zutat die benötigte Menge hinzu. |
 
 [comment]: <> (#############################################################################)
 
-# Laufzeitsicht 
+# 6 Laufzeitsicht 
 
 Hier wäre das deployment via Docker relevant, wenn es denn umgesetzt werden würde.
 
@@ -235,13 +278,11 @@ Hier wäre das deployment via Docker relevant, wenn es denn umgesetzt werden wü
 
 [comment]: <> (#############################################################################)
 
-# Verteilungssicht 
-
-Die Verteilungssicht des Systems soll im folgenden UML-Komponentendiagramm ersichtlich werden:
+# 7 Verteilungssicht 
 
 
 
-## Infrastruktur Ebene 1 
+## 7. 1 Infrastruktur Ebene 1 
 
 ***\<Übersichtsdiagramm>***
 
@@ -257,7 +298,7 @@ Zuordnung von Bausteinen zu Infrastruktur
 
 :   *\<Beschreibung der Zuordnung>*
 
-## Infrastruktur Ebene 2
+## 7.2 Infrastruktur Ebene 2
 
 ### *\<Infrastrukturelement 1>* 
 
@@ -267,33 +308,28 @@ Zuordnung von Bausteinen zu Infrastruktur
 
 *\<Diagramm + Erläuterungen>*
 
-...
-
-### *\<Infrastrukturelement n>* 
-
-*\<Diagramm + Erläuterungen>*
 
 [comment]: <> (#############################################################################)
 
-# Querschnittliche Konzepte
+# 8 Querschnittliche Konzepte
 
-## *Logging* 
+## 8.1 *Logging* 
 
 Transaktionen in der Datenbank werden mittels Logger aufgezeichnet.
 
-## *Transaktionalität* 
+## 8.2 *Transaktionalität* 
 
 *\<Erklärung>*
 
 ...
 
-## *Security* 
+## 8.3 *Security* 
 
 Haben wir laut Leander nicht? Dachte schon?
 
 [comment]: <> (#############################################################################)
 
-# Architekturentscheidungen 
+# 9 Architekturentscheidungen 
 
 Fullstack .net core
 Frontend: Blazor C#
@@ -301,7 +337,7 @@ Backend: C# mit mysql db
 
 [comment]: <> (#############################################################################)
 
-# Qualitätsanforderungen
+# 10 Qualitätsanforderungen
 
 ::: formalpara-title
 **Weiterführende Informationen**
@@ -310,13 +346,13 @@ Backend: C# mit mysql db
 Siehe [Qualitätsanforderungen](https://docs.arc42.org/section-10/) in
 der online-Dokumentation (auf Englisch!).
 
-## Qualitätsbaum 
+## 10.1 Qualitätsbaum 
 
-## Qualitätsszenarien 
+## 10.2 Qualitätsszenarien 
 
 [comment]: <> (#############################################################################)
 
-# Risiken und technische Schulden
+# 11 Risiken und technische Schulden
 
 [comment]: <> (#############################################################################)
 
