@@ -13,7 +13,7 @@ namespace backend.Common
         protected InternalException(SerializationInfo info, StreamingContext context)
             : base(info, context) 
         {
-            //added protected constructor cause sonarcloud told me to.
+            //Without this constructor, deserialization will fail
         }
     }
 }
