@@ -26,15 +26,6 @@
 
 # 
 
-**Über arc42**
-
-arc42, das Template zur Dokumentation von Software- und
-Systemarchitekturen.
-
-Template Version 8.2 DE. (basiert auf AsciiDoc Version), Januar 2023
-
-Created, maintained and © by Dr. Peter Hruschka, Dr. Gernot Starke and
-contributors. Siehe <https://arc42.org>.
 
 # 1 Einführung und Ziele
 
@@ -44,15 +35,28 @@ Dieses Dokument beschreibt die Software-Architektur des Rezeptedatenbank-Systems
 
 ## Qualitätsziele
 
-## Stakeholder
 
+
+Die folgende Tabelle beschreibt die zentralen Qualitätsziele des Rezeptesystems. Die Reihenfolge gibt dabei eine grobe Orientierung bezüglich der Wichtigkeit vor. 
+Die Umsetzung derQualitätsziem im Kapitel Lösungsstrategie zu finden.
+
+| Qualitätsmerkmal | Ziel |
+|-----------------|-----------------------------------|
+| Wartbarkeit |  |
+| Performance |  |
+| Security | Interne Schnittstellen des Rezeptesystem sind abgesichert. |
+| Erweiterbarkeit | Das Rezeptesystem lässt sich leicht um neue Funktionalität(en) erweitern. Es kann auf lange Sicht dem technologischen Fortschritt bei Tools folgen.|
+| Erlernbarkeit | Entwickler finden sich schnell im Rezeptesystem zurecht, wodurch neuer Code und Builds schnell erstellt werden können. |
+| Skalierbarkeit | Auch wenn das System wächst und Builds umfangreicher werden, bleibt das Rezeptesystem handhabbar und effizient. |
+|  |  |
+
+## Stakeholder
 
 | Stakeholder          | Erwartungshaltung                 |
 |-----------------|-----------------------------------|
 | Nutzer im Internet   | Schnelle, intuitive Bedienung und Funktion der Website. Keine Bugs, keine Wartezeiten.                |
 | Entwickler   | Gut wartbarer, erweiterbarer und lesbarer Code                  |
 | Betreiber der themealdb-API  | Kein Missbrauch ihrer API                |
-|     |               |
 
 [comment]: <> (#############################################################################)
 
@@ -64,7 +68,6 @@ Dieses Dokument beschreibt die Software-Architektur des Rezeptedatenbank-Systems
 |-----------------|-----------------------------------|
 | Grafische Oberfläche | Nutzer können mittels einer Website mit dem System interagieren |
 | Schutz vor Attacken | DDOs-Schutz, Eingabenschutz |
-| Skalierbarkeit | Falls die Nutzungshäufigkeit der Anwendung steigt  |
 | Programmiersprache | Das Rezeptsystem wurde fullstack in C# programmiert |
 | Betriebssysteme | Das Rezeptsystem unterstützt (mindestens) Windows, Linux und MacOS|
 | Betriebsmodi| Das Rezeptsystem kann aus den wichtigsten IDEs, von Buildservern und von der Kommandozeile aus gestartet werden.|
@@ -76,6 +79,7 @@ Dieses Dokument beschreibt die Software-Architektur des Rezeptedatenbank-Systems
 |-----------------|-----------------------------------|
 | Source Code | Quelltextverwaltung bei GitHub, <br> https://github.com/Kimbolini/sqs-receipe |
 | Defect Tracking | Mittels GitHub issues: <br> https://github.com/Kimbolini/sqs-receipe/issues |
+| Namensgebung | C# Programmierkonventionen: <br> https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions  |
 
 [comment]: <> (#############################################################################)
 
@@ -93,7 +97,7 @@ veröffentlicht werden.
 ## Fachlicher Kontext
 
 | Kommunikationspartner | Eingabe | Ausgabe |
-|--|--|
+|--|--|--|
 | Nutzer - Website | Suchanfrage |  |
 
 **\<optional: Erläuterung der externen fachlichen Schnittstellen>**
@@ -109,6 +113,27 @@ veröffentlicht werden.
 [comment]: <> (#############################################################################)
 
 # Lösungsstrategie
+
+| Qualitätsziel | Lösungsansatz im Rezeptsystem |
+|--|--|
+| Wartbarkeit | ----- |
+|  | - Die Codequalität wird mittels sonarcloud überprüft (https://sonarcloud.io/summary/overall?id=Kimbolini_sqs-receipe) |
+| Performance | ----- |
+|  | K6 Lasttest |
+| Security | ----- |
+|  | github worker |
+|  |  |
+|  |  |
+|  |  |
+
+Was ist wie abgesichert
+
+- Performanceanforderungen - wieviel Anfragen pro Sekunde? Wie schnell?
+- Rest service testen - Unit-Tests?
+- Statische Codequalität abgesichert über .. 
+- Lint (z.B. für Dockerimage) 
+- Sync, trivy (Tools um zB wegen Dependencies zu überprüfen)
+
 
 [comment]: <> (#############################################################################)
 
@@ -249,11 +274,11 @@ Zuordnung von Bausteinen zu Infrastruktur
 
 [comment]: <> (#############################################################################)
 
-# Querschnittliche Konzept
+# Querschnittliche Konzepte
 
 ## *Logging* 
 
-Transaktionen in der Datenbank 
+Transaktionen in der Datenbank werden mittels Logger aufgezeichnet.
 
 ## *Transaktionalität* 
 
@@ -290,19 +315,19 @@ der online-Dokumentation (auf Englisch!).
 
 [comment]: <> (#############################################################################)
 
-# Qualitätsmaßnahmen
-
-Was ist wie abgesichert
-
-- Performanceanforderungen - wieviel Anfragen pro Sekunde? Wie schnell?
-- Rest service testen - Unit-Tests?
-- Statische Codequalität abgesichert über .. 
-- Lint (z.B. für Dockerimage) 
-- Sync, trivy (Tools um zB wegen Dependencies zu überprüfen)
+# Glossar
 
 [comment]: <> (#############################################################################)
 
-# Glossar
+**Über arc42**
+
+arc42, das Template zur Dokumentation von Software- und
+Systemarchitekturen.
+
+Template Version 8.2 DE. (basiert auf AsciiDoc Version), Januar 2023
+
+Created, maintained and © by Dr. Peter Hruschka, Dr. Gernot Starke and
+contributors. Siehe <https://arc42.org>.
 
 
 | Begriff               | Definition                                    |
