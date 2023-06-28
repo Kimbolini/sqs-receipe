@@ -22,18 +22,20 @@ Dieses Dokument beschreibt die Software-Architektur des Rezepte-Systems. Das Sys
 
 ## 1.1 Qualitätsziele
 
-Die folgende Tabelle beschreibt die zentralen Qualitätsziele des Rezeptesystems. Die Reihenfolge gibt dabei eine grobe Orientierung bezüglich der Wichtigkeit vor. 
-Die Umsetzung derQualitätsziem im Kapitel Lösungsstrategie zu finden.
+Die folgende Tabelle beschreibt die zentralen Qualitätsziele des Rezeptesystems. Die Reihenfolge gibt dabei eine ungefähre Orientierung bezüglich der Wichtigkeit vor. 
+<br> Die Qualitätsziele werden ergänzt und konkretisiert durch Qualitätsszenarien in Kapitel [10](#10-qualitätsanforderungen).
+<br> Die Umsetzung der Qualitätsziele ist im Kapitel [Lösungsstrategie](#4-lösungsstrategie) zu finden.
 
 | Qualitätsmerkmal | Ziel |
 |-----------------|-----------------------------------|
-| Wartbarkeit |  |
-| Performance |  |
 | Security | Interne Schnittstellen des Rezeptesystem sind abgesichert. |
-| Erweiterbarkeit | Das Rezeptesystem lässt sich leicht um neue Funktionalität(en) erweitern. Es kann auf lange Sicht dem technologischen Fortschritt bei Tools folgen.|
+| Wartbarkeit | Das Rezeptsystem soll für Entwickler und Admins leicht zu warten sein. |
 | Erlernbarkeit | Entwickler finden sich schnell im Rezeptesystem zurecht, wodurch neuer Code und Builds schnell erstellt werden können. |
-| Skalierbarkeit | Auch wenn das System wächst und Builds umfangreicher werden, bleibt das Rezeptesystem handhabbar und effizient. |
-|  |  |
+| Usability | Die Weboberfläche des Rezeptesystems soll möglichst intuitiv zu bedienen sein. |
+| Performance | Das Rezeptsystem reagiert auf Eingaben vom Nutzer in angemessener Zeit. |
+| Erweiterbarkeit | Das Rezeptesystem lässt sich leicht um neue Funktionalität(en) erweitern. Es kann auf lange Sicht dem technologischen Fortschritt bei Tools folgen.|
+| Skalierbarkeit | Auch wenn das System wächst und Builds umfangreicher werden, ssoll das Rezeptesystem handhabbar und effizient bleiben. |
+| Portierbarkeit | Die Anwendung soll auf verschiedene Betriebssysteme portiert werden können. |
 
 ## 1.2 Stakeholder
 
@@ -41,9 +43,9 @@ Die folgende Tabelle stellt die Stakeholder des Repetesystems und deren jeweilig
 
 | Stakeholder          | Erwartungshaltung                 |
 |-----------------|-----------------------------------|
-| Nutzer im Internet   | - Schnelle, intuitive Bedienung und Funktion der Website <br> - Keine Bugs <br> - keine Wartezeiten            |
-| Entwickler   | Gut wartbarer, erweiterbarer und lesbarer Code                  |
-| Betreiber der themealdb-API  | Kein Missbrauch ihrer API                |
+| Nutzer im Internet   | - Ansprechende, intuitive Bedienung und Funktion der Website <br> - Keine Fehler <br> - Keine Wartezeiten            |
+| Entwickler   | - Gut wartbarer, erweiterbarer und lesbarer Code                  |
+| Betreiber der TheMealDB-API  |-  Kein Missbrauch ihrer API                |
 
 [comment]: <> (#############################################################################)
 
@@ -55,10 +57,9 @@ Die folgende Tabelle stellt die Stakeholder des Repetesystems und deren jeweilig
 |-----------------|-----------------------------------|
 | Grafische Oberfläche | Nutzer können mittels einer Website mit dem System interagieren |
 | Schutz vor Attacken | DDOs-Schutz, Eingabenschutz |
-| Programmiersprache | Das Rezeptsystem wurde fullstack in C# programmiert |
-| Betriebssysteme | Das Rezeptsystem unterstützt (mindestens) Windows, Linux und MacOS|
+| Programmiersprache | Das Rezeptsystem wurde fullstack in C#6.0 (LTS) implementiert |
+| Betriebssysteme | Das Rezeptsystem unterstützt (mindestens) Windows, Linux und MacOS. |
 | Betriebsmodi| Das Rezeptsystem kann aus den wichtigsten IDEs, von Buildservern und von der Kommandozeile aus gestartet werden.|
-| Build | .. baut sich selbst? |
 
 ## 2.2 Konventionen
 
@@ -67,65 +68,68 @@ Die folgende Tabelle stellt die Stakeholder des Repetesystems und deren jeweilig
 | Source Code | Quelltextverwaltung bei GitHub, <br> https://github.com/Kimbolini/sqs-receipe |
 | Defect Tracking | Mittels GitHub issues: <br> https://github.com/Kimbolini/sqs-receipe/issues |
 | Namensgebung | C# Programmierkonventionen: <br> https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions  |
+| Architekturdokumentation | Gliederung und Terminologie nach dem deutschen arc42-Template v.8.2|
+| Sprache (de/en) | Der Quelltext ist in Englisch gehalten. Dies betrifft sowohl Benennungen von Methoden als auch Kommentare. |
 
 [comment]: <> (#############################################################################)
 
 # 3 Kontextabgrenzung
 
-Nachfolgend wird das Umfeld beschrieben. Für welchen Nutzer das System erstellt wurde und mit welchen Fremdsystem es interagiert. 
-https://www.embarc.de/arc42-starschnitt-gradle-schnipsel-nr-2-systemkontext/
+Die Kontextabgrenzung beschreibt das Umfeld des Rezeptsystems. 
+Es zeigt die Benutzer und Fremdsysteme auf mit denen interagiert wird. 
+<br> Da das Rezeptsystem recht klein ist, wurden fachlicher und technischer Kontext zusammengefasst.
 
-TODO: Bild erstellen wie im Link oben
+<img src="images/FachlicherKontext.png"  width="60%">
 
-- Repository: Mittels Repository werden Abhängigkeiten, die für Builds erforderlich sind, aufgelöst 
-und erforderliche Artefakte bezogen ("Download"). Außerdem können Ergebnisse eines Builds in Repositories 
-veröffentlicht werden.
+### Menschlicher Nutzer 
+Der Endnutzer, der von seinem Browser aus auf das Rezeptsystem zugreifen kann, um Rezepte zu suchen.
 
-## 3.1 Fachlicher Kontext
+### TheMealDB (Fremdsystem)
+Eine externe API aus der die Rezeptdaten geholt werden, die im Rezeptsystem dargestellt werden. 
 
-| Kommunikationspartner | Eingabe | Ausgabe |
-|--|--|--|
-| Nutzer - Website | Suchanfrage |  |
-
-**\<optional: Erläuterung der externen fachlichen Schnittstellen>**
-
-## 3.2 Technischer Kontext
-
-**\<Diagramm oder Tabelle>**
-
-**\<optional: Erläuterung der externen technischen Schnittstellen>**
-
-**\<Mapping fachliche auf technische Schnittstellen>**
 
 [comment]: <> (#############################################################################)
 
 # 4 Lösungsstrategie
 
-| Qualitätsziel | Lösungsansatz im Rezeptsystem |
-|--|--|
-| **Wartbarkeit** | ----- |
-|  | - Die Codequalität wird mittels sonarcloud überprüft (https://sonarcloud.io/summary/overall?id=Kimbolini_sqs-receipe) |
-| **Performance** | ----- |
-|  | K6 Lasttest |
-| **Security** | ----- |
-|  | - github worker <br> - Kapselung interner Services durch Businesslayer von nach außen sichtbaren Schnittstellen |
-| **Erweiterbarkeit**  | ----- |
-|  | Trennung in frontend und backend |
-| **Erlernbarkeit** | ---- |
-|  | - Nutzung der offiziellen C#-Coding-Konventionen <br> - Eindeutige Methoden- und Klassenbenennung <br> - Clean-Architecture <br> -> Führt zu einfach zu lesendem, gut geordnetem Quellcode |
-| **Skalierbarkeit** | ----- |
-|  | Relationales Datenbankschema, um Mehrfachabspeicherung von Zutaten zu vermeiden. |
-|  |  |
-|  |  |
+Nachfolgend werden die Qualitätsziele aus [Kapitel 1](#1-einführung-und-ziele) aufgegriffen und die jeweiligen Lösungsansätze erläutert.
 
-Was ist wie abgesichert
+### Security
+- Kapselung interner Services durch Businesslayer von nach außen sichtbaren Schnittstellen 
+- Kapselung interner Datenmodelle durch Datentransferobjekte (DTOs)
+- Aktivierte Github Secret Scanning Alerts
+- Aktivierte Github-Dependabot-Alerts bei Vulnerabilities in verwendeten Paketen
+- Snyk, für zusätzliche Überprüfung der Vulnerabilities von verwendeten Nuget-Paketen
+- Security-Überprüfung bei jedem push auf den main-Branch in sonarcloud
 
-- Performanceanforderungen - wieviel Anfragen pro Sekunde? Wie schnell?
-- Rest service testen - Unit-Tests?
-- Statische Codequalität abgesichert über .. 
-- Lint (z.B. für Dockerimage) 
-- Sync, trivy (Tools um zB wegen Dependencies zu überprüfen)
+### Wartbarkeit
+- Modularer Aufbau des Quellcodes/der Subsysteme
+- Verwendung wiederverwendbarer Komponenten, insbesondere im Frontend 
+- Testoptionen durch Unittests und Logging
+- Überprüfung der Codequalität mittels sonarcloud: https://sonarcloud.io/summary/overall?id=Kimbolini_sqs-receipe
 
+### Erlernbarkeit
+- Nutzung der offiziellen C#-Coding-Konventionen
+- Eindeutige Methoden- und Klassenbenennung 
+- Clean-Architecture <br>
+-> Führt zu einfach zu lesendem, gut geordnetem Quellcode
+
+### Usability
+- Einfach gehaltene Website, für ein möglichst intuitives Nutzungserlebnis
+- Nutzerfeedback, wenn der eine Aktion auf der Website anstößt
+
+### Performance
+- Verwendung von Datentransferobjekten (DTOs), um die benötigte Anzahl der Aufrufe zwischen internen Subsystemen zu reduzieren
+- (Lasttest)
+
+### Erweiterbarkeit
+- Trennung in frontend und backend
+
+### Skalierbarkeit
+- Relationales Datenbankschema, um Mehrfachabspeicherung von Zutaten zu vermeiden.
+
+### Portierbarkeit
+- Verwendung der .NET Core Plattform mit Multiplattform-Unterstützung (mindestens Windows, Linux und Mac OS)
 
 [comment]: <> (#############################################################################)
 
@@ -242,10 +246,10 @@ Dieses nutzt interne Services, um mit der Datenbank zu interagieren.
 | Get | Stellt alle Rezepte (Meals) aus der Datenbank zur Verfügung. |
 | Get(id) | Stellt ein spefizisches Rezept (Meal) aus der Datenbank zur Verfügung. |
 | Post | Stellt die Möglichkeit zur Verfügung ein neues Rezept in die Datenbank zu speichern. |
-| CreateMeal |  |
-| GetMealById |  |
-| GetMeals |  |
-| RemoveMealById |  |
+| CreateMeal | Erstellt ein Rezept (Meal) in der Datenbank und speichert die zugehörigen Zutaten und deren Menge. |
+| GetMealById | Gibt ein spezifisches Rezept (Meal) aus der Datenbank zurück. |
+| GetMeals | Gibt alle gespeicherten Rezepte (Meals) aus der Datenbank zurück. |
+| RemoveMealById | Löscht ein spezifisches Rezept (Meal) aus der Datenbank. |
 
 Die Methoden von _IngredientService_ und _MeasuredIngredientService_ funktionieren analog zu denen des _MealServices_ und was die Benennung vermuten lässt.
 
@@ -277,25 +281,36 @@ Dadurch wird unter anderem garantiert, dass Zutaten (_Ingredients_) unabhängig 
 
 # 6 Laufzeitsicht 
 
-Derzeit out of scope, da das Rezeptsystem nicht deployed wurde. 
+Nachfolgend soll anhand von zwei Beispielen das unterschiedliche Zusammenspiel der Bausteine verdeutlicht werden.
 
-Für ein Deployment mit Docker, würde folgende Aufteilung in Frage kommen:
+## Rezeptdetailsicht API
 
-//TODO Bild
+<img src="images/Laufzeitsicht1.png"  width="60%">
 
-## *\<Bezeichnung Laufzeitszenario 1>* 
+Die Seite _MealDetail_ entscheidet zuerst, ob der Nutzer eine Anfrage an ein Rezept von der TheMealDB-API oder aus der internen Datenbank gestellt hat.
+In diesem Fall sollen die Detailinfos des Rezepts von der externen API geholt werden.
+<br> _MealDetail_ nutzt den Service _MealsAtAPIService_, der widerum eine GET-Anfrage an die externe TheMealDB-API stellt.
+Die Antwort der API (sofern nicht leer) wird in internes Datenmodell _MealDto_ umgewandelt, an die Website _MealDetail_ weitergereicht und schließlich für den Endnutzer dargestellt.
 
--   \<hier Laufzeitdiagramm oder Ablaufbeschreibung einfügen>
+## Rezeptdetailsicht Datenbank
 
--   \<hier Besonderheiten bei dem Zusammenspiel der Bausteine in diesem
-    Szenario erläutern>
+<img src="images/Laufzeitsicht2.png"  width="80%">
+
+Die Seite _MealDetail_ entscheidet zuerst, ob der Nutzer eine Anfrage an ein Rezept von der TheMealDB-API oder aus der internen Datenbank gestellt hat.
+In diesem Fall sollen die Detailinfos des Rezepts aus der internen Datenbank geholt werden.
+<br> _MealDetail_ nutzt den Service _MealsInDBService_, der widerum eine GET-Anfrage an die interne REST-Schnittstelle stellt, die vom Interface _MealController_ bereitgestellt wird.
+Intern wird die Anfrage an _MealService_ weitergereicht, der die benötigten Daten aus der Datenbank anfragt.
+<br> Die benötigten Daten werden aus den Tabellen _Meals_, _Ingredients_ und _MeasuredIngredients_ geholt, vom _MealService_ in ein DTO konvertiert und bis zum Frontend weitergereicht.
+Dort werden die Daten schließlich für den Endnutzer dargestellt.
 
 
 [comment]: <> (#############################################################################)
 
 # 7 Verteilungssicht 
 
+Derzeit out of scope, da das Rezeptsystem nicht deployed wurde. 
 
+Für ein Deployment mit Docker, würde folgende Aufteilung in Frage kommen:
 
 ## 7. 1 Infrastruktur Ebene 1 
 
@@ -368,6 +383,10 @@ der online-Dokumentation (auf Englisch!).
 [comment]: <> (#############################################################################)
 
 # 11 Risiken und technische Schulden
+Folgende Risiken wurden zu Beginn der Planung des Rezeptsystems als mögliche Probleme identifiziert:
+
+1. TheMealDB-API antwortet nicht
+2. 
 
 [comment]: <> (#############################################################################)
 
@@ -377,14 +396,19 @@ der online-Dokumentation (auf Englisch!).
 |--|--|
 | API | Application Programming Interface. In diesem Dokument nur REST-APIs. |
 | backend | Bezeichnet in diesem Dokument das Subsystem, das Datenbank und Businesslayer enthält. |
+| DTO | Datentransferobjekt |
 | frontend | Bezeichnet in diesem Dokument das Subsystem, das die GUI und Logik zur Interaktion mit dem backend enthält. |
 | GUI | Graphical User Interface - Die grafische Oberfläche zur Interaktion mit dem Nutzer. Hier eine Website. |
-| REST |  |
+| Ingredient | Eine Tabelle in der Datenbank des Rezeptsystems. Enthält Zutaten von Rezepten. |
+| Meal | Eine Tabelle in der Datenbank des Rezeptsystems. Hauptbestandteil jedes Rezepts. |
+| MeasuredIngredients | Eine Tabelle in der Datenbank des Rezeptsystems. Enthält eine Ingredient, ein Meal und die benötigte Menge einer Zutat |
+| REST | Representational State Transfer. Der im Rezeptsystem genutzte API-Typ. |
 
 
 [comment]: <> (#############################################################################)
 
-**Über arc42**
+
+## Über arc42
 
 arc42, das Template zur Dokumentation von Software- und
 Systemarchitekturen.
@@ -393,9 +417,3 @@ Template Version 8.2 DE. (basiert auf AsciiDoc Version), Januar 2023
 
 Created, maintained and © by Dr. Peter Hruschka, Dr. Gernot Starke and
 contributors. Siehe <https://arc42.org>.
-
-
-| Begriff               | Definition                                    |
-|--|--|
-| *\<Begriff-1>*        | *\<Definition-1>*                             |
-| *\<Begriff-2*         | *\<Definition-2>*                             |
