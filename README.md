@@ -28,7 +28,7 @@ Die folgende Tabelle beschreibt die zentralen Qualitätsziele des Rezeptesystems
 
 | Qualitätsmerkmal | Ziel |
 |-----------------|-----------------------------------|
-| Security | Interne Schnittstellen des Rezeptesystem sind abgesichert. |
+| Security | Interne Schnittstellen des Rezeptesystem sind abgesichert. Es können keine Daten unauthorisiert manipuliert werden. |
 | Wartbarkeit | Das Rezeptsystem soll für Entwickler und Admins leicht zu warten sein. |
 | Erlernbarkeit | Entwickler finden sich schnell im Rezeptesystem zurecht, wodurch neuer Code und Builds schnell erstellt werden können. |
 | Usability | Die Weboberfläche des Rezeptesystems soll möglichst intuitiv zu bedienen sein. |
@@ -224,7 +224,7 @@ Dadurch könnte ein Rezept aus den Favoriten entfernt werden. Diese Funktion ist
 
 ## 5.4 Backend (Blackbox)
 
-<img src="images/backendBlackbox.png"  width="60%">
+<img src="images/backendBlackbox.png"  width="50%">
 
 ### Zweck/Verantwortlichkeit
 
@@ -236,7 +236,7 @@ Dieses Subsystem enhält die Datenbank, die favorisierte Rezepte abspeichert und
 Das Subsystem stellt seine Funktionalität über das Interface _MealController_ zur Verfügung. 
 Dieses nutzt interne Services, um mit der Datenbank zu interagieren.
 
-<img src="images/backendWhitebox.png"  width="60%">
+<img src="images/backendWhitebox.png"  width="80%">
 
 <br>
 <br>
@@ -308,36 +308,7 @@ Dort werden die Daten schließlich für den Endnutzer dargestellt.
 
 # 7 Verteilungssicht 
 
-Derzeit out of scope, da das Rezeptsystem nicht deployed wurde. 
-
-Für ein Deployment mit Docker, würde folgende Aufteilung in Frage kommen:
-
-## 7. 1 Infrastruktur Ebene 1 
-
-***\<Übersichtsdiagramm>***
-
-Begründung
-
-:   *\<Erläuternder Text>*
-
-Qualitäts- und/oder Leistungsmerkmale
-
-:   *\<Erläuternder Text>*
-
-Zuordnung von Bausteinen zu Infrastruktur
-
-:   *\<Beschreibung der Zuordnung>*
-
-## 7.2 Infrastruktur Ebene 2
-
-### *\<Infrastrukturelement 1>* 
-
-*\<Diagramm + Erläuterungen>*
-
-### *\<Infrastrukturelement 2>* 
-
-*\<Diagramm + Erläuterungen>*
-
+Derzeit out of scope, da ein Deployment des Rezeptsystems mit Docker nicht realisiert wurde. 
 
 [comment]: <> (#############################################################################)
 
@@ -357,28 +328,42 @@ Transaktionen in der Datenbank werden mittels Logger aufgezeichnet.
 
 Haben wir laut Leander nicht? Dachte schon?
 
+## 8.4 Ausnahme- und Fehlerbehandlung
+
+HTT
+
+FPr 
+
 [comment]: <> (#############################################################################)
 
 # 9 Architekturentscheidungen 
 
-Fullstack .net core
-Frontend: Blazor C#
-Backend: C# mit mysql db
+| Architekturteil | Entscheidung |
+|--|--|
+| Platform | .NET Core v6.0 |
+| Webframework | Blazor  |
+| Interne Schnittstelle | REST |
+| Datenbankservice | MySQL |
+| Softwarearchitektur | 3-Schichten-Architektur |
+| Aufgabenverteilung| Client-Server-Modell |
+| Programmiersprache | C# v10 |
 
 [comment]: <> (#############################################################################)
 
 # 10 Qualitätsanforderungen
 
-::: formalpara-title
-**Weiterführende Informationen**
-:::
-
-Siehe [Qualitätsanforderungen](https://docs.arc42.org/section-10/) in
-der online-Dokumentation (auf Englisch!).
-
 ## 10.1 Qualitätsbaum 
 
+<img src="images/QualityTree.png"  width="70%">
+
 ## 10.2 Qualitätsszenarien 
+
+Nachfolgende Qualitätsszenarien sind ergänzend zu denen im Qualitätsbaum zu betrachten.
+- Wenn ein Nutzer während des Normalbetriebs eine Suchanfrage an die Website stellt, soll das Ergebnis innerhalb von 2s angezeigt werden.
+- Wenn ein Nutzer ein Rezept zu seinen Favoriten hinzufügt, soll eine sofortige grafische Rückmeldung an ihn erfolgen, ob die Aktion erfolgreich war.
+- Wenn die interne Datenbank oder REST-Schnittstelle nicht verfügbar sind, soll ein grafisches Hinweis an den Nutzer erfolgen.
+- Wenn ein Server während des Normalbetriebs ausfällt, soll das System den Administrator informieren und innerhalb (mithilfe eines Backupservers) von 1min wieder funktionieren.
+- Wenn ein Angreifer eine DOS-Attacke startet, soll dies vom System rechtzeitig erkannt werden und weitere Anfragen von der IP-Adresse blockieren.
 
 [comment]: <> (#############################################################################)
 
@@ -386,7 +371,9 @@ der online-Dokumentation (auf Englisch!).
 Folgende Risiken wurden zu Beginn der Planung des Rezeptsystems als mögliche Probleme identifiziert:
 
 1. TheMealDB-API antwortet nicht
-2. 
+2. Die interne REST-Schnittstelle antwortet nicht
+3. Zu viele Anfragen an die interne Datenbank in zu kurzer Zeit
+4. Zu viele Anfragen an die externe API in zu kurzer Zeit
 
 [comment]: <> (#############################################################################)
 
