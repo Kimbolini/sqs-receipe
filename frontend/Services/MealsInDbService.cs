@@ -11,11 +11,13 @@ namespace frontend.Services
     {
         private readonly IHttpClientFactory _clientFactory;
         private readonly InternalCacheService _cacheService;
+        private readonly string _restUrl;
 
-        public MealsInDbService(IHttpClientFactory clientFactory, InternalCacheService cacheService) 
+        public MealsInDbService(IHttpClientFactory clientFactory, InternalCacheService cacheService, IConfiguration configuration) 
         {
             _clientFactory = clientFactory;
             _cacheService = cacheService;
+            _restUrl = configuration.GetConnectionString("MealDBURL");
         }
 
         /// <summary>Requests all meals that are saved in the Database</summary>
@@ -23,7 +25,7 @@ namespace frontend.Services
         public Task<IEnumerable<MealDto>> GetMealsFromDb()
         {
             IEnumerable<MealDto> meals = Array.Empty<MealDto>();
-            var request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:5782/api/Meal");
+            var request = new HttpRequestMessage(HttpMethod.Get, _restUrl);
             request.Headers.Add("User-Agent", "HttpClientFactory-Sample");
             var client = _clientFactory.CreateClient();
 
@@ -46,7 +48,7 @@ namespace frontend.Services
         public Task<MealDto> GetMealById(int id)
         {
             MealDto entity = new();
-            var request = new HttpRequestMessage(HttpMethod.Get, "http://localhost:5782/api/Meal/" + id);
+            var request = new HttpRequestMessage(HttpMethod.Get, _restUrl + "/"+ id);
             request.Headers.Add("User-Agent", "HttpClientFactory-Sample");
             var client = _clientFactory.CreateClient();
 
@@ -69,7 +71,7 @@ namespace frontend.Services
         {
             var tmp = JsonConvert.SerializeObject(meal);
             var data = new StringContent(tmp, Encoding.UTF8, "application/json");
-            var url = "http://localhost:5782/api/Meal";
+            var url = _restUrl;
             var client = _clientFactory.CreateClient();
 
             var response = await client.PostAsync(url, data);
