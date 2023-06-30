@@ -7,10 +7,12 @@ namespace frontend.Services
     public class MealsAtAPIService : IMealsAtAPIService
     {
         private readonly IHttpClientFactory _clientFactory;
+        private readonly string _apiUrl;
 
-        public MealsAtAPIService(IHttpClientFactory clientFactory)
+        public MealsAtAPIService(IHttpClientFactory clientFactory, IConfiguration configuration)
         {
             _clientFactory = clientFactory;
+            _apiUrl = configuration.GetConnectionString("TheMealDB-API-URL");
         }
 
         /// <summary>Requests Meals from the meal API.</summary>
@@ -20,7 +22,7 @@ namespace frontend.Services
         {
             IEnumerable<MealDto> meals = Array.Empty<MealDto>();
 
-            var request = new HttpRequestMessage(HttpMethod.Get, "https://www.themealdb.com/api/json/v1/1/search.php?s=" + searchString);
+            var request = new HttpRequestMessage(HttpMethod.Get, _apiUrl + "search.php?s=" + searchString);
             //request.Headers.Add("Accept", "application/vnd.github.v3+json");
             request.Headers.Add("User-Agent", "HttpClientFactory-Sample");
             var client = _clientFactory.CreateClient();
@@ -50,7 +52,7 @@ namespace frontend.Services
         {
             MealDto mealDto = new();
 
-            var request = new HttpRequestMessage(HttpMethod.Get, "https://www.themealdb.com/api/json/v1/1/lookup.php?i=" + mealId);
+            var request = new HttpRequestMessage(HttpMethod.Get, _apiUrl + "lookup.php?i=" + mealId);
             //request.Headers.Add("Accept", "application/vnd.github.v3+json");
             request.Headers.Add("User-Agent", "HttpClientFactory-Sample");
             var client = _clientFactory.CreateClient();
