@@ -9,7 +9,7 @@ jobs:
     name: k6 local test run
     runs-on: ubuntu-latest
     services: 
-      mealDev:
+      mydb:
         image: mysql:5.7
         env:
           MYSQL_ROOT_PASSWORD: password
@@ -23,7 +23,7 @@ jobs:
         run: |
               sudo apt-get update
               sudo apt-get install -y mysql-client
-              mysql --host mealDev -uroot -ppassword -e "SHOW DATABSES"
+              mysql --host mydb -uroot -ppassword -e "SHOW DATABSES"
     
       - name: Build project
         run: dotnet build ./backend &&
