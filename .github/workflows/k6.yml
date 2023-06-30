@@ -10,6 +10,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Build and run project
+        shell: bash
+        run: dotnet build 
+             dotnet run --project ./backend
+    
       - name: Checkout
         uses: actions/checkout@v1
 
