@@ -8,24 +8,21 @@ jobs:
   k6_local_test:
     name: k6 local test run
     runs-on: ubuntu-latest
-    services: 
-      mysql:
-        image: mysql:8.0
-        env:
-          MYSQL_DATABASE: mealDev
-          MYSQL_ROOT_PASSWORD: password
-        ports:
-          - 3306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=5
-  
+    
     steps:
       - name: Checkout
         uses: actions/checkout@v1
       
-      - name: verify databse connection
+      - name: database connection
+        env:
+          DB_ENGINE: django.db.backends.mysql
+          DB_NAME: mealDev
+          DB_USER: root
+          DB_PASSWORD: password
         run: |
               sudo systemctl start mysql
-              mysql -h 127.0.0.1 --port=3306 -u root --password=password mealDev
+              mysql -u$DB_USER -p$DB_PASSWORD -e "CREATE DATABASE $DB_NAME;"
+              mysql -u$DB_USER -p$DB_PASSWORD -e "SHOW DATABASES;"
     
       - name: Build project
         run: dotnet build ./backend &&
