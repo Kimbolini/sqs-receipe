@@ -24,7 +24,7 @@ jobs:
       
       - name: verify databse connection
         run: |
-              sudo /etc/init.d/mysql start
+              sudo systemctl start mysql
               mysql -h 127.0.0.1 --port=3306 -u root --password=password mealDev
     
       - name: Build project
