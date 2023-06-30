@@ -14,10 +14,8 @@ jobs:
         uses: actions/checkout@v1
         
       - name: Build project
-        run: dotnet build ./backend
-    
-      - name: run project
-        run: dotnet run --project ./backend
+        run: dotnet build ./backend 
+             dotnet run --project ./backend
 
       - name: Run local k6 test
         uses: grafana/k6-action@v0.2.0
