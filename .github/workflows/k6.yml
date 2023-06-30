@@ -1,4 +1,4 @@
-name: k6-tesst
+name: k6-tests
 on:
   push:
     branches:
@@ -11,9 +11,7 @@ jobs:
 
     steps:
       - name: Build and run project
-        shell: bash
-        run: dotnet build 
-             dotnet run --project ./backend
+        run: dotnet run --project ./backend
     
       - name: Checkout
         uses: actions/checkout@v1
