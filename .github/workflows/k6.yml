@@ -10,9 +10,12 @@ jobs:
     runs-on: ubuntu-latest
     services: 
       mysql:
-        image: mysql:5.7
+        image: mysql:8.0
         env:
+          MYSQL_DATABASE: mealDev
           MYSQL_ROOT_PASSWORD: password
+        ports:
+          - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=5
   
     steps:
@@ -24,7 +27,7 @@ jobs:
               sudo apt-get update
               sudo apt-get install -y mysql-client
               sudo /etc/init.d/mysql start
-              mysql -h localhost --port=3306 -u root --password=password mealDev
+              mysql -h 127.0.0.1 --port=3306 -u root --password=password mealDev
     
       - name: Build project
         run: dotnet build ./backend &&
