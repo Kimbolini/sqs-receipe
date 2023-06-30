@@ -24,8 +24,6 @@ jobs:
       
       - name: verify databse connection
         run: |
-              sudo apt-get update
-              sudo apt-get install -y mysql-client
               sudo /etc/init.d/mysql start
               mysql -h 127.0.0.1 --port=3306 -u root --password=password mealDev
     
