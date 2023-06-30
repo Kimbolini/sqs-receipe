@@ -7,12 +7,24 @@ on:
 jobs:
   k6_local_test:
     name: k6 local test run
-    runs-on: windows-latest
-
+    runs-on: ubuntu-latest
+    services: 
+      mealDev:
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: password
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=5
+  
     steps:
       - name: Checkout
         uses: actions/checkout@v1
-        
+      
+      - name: verify databse connection
+        run: |
+              apt-get update
+              apt-get install -y mysql-client
+              mysql --host mealDev -uroot -ppassword -e "SHOW DATABSES"
+    
       - name: Build project
         run: dotnet build ./backend &&
              dotnet run --project ./backend
