@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Build project
-        run: dotnet build
+        run: dotnet build ./backend
     
       - name: run project
         run: dotnet run --project ./backend
