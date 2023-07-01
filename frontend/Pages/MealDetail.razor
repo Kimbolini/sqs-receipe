@@ -17,26 +17,26 @@
 @if(!IsFromDB && !IsAlreadyInFavourites)
 {
     <div id="favourite-button-div">
-        <input id="add-button" type="button" value="Add To Favourites" @onclick="@AddToFavourites" />
+        <input id="add-button" type="button" value="Add To Favourites" @onclick="@AddToFavourites" data-cy="addToFavouritesButton" />
     </div>
 }
 
 <!--Successfully added badge-->
 @if(SuccessfullyAdded)
 {
-    <div id="success-badge">Successfully added to Favourites</div>
+    <div id="success-badge" data-cy="addedToFavouritesInfoBox">Successfully added to Favourites</div>
 }
 
 @if(ErrorWhenAdding)
 {
-    <div id="error-badge">There was an error when adding to favourites.</div>
+    <div id="error-badge" data-cy="errorAddingToFavouritesInfoBox">There was an error when adding to favourites.</div>
 }
 
 <div class="card-group">
-    <img class="card-img-top" src="@MealDto.ThumbnailUrl" alt="Picture of @MealDto.Name" id="mealdetail-picture">
+    <img class="card-img-top" src="@MealDto.ThumbnailUrl" alt="Picture of @MealDto.Name" id="mealdetail-picture" data-cy="mealDetailPicture">
 
     <!--Recipe ingredients-->
-    <div class="card" id="mealdetail-ingredients">
+    <div class="card" id="mealdetail-ingredients" data-cy="mealDetailIngredients">
         <div class="card-body">
             <h5 class="card-title">Ingredients</h5>
         <ul class="list-group list-group-flush" >
@@ -53,7 +53,7 @@
 
 <!--Recipe instructions-->
 <div>
-    <div class="card" id="mealdetail-instructions">
+    <div class="card" id="mealdetail-instructions" data-cy="mealDetailInstructions">
         <div class="card-body">
             <h5 class="card-title">Instructions</h5>
         <p class="card-text">@MealDto.Instructions</p>

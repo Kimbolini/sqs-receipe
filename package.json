@@ -1,0 +1,23 @@
+{
+  "name": "sqs-receipe",
+  "version": "1.0.0",
+  "description": "To make it easy for you to get started with GitLab, here's a list of recommended next steps.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kimbolini/sqs-receipe.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kimbolini/sqs-receipe/issues"
+  },
+  "homepage": "https://github.com/Kimbolini/sqs-receipe#readme",
+  "devDependencies": {
+    "cypress": "^12.16.0"
+  }
+}

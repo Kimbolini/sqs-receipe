@@ -13,7 +13,7 @@
     } 
     else
     {
-        <div class="d-flex" id="meal-preview-wrap-container">
+        <div class="d-flex" id="meal-preview-wrap-container" data-cy="listOfMealPreviews">
             @foreach (var item in _meals)
             {
                 <MealPreviewCardComp StrId=@item.StrId
