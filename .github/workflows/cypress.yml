@@ -3,6 +3,17 @@ on: [push]
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
+    
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: mealDev
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3 --AllowPublicKeyRetrieval=True
+
     # Runs tests in parallel with matrix strategy https://docs.cypress.io/guides/guides/parallelization
     # https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs
     # Also see warning here https://github.com/cypress-io/github-action#parallel
@@ -13,9 +24,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: install db
+      - name: start db
         run: |
-             sudo apt install mysql-server
              sudo systemctl start mysql.service
       - name: build and run backend
         run: |
