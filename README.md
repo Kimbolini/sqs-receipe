@@ -11,6 +11,7 @@
 [9 Architekturentscheidungen](#9-architekturentscheidungen) <br>
 [10 Qualitätsanforderungen](#10-qualitätsanforderungen) <br>
 [11 Risiken und technische Schulden](#11-risiken-und-technische-schulden) <br>
+[12 Hinweise für Entwickler](#12-hinweise-für-entwickler) <br>
 [Glossar](#glossar) <br>
 
 
@@ -105,8 +106,10 @@ Nachfolgend werden die Qualitätsziele aus [Kapitel 1](#1-einführung-und-ziele)
 ### Wartbarkeit
 - Modularer Aufbau des Quellcodes/der Subsysteme
 - Verwendung wiederverwendbarer Komponenten, insbesondere im Frontend 
-- Testoptionen durch Unittests und Logging
-- Überprüfung der Codequalität mittels sonarcloud: https://sonarcloud.io/summary/overall?id=Kimbolini_sqs-receipe
+- Automatisches Ausführen von Unittests bei Pushes auf den Mainbranch
+- Überprüfung der Codequalität mittels sonarcloud 
+- Nachverfolgbarkeit durch Logging
+- End-to-End/Frontend-Testing mittels cypress
 
 ### Erlernbarkeit
 - Nutzung der offiziellen C#-Coding-Konventionen
@@ -368,12 +371,48 @@ Nachfolgende Qualitätsszenarien sind ergänzend zu denen im Qualitätsbaum zu b
 [comment]: <> (#############################################################################)
 
 # 11 Risiken und technische Schulden
+
+## 11.1 Risiken
 Folgende Risiken wurden zu Beginn der Planung des Rezeptsystems als mögliche Probleme identifiziert:
 
 1. TheMealDB-API antwortet nicht
 2. Die interne REST-Schnittstelle antwortet nicht
 3. Zu viele Anfragen an die interne Datenbank in zu kurzer Zeit
 4. Zu viele Anfragen an die externe API in zu kurzer Zeit
+
+## 11.2 Technische Schulden und offene Punkte
+
+1. Keine Unterstützung von HTTPS in der internen API
+2. Kein Deployment
+3. Lasttests, Frontendtest und Snyk können in die Github Actions integriert werden
+4. Ausbauen der Unittests und des Loggings
+
+[comment]: <> (#############################################################################)
+
+# 12 Hinweise für Entwickler
+
+1. Das Projekt kann derzeit nur lokal gebaut werden
+- Installiere Mysql
+- Definiere frontend und backend als Startprojekt
+- Starte
+2. Verwendung von Cypress
+- Starte Anwendung
+- Starte Test in der (Power)shell: npx cypress run --record --key f35afd48-b425-472a-b153-0b7ebe98afa3
+- Ergebnis zu sehen in: https://cloud.cypress.io/projects/yvz8if/runs/1/overview?roarHideRunsWithDiffGroupsAndTags=1
+3. Verwendung der K6 Lasttests
+- Starte Anwendung
+- In der (Power)shell: Navigiere zum Verzeichnis _scripts_
+- Starte Test in der (Power)shell: k6 run _<some\>-test.js_
+- Ergebnis: direkt in der commandline
+4. Verwendung von Sonarcloud
+- Startet automatisch bei jedem Push auf den Main-Branch und Pullrequests
+- Ergebnis zu sehen in: https://sonarcloud.io/summary/overall?id=Kimbolini_sqs-receipe
+5. Verwendung der Unittests
+- Starten zusammen mit Sonarcloud und werden im zugehörigen Dashboard angezeigt
+- Alternativ manuell: im Projekt rechtsklick auf _testBackend_ -> _Tests ausführen_
+6. Verwendung von Snyk
+- Startet automatisch bei jedem Push auf den Main-Branch
+- Ergebnis zu sehen in: https://app.snyk.io/org/kimbolini 
 
 [comment]: <> (#############################################################################)
 
