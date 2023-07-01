@@ -13,6 +13,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: install db
+        run: |
+             sudo apt install mysql-server
+             sudo systemctl start mysql.server
       - name: build and run backend
         run: |
              dotnet build ./backend 
