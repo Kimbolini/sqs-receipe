@@ -12,7 +12,8 @@
 
 @if(meals == null || meals.Count <= 0)
 {
-    <div id="no-result-box">Looks like you haven't added anything to your favourites yet.
+    <div id="no-result-box" data-cy="emptyFavouritesInfoBox">
+        Looks like you haven't added anything to your favourites yet.
         Search for meals or get inspired by random meals and add them to your favourites then.</div>
 } else
 {

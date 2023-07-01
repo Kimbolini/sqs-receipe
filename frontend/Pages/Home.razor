@@ -18,13 +18,13 @@
 
 <span>
     <label>Search for receipts:</label>
-    <input type="text" @bind-value="@searchTextBoxContent" />
-    <input type="button" value="Search" @onclick="@SearchMealsAPI" />
+    <input type="text" @bind-value="@searchTextBoxContent" data-cy="searchMealsSearchbar" />
+    <input type="button" value="Search" @onclick="@SearchMealsAPI" data-cy="searchMealsButton" />
 </span>
 
 <span>
     <label>Inspire me!</label>
-    <input type="button" value="Random" @onclick="@SearchMealsAPIWithEmpty" />
+    <input type="button" value="Random" @onclick="@SearchMealsAPIWithEmpty" data-cy="randomMealsButton"/>
 </span>
 
 <MealPreviewListComp Meals="@meals"></MealPreviewListComp>

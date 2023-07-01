@@ -1,5 +1,5 @@
-# Created by https://www.toptal.com/developers/gitignore/api/git,linux,macos,csharp,windows,aspnetcore,visualstudio,visualstudiocode
-# Edit at https://www.toptal.com/developers/gitignore?templates=git,linux,macos,csharp,windows,aspnetcore,visualstudio,visualstudiocode
+# Created by https://www.toptal.com/developers/gitignore/api/git,linux,macos,csharp,windows,aspnetcore,visualstudio,visualstudiocode,cypressio
+# Edit at https://www.toptal.com/developers/gitignore?templates=git,linux,macos,csharp,windows,aspnetcore,visualstudio,visualstudiocode,cypressio
 
 ### ASPNETCore ###
 ## Ignore Visual Studio temporary files, build results, and
@@ -523,6 +523,15 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 
+### CypressIO ###
+# gitignore template for the CypressIO, browser test framework
+# website: https://www.cypress.io/
+
+cypress/results/*
+cypress/reports/*
+cypress/screenshots/*
+cypress/videos/*
+
 ### Git ###
 # Created by git for backups. To disable backups in Git:
 # $ git config --global mergetool.keepBackup false
@@ -800,4 +809,4 @@ $RECYCLE.BIN/
 ### VisualStudio Patch ###
 # Additional files built by Visual Studio
 
-# End of https://www.toptal.com/developers/gitignore/api/git,linux,macos,csharp,windows,aspnetcore,visualstudio,visualstudiocode
+# End of https://www.toptal.com/developers/gitignore/api/git,linux,macos,csharp,windows,aspnetcore,visualstudio,visualstudiocode,cypressio
