@@ -145,7 +145,7 @@ Dieses Kapitel beschreibt die Zerlegung des Rezeptesystem in Module, wie sie auc
 Das Rezeptesystem besteht aus zwei großen Subsystemen, die als separate Visual-Studio-Projekte realisiert wurden.
 
 
-<img src="images/Komponentendiagramm.png"  width="60%">
+<img src="images/Komponentendiagramm.png"  width="70%">
 
 <br>
 <br>
@@ -317,25 +317,21 @@ Derzeit out of scope, da ein Deployment des Rezeptsystems mit Docker nicht reali
 
 # 8 Querschnittliche Konzepte
 
-## 8.1 *Logging* 
+Einige der querschnittlichen Konzepte finden sich bereits in den vorherigen Kapiteln und werden hier nur wiederholt.
 
-Transaktionen in der Datenbank werden mittels Logger aufgezeichnet.
-
-## 8.2 *Transaktionalität* 
-
-*\<Erklärung>*
-
-...
-
-## 8.3 *Security* 
-
-Haben wir laut Leander nicht? Dachte schon?
-
-## 8.4 Ausnahme- und Fehlerbehandlung
-
-HTT
-
-FPr 
+1. Architektur-/Entwurfsmuster: <br>
+Das Rezeptsystem folgt einer 3-Schichten-Architektur.
+2. Sicherheitskonzepte: <br>
+Potenzielle Sicherheitsrisikos werden nach Möglichkeit automatisiert aufgedeckt. Internte (REST-)Schnittstellen sollen ebenfalls
+automatisiert getestet werden.
+3. Konfigurierbarkeit: <br>
+Datenbank und externe API sollen möglichst schnell austauschbar sein, indem Verbindungsstrings nur einmalig in 
+Konfigurationsdateien gespeichert werden und índem Oberfläche und Business Layer losgelöst von Datenkonzepten der 
+Datenbank und der externen API sind.
+4. Fehlerbehandlung: <br>
+Bekannte/zu erwartende Fehlermeldungen sollten explizit im Code abgefangen werden. Unerwartete
+Fehler sollten auf durch catch-Blöcke mit generischem Fehler e abgefangen werden. Dabei sollte der Nutzer auf
+der Oberfläche eine Rückmeldung erhalten, dass ein Fehler aufgetreten ist und welche nächsten Schritte empfohlen werden.
 
 [comment]: <> (#############################################################################)
 
@@ -359,7 +355,7 @@ Die Qualitätsanforderungen erweitern die Qualitätsziele aus [Kapitel 1](#1-ein
 
 ## 10.1 Qualitätsbaum 
 
-<img src="images/QualityTree.png"  width="70%">
+<img src="images/QualityTree.png"  width="80%">
 
 ## 10.2 Qualitätsszenarien 
 
