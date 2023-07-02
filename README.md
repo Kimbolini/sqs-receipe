@@ -355,6 +355,8 @@ FPr
 
 # 10 Qualitätsanforderungen
 
+Die Qualitätsanforderungen erweitern die Qualitätsziele aus [Kapitel 1](#1-einführung-und-ziele) und konkretisieren sie anhand eines Qualitätsbaums und zusätzlichen Qualitätsszenarien.
+
 ## 10.1 Qualitätsbaum 
 
 <img src="images/QualityTree.png"  width="70%">
