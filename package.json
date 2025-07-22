@@ -18,6 +18,6 @@
   },
   "homepage": "https://github.com/Kimbolini/sqs-receipe#readme",
   "devDependencies": {
-    "cypress": "^12.16.0"
+    "cypress": "^14.5.2"
   }
 }
